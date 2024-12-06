@@ -10666,17 +10666,11 @@ export const ResellerApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * Get a reseller organization by id
          * @summary Get Reseller Organization
-         * @param {string} orgId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getResellerOrganizationV1: async (orgId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'orgId' is not null or undefined
-            if (orgId === null || orgId === undefined) {
-                throw new RequiredError('orgId','Required parameter orgId was null or undefined when calling getResellerOrganizationV1.');
-            }
-            const localVarPath = `/v1/resellers/organizations/{org_id}`
-                .replace(`{${"org_id"}}`, encodeURIComponent(String(orgId)));
+        getResellerOrganizationV1: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/resellers/organizations`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -11119,22 +11113,16 @@ export const ResellerApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * Update a reseller organization
          * @summary Update Reseller Organization
-         * @param {string} orgId 
          * @param {UpdateResellerOrganizationRequest} updateResellerOrganizationRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateResellerOrganizationV1: async (orgId: string, updateResellerOrganizationRequest: UpdateResellerOrganizationRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'orgId' is not null or undefined
-            if (orgId === null || orgId === undefined) {
-                throw new RequiredError('orgId','Required parameter orgId was null or undefined when calling updateResellerOrganizationV1.');
-            }
+        updateResellerOrganizationV1: async (updateResellerOrganizationRequest: UpdateResellerOrganizationRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'updateResellerOrganizationRequest' is not null or undefined
             if (updateResellerOrganizationRequest === null || updateResellerOrganizationRequest === undefined) {
                 throw new RequiredError('updateResellerOrganizationRequest','Required parameter updateResellerOrganizationRequest was null or undefined when calling updateResellerOrganizationV1.');
             }
-            const localVarPath = `/v1/resellers/organizations/{org_id}`
-                .replace(`{${"org_id"}}`, encodeURIComponent(String(orgId)));
+            const localVarPath = `/v1/resellers/organizations`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -11439,12 +11427,11 @@ export const ResellerApiFp = function(configuration?: Configuration) {
         /**
          * Get a reseller organization by id
          * @summary Get Reseller Organization
-         * @param {string} orgId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getResellerOrganizationV1(orgId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrgWithUsers>> {
-            const localVarAxiosArgs = await ResellerApiAxiosParamCreator(configuration).getResellerOrganizationV1(orgId, options);
+        async getResellerOrganizationV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrgWithUsers>> {
+            const localVarAxiosArgs = await ResellerApiAxiosParamCreator(configuration).getResellerOrganizationV1(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -11569,13 +11556,12 @@ export const ResellerApiFp = function(configuration?: Configuration) {
         /**
          * Update a reseller organization
          * @summary Update Reseller Organization
-         * @param {string} orgId 
          * @param {UpdateResellerOrganizationRequest} updateResellerOrganizationRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateResellerOrganizationV1(orgId: string, updateResellerOrganizationRequest: UpdateResellerOrganizationRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationOutput>> {
-            const localVarAxiosArgs = await ResellerApiAxiosParamCreator(configuration).updateResellerOrganizationV1(orgId, updateResellerOrganizationRequest, options);
+        async updateResellerOrganizationV1(updateResellerOrganizationRequest: UpdateResellerOrganizationRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationOutput>> {
+            const localVarAxiosArgs = await ResellerApiAxiosParamCreator(configuration).updateResellerOrganizationV1(updateResellerOrganizationRequest, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -11733,12 +11719,11 @@ export const ResellerApiFactory = function (configuration?: Configuration, baseP
         /**
          * Get a reseller organization by id
          * @summary Get Reseller Organization
-         * @param {string} orgId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getResellerOrganizationV1(orgId: string, options?: any): AxiosPromise<OrgWithUsers> {
-            return ResellerApiFp(configuration).getResellerOrganizationV1(orgId, options).then((request) => request(axios, basePath));
+        getResellerOrganizationV1(options?: any): AxiosPromise<OrgWithUsers> {
+            return ResellerApiFp(configuration).getResellerOrganizationV1(options).then((request) => request(axios, basePath));
         },
         /**
          * Get reseller pricing for customer
@@ -11831,13 +11816,12 @@ export const ResellerApiFactory = function (configuration?: Configuration, baseP
         /**
          * Update a reseller organization
          * @summary Update Reseller Organization
-         * @param {string} orgId 
          * @param {UpdateResellerOrganizationRequest} updateResellerOrganizationRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateResellerOrganizationV1(orgId: string, updateResellerOrganizationRequest: UpdateResellerOrganizationRequest, options?: any): AxiosPromise<OrganizationOutput> {
-            return ResellerApiFp(configuration).updateResellerOrganizationV1(orgId, updateResellerOrganizationRequest, options).then((request) => request(axios, basePath));
+        updateResellerOrganizationV1(updateResellerOrganizationRequest: UpdateResellerOrganizationRequest, options?: any): AxiosPromise<OrganizationOutput> {
+            return ResellerApiFp(configuration).updateResellerOrganizationV1(updateResellerOrganizationRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Update organization settings
@@ -12006,13 +11990,12 @@ export class ResellerApi extends BaseAPI {
     /**
      * Get a reseller organization by id
      * @summary Get Reseller Organization
-     * @param {string} orgId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ResellerApi
      */
-    public getResellerOrganizationV1(orgId: string, options?: any) {
-        return ResellerApiFp(this.configuration).getResellerOrganizationV1(orgId, options).then((request) => request(this.axios, this.basePath));
+    public getResellerOrganizationV1(options?: any) {
+        return ResellerApiFp(this.configuration).getResellerOrganizationV1(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -12120,14 +12103,13 @@ export class ResellerApi extends BaseAPI {
     /**
      * Update a reseller organization
      * @summary Update Reseller Organization
-     * @param {string} orgId 
      * @param {UpdateResellerOrganizationRequest} updateResellerOrganizationRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ResellerApi
      */
-    public updateResellerOrganizationV1(orgId: string, updateResellerOrganizationRequest: UpdateResellerOrganizationRequest, options?: any) {
-        return ResellerApiFp(this.configuration).updateResellerOrganizationV1(orgId, updateResellerOrganizationRequest, options).then((request) => request(this.axios, this.basePath));
+    public updateResellerOrganizationV1(updateResellerOrganizationRequest: UpdateResellerOrganizationRequest, options?: any) {
+        return ResellerApiFp(this.configuration).updateResellerOrganizationV1(updateResellerOrganizationRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
