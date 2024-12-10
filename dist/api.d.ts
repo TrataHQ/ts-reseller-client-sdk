@@ -2007,6 +2007,12 @@ export interface OrgUsersPriceCredits {
      * @memberof OrgUsersPriceCredits
      */
     credits?: Array<Credit> | null;
+    /**
+     *
+     * @type {string}
+     * @memberof OrgUsersPriceCredits
+     */
+    resellerAdminUserCredentials?: string | null;
 }
 /**
  *
@@ -3694,8 +3700,8 @@ export declare const ActionsApiAxiosParamCreator: (configuration?: Configuration
      */
     getActionV1: (actionId: string, options?: any) => Promise<RequestArgs>;
     /**
-     * List All Actions Under the User&#39;s Organization
-     * @summary List All Actions Under the User&#39;s Organization
+     * List All Actions
+     * @summary List All Actions
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -3747,8 +3753,8 @@ export declare const ActionsApiFp: (configuration?: Configuration) => {
      */
     getActionV1(actionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ActionOutput>>;
     /**
-     * List All Actions Under the User&#39;s Organization
-     * @summary List All Actions Under the User&#39;s Organization
+     * List All Actions
+     * @summary List All Actions
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -3800,8 +3806,8 @@ export declare const ActionsApiFactory: (configuration?: Configuration, basePath
      */
     getActionV1(actionId: string, options?: any): AxiosPromise<ActionOutput>;
     /**
-     * List All Actions Under the User&#39;s Organization
-     * @summary List All Actions Under the User&#39;s Organization
+     * List All Actions
+     * @summary List All Actions
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -3858,8 +3864,8 @@ export declare class ActionsApi extends BaseAPI {
      */
     getActionV1(actionId: string, options?: any): Promise<import("axios").AxiosResponse<ActionOutput>>;
     /**
-     * List All Actions Under the User&#39;s Organization
-     * @summary List All Actions Under the User&#39;s Organization
+     * List All Actions
+     * @summary List All Actions
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -3913,8 +3919,8 @@ export declare const AgentsApiAxiosParamCreator: (configuration?: Configuration)
      */
     getAIAgentV1: (agentId: string, options?: any) => Promise<RequestArgs>;
     /**
-     * List All AI Agents Under the User&#39;s Organization
-     * @summary List All AI Agents Under the User&#39;s Organization
+     * List All AI Agents
+     * @summary List All AI Agents
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -3966,8 +3972,8 @@ export declare const AgentsApiFp: (configuration?: Configuration) => {
      */
     getAIAgentV1(agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AIAgentOutput>>;
     /**
-     * List All AI Agents Under the User&#39;s Organization
-     * @summary List All AI Agents Under the User&#39;s Organization
+     * List All AI Agents
+     * @summary List All AI Agents
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -4019,8 +4025,8 @@ export declare const AgentsApiFactory: (configuration?: Configuration, basePath?
      */
     getAIAgentV1(agentId: string, options?: any): AxiosPromise<AIAgentOutput>;
     /**
-     * List All AI Agents Under the User&#39;s Organization
-     * @summary List All AI Agents Under the User&#39;s Organization
+     * List All AI Agents
+     * @summary List All AI Agents
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -4077,8 +4083,8 @@ export declare class AgentsApi extends BaseAPI {
      */
     getAIAgentV1(agentId: string, options?: any): Promise<import("axios").AxiosResponse<AIAgentOutput>>;
     /**
-     * List All AI Agents Under the User&#39;s Organization
-     * @summary List All AI Agents Under the User&#39;s Organization
+     * List All AI Agents
+     * @summary List All AI Agents
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -4101,6 +4107,94 @@ export declare class AgentsApi extends BaseAPI {
      * @memberof AgentsApi
      */
     updateAIAgentV1(agentId: string, aIAgentInput: AIAgentInput, options?: any): Promise<import("axios").AxiosResponse<AIAgentOutput>>;
+}
+/**
+ * AnalyticsApi - axios parameter creator
+ * @export
+ */
+export declare const AnalyticsApiAxiosParamCreator: (configuration?: Configuration) => {
+    /**
+     * Get fine grained analytics data from Trata AI like call, duration stats, etc.
+     * @summary Get Metrics
+     * @param {BatchMetricsRequests} batchMetricsRequests
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMetricsV1MetricsPost: (batchMetricsRequests: BatchMetricsRequests, options?: any) => Promise<RequestArgs>;
+    /**
+     * Get aggregated stats from Trata AI like call count, prospect count, etc.
+     * @summary Get Aggregated Stats
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOverallStatsV1StatsGet: (options?: any) => Promise<RequestArgs>;
+};
+/**
+ * AnalyticsApi - functional programming interface
+ * @export
+ */
+export declare const AnalyticsApiFp: (configuration?: Configuration) => {
+    /**
+     * Get fine grained analytics data from Trata AI like call, duration stats, etc.
+     * @summary Get Metrics
+     * @param {BatchMetricsRequests} batchMetricsRequests
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BatchMetricsResponse>>;
+    /**
+     * Get aggregated stats from Trata AI like call count, prospect count, etc.
+     * @summary Get Aggregated Stats
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOverallStatsV1StatsGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsResponse>>;
+};
+/**
+ * AnalyticsApi - factory interface
+ * @export
+ */
+export declare const AnalyticsApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
+    /**
+     * Get fine grained analytics data from Trata AI like call, duration stats, etc.
+     * @summary Get Metrics
+     * @param {BatchMetricsRequests} batchMetricsRequests
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any): AxiosPromise<BatchMetricsResponse>;
+    /**
+     * Get aggregated stats from Trata AI like call count, prospect count, etc.
+     * @summary Get Aggregated Stats
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOverallStatsV1StatsGet(options?: any): AxiosPromise<StatsResponse>;
+};
+/**
+ * AnalyticsApi - object-oriented interface
+ * @export
+ * @class AnalyticsApi
+ * @extends {BaseAPI}
+ */
+export declare class AnalyticsApi extends BaseAPI {
+    /**
+     * Get fine grained analytics data from Trata AI like call, duration stats, etc.
+     * @summary Get Metrics
+     * @param {BatchMetricsRequests} batchMetricsRequests
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AnalyticsApi
+     */
+    getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any): Promise<import("axios").AxiosResponse<BatchMetricsResponse>>;
+    /**
+     * Get aggregated stats from Trata AI like call count, prospect count, etc.
+     * @summary Get Aggregated Stats
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AnalyticsApi
+     */
+    getOverallStatsV1StatsGet(options?: any): Promise<import("axios").AxiosResponse<StatsResponse>>;
 }
 /**
  * ApiKeyApi - axios parameter creator
@@ -4599,8 +4693,8 @@ export declare const ConversationsApiAxiosParamCreator: (configuration?: Configu
      */
     getConversationV1: (conversationId: string, options?: any) => Promise<RequestArgs>;
     /**
-     * List All Conversations Under the User&#39;s Organization
-     * @summary List All Conversations Under the User&#39;s Organization
+     * List All Conversations
+     * @summary List All Conversations
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -4661,8 +4755,8 @@ export declare const ConversationsApiFp: (configuration?: Configuration) => {
      */
     getConversationV1(conversationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConversationOutput>>;
     /**
-     * List All Conversations Under the User&#39;s Organization
-     * @summary List All Conversations Under the User&#39;s Organization
+     * List All Conversations
+     * @summary List All Conversations
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -4723,8 +4817,8 @@ export declare const ConversationsApiFactory: (configuration?: Configuration, ba
      */
     getConversationV1(conversationId: string, options?: any): AxiosPromise<ConversationOutput>;
     /**
-     * List All Conversations Under the User&#39;s Organization
-     * @summary List All Conversations Under the User&#39;s Organization
+     * List All Conversations
+     * @summary List All Conversations
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -4791,8 +4885,8 @@ export declare class ConversationsApi extends BaseAPI {
      */
     getConversationV1(conversationId: string, options?: any): Promise<import("axios").AxiosResponse<ConversationOutput>>;
     /**
-     * List All Conversations Under the User&#39;s Organization
-     * @summary List All Conversations Under the User&#39;s Organization
+     * List All Conversations
+     * @summary List All Conversations
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -4822,8 +4916,8 @@ export declare class ConversationsApi extends BaseAPI {
  */
 export declare const DataPlaneApiAxiosParamCreator: (configuration?: Configuration) => {
     /**
-     *
-     * @summary Createconnection
+     * Create a new connection for an AI Agent to start a voice conversation
+     * @summary Create Connection
      * @param {string} agentId
      * @param {ConnectionSource} connectionSource
      * @param {string} [prospectId]
@@ -4832,8 +4926,8 @@ export declare const DataPlaneApiAxiosParamCreator: (configuration?: Configurati
      */
     createConnection: (agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any) => Promise<RequestArgs>;
     /**
-     *
-     * @summary Getplivoaudiostreamxml
+     * Get the audio stream xml for Plivo to start a voice conversation
+     * @summary Get Audio Stream XML For Plivo
      * @param {string} connectionId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4846,8 +4940,8 @@ export declare const DataPlaneApiAxiosParamCreator: (configuration?: Configurati
  */
 export declare const DataPlaneApiFp: (configuration?: Configuration) => {
     /**
-     *
-     * @summary Createconnection
+     * Create a new connection for an AI Agent to start a voice conversation
+     * @summary Create Connection
      * @param {string} agentId
      * @param {ConnectionSource} connectionSource
      * @param {string} [prospectId]
@@ -4856,8 +4950,8 @@ export declare const DataPlaneApiFp: (configuration?: Configuration) => {
      */
     createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Connection>>;
     /**
-     *
-     * @summary Getplivoaudiostreamxml
+     * Get the audio stream xml for Plivo to start a voice conversation
+     * @summary Get Audio Stream XML For Plivo
      * @param {string} connectionId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4870,8 +4964,8 @@ export declare const DataPlaneApiFp: (configuration?: Configuration) => {
  */
 export declare const DataPlaneApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
     /**
-     *
-     * @summary Createconnection
+     * Create a new connection for an AI Agent to start a voice conversation
+     * @summary Create Connection
      * @param {string} agentId
      * @param {ConnectionSource} connectionSource
      * @param {string} [prospectId]
@@ -4880,8 +4974,8 @@ export declare const DataPlaneApiFactory: (configuration?: Configuration, basePa
      */
     createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): AxiosPromise<Connection>;
     /**
-     *
-     * @summary Getplivoaudiostreamxml
+     * Get the audio stream xml for Plivo to start a voice conversation
+     * @summary Get Audio Stream XML For Plivo
      * @param {string} connectionId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4896,8 +4990,8 @@ export declare const DataPlaneApiFactory: (configuration?: Configuration, basePa
  */
 export declare class DataPlaneApi extends BaseAPI {
     /**
-     *
-     * @summary Createconnection
+     * Create a new connection for an AI Agent to start a voice conversation
+     * @summary Create Connection
      * @param {string} agentId
      * @param {ConnectionSource} connectionSource
      * @param {string} [prospectId]
@@ -4907,8 +5001,8 @@ export declare class DataPlaneApi extends BaseAPI {
      */
     createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): Promise<import("axios").AxiosResponse<Connection>>;
     /**
-     *
-     * @summary Getplivoaudiostreamxml
+     * Get the audio stream xml for Plivo to start a voice conversation
+     * @summary Get Audio Stream XML For Plivo
      * @param {string} connectionId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4917,13 +5011,105 @@ export declare class DataPlaneApi extends BaseAPI {
     getPlivoAudioStreamXml(connectionId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
 }
 /**
+ * FilesApi - axios parameter creator
+ * @export
+ */
+export declare const FilesApiAxiosParamCreator: (configuration?: Configuration) => {
+    /**
+     * Delete files from Trata account
+     * @summary Delete Files
+     * @param {string} fileIds
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteFileV1: (fileIds: string, options?: any) => Promise<RequestArgs>;
+    /**
+     * Upload file to Trata account to use in AI Agents
+     * @summary Upload Files
+     * @param {Array<any>} files
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    uploadFileV1: (files: Array<any>, options?: any) => Promise<RequestArgs>;
+};
+/**
+ * FilesApi - functional programming interface
+ * @export
+ */
+export declare const FilesApiFp: (configuration?: Configuration) => {
+    /**
+     * Delete files from Trata account
+     * @summary Delete Files
+     * @param {string} fileIds
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteFileV1(fileIds: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>>;
+    /**
+     * Upload file to Trata account to use in AI Agents
+     * @summary Upload Files
+     * @param {Array<any>} files
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    uploadFileV1(files: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Files>>>;
+};
+/**
+ * FilesApi - factory interface
+ * @export
+ */
+export declare const FilesApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
+    /**
+     * Delete files from Trata account
+     * @summary Delete Files
+     * @param {string} fileIds
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteFileV1(fileIds: string, options?: any): AxiosPromise<boolean>;
+    /**
+     * Upload file to Trata account to use in AI Agents
+     * @summary Upload Files
+     * @param {Array<any>} files
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    uploadFileV1(files: Array<any>, options?: any): AxiosPromise<Array<Files>>;
+};
+/**
+ * FilesApi - object-oriented interface
+ * @export
+ * @class FilesApi
+ * @extends {BaseAPI}
+ */
+export declare class FilesApi extends BaseAPI {
+    /**
+     * Delete files from Trata account
+     * @summary Delete Files
+     * @param {string} fileIds
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    deleteFileV1(fileIds: string, options?: any): Promise<import("axios").AxiosResponse<boolean>>;
+    /**
+     * Upload file to Trata account to use in AI Agents
+     * @summary Upload Files
+     * @param {Array<any>} files
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    uploadFileV1(files: Array<any>, options?: any): Promise<import("axios").AxiosResponse<Files[]>>;
+}
+/**
  * HealthApi - axios parameter creator
  * @export
  */
 export declare const HealthApiAxiosParamCreator: (configuration?: Configuration) => {
     /**
-     * Check the health of all Trata APIs
-     * @summary Check the Health of All TrataAPI
+     * Heart Beat check to check the health of Trata Backend
+     * @summary Heart Beat Status Of Trata Backend
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -4935,8 +5121,8 @@ export declare const HealthApiAxiosParamCreator: (configuration?: Configuration)
  */
 export declare const HealthApiFp: (configuration?: Configuration) => {
     /**
-     * Check the health of all Trata APIs
-     * @summary Check the Health of All TrataAPI
+     * Heart Beat check to check the health of Trata Backend
+     * @summary Heart Beat Status Of Trata Backend
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -4948,8 +5134,8 @@ export declare const HealthApiFp: (configuration?: Configuration) => {
  */
 export declare const HealthApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
     /**
-     * Check the health of all Trata APIs
-     * @summary Check the Health of All TrataAPI
+     * Heart Beat check to check the health of Trata Backend
+     * @summary Heart Beat Status Of Trata Backend
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -4963,8 +5149,8 @@ export declare const HealthApiFactory: (configuration?: Configuration, basePath?
  */
 export declare class HealthApi extends BaseAPI {
     /**
-     * Check the health of all Trata APIs
-     * @summary Check the Health of All TrataAPI
+     * Heart Beat check to check the health of Trata Backend
+     * @summary Heart Beat Status Of Trata Backend
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HealthApi
@@ -5001,8 +5187,8 @@ export declare const HiveApiAxiosParamCreator: (configuration?: Configuration) =
      */
     getHiveV1: (hiveId: string, options?: any) => Promise<RequestArgs>;
     /**
-     * List All Hives Under the User&#39;s Organization
-     * @summary List All Hives Under the User&#39;s Organization
+     * List All Hives
+     * @summary List All Hives
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -5054,8 +5240,8 @@ export declare const HiveApiFp: (configuration?: Configuration) => {
      */
     getHiveV1(hiveId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Hive>>;
     /**
-     * List All Hives Under the User&#39;s Organization
-     * @summary List All Hives Under the User&#39;s Organization
+     * List All Hives
+     * @summary List All Hives
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -5107,8 +5293,8 @@ export declare const HiveApiFactory: (configuration?: Configuration, basePath?: 
      */
     getHiveV1(hiveId: string, options?: any): AxiosPromise<Hive>;
     /**
-     * List All Hives Under the User&#39;s Organization
-     * @summary List All Hives Under the User&#39;s Organization
+     * List All Hives
+     * @summary List All Hives
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -5165,8 +5351,8 @@ export declare class HiveApi extends BaseAPI {
      */
     getHiveV1(hiveId: string, options?: any): Promise<import("axios").AxiosResponse<Hive>>;
     /**
-     * List All Hives Under the User&#39;s Organization
-     * @summary List All Hives Under the User&#39;s Organization
+     * List All Hives
+     * @summary List All Hives
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -5379,14 +5565,6 @@ export declare const InternalApiAxiosParamCreator: (configuration?: Configuratio
     createOrganizationV1: (bodyCreateOrganizationV1: BodyCreateOrganizationV1, options?: any) => Promise<RequestArgs>;
     /**
      *
-     * @summary Delete File
-     * @param {string} fileIds
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    deleteFileV1: (fileIds: string, options?: any) => Promise<RequestArgs>;
-    /**
-     *
      * @summary Deleteorganization
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5461,14 +5639,6 @@ export declare const InternalApiAxiosParamCreator: (configuration?: Configuratio
      * @throws {RequiredError}
      */
     updateUserV1: (userId: string, updateUserPayload: UpdateUserPayload, options?: any) => Promise<RequestArgs>;
-    /**
-     *
-     * @summary Upload File
-     * @param {Array<any>} files
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    uploadFileV1: (files: Array<any>, options?: any) => Promise<RequestArgs>;
 };
 /**
  * InternalApi - functional programming interface
@@ -5491,14 +5661,6 @@ export declare const InternalApiFp: (configuration?: Configuration) => {
      * @throws {RequiredError}
      */
     createOrganizationV1(bodyCreateOrganizationV1: BodyCreateOrganizationV1, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>>;
-    /**
-     *
-     * @summary Delete File
-     * @param {string} fileIds
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    deleteFileV1(fileIds: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>>;
     /**
      *
      * @summary Deleteorganization
@@ -5575,14 +5737,6 @@ export declare const InternalApiFp: (configuration?: Configuration) => {
      * @throws {RequiredError}
      */
     updateUserV1(userId: string, updateUserPayload: UpdateUserPayload, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>>;
-    /**
-     *
-     * @summary Upload File
-     * @param {Array<any>} files
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    uploadFileV1(files: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Files>>>;
 };
 /**
  * InternalApi - factory interface
@@ -5605,14 +5759,6 @@ export declare const InternalApiFactory: (configuration?: Configuration, basePat
      * @throws {RequiredError}
      */
     createOrganizationV1(bodyCreateOrganizationV1: BodyCreateOrganizationV1, options?: any): AxiosPromise<User>;
-    /**
-     *
-     * @summary Delete File
-     * @param {string} fileIds
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    deleteFileV1(fileIds: string, options?: any): AxiosPromise<boolean>;
     /**
      *
      * @summary Deleteorganization
@@ -5689,14 +5835,6 @@ export declare const InternalApiFactory: (configuration?: Configuration, basePat
      * @throws {RequiredError}
      */
     updateUserV1(userId: string, updateUserPayload: UpdateUserPayload, options?: any): AxiosPromise<User>;
-    /**
-     *
-     * @summary Upload File
-     * @param {Array<any>} files
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    uploadFileV1(files: Array<any>, options?: any): AxiosPromise<Array<Files>>;
 };
 /**
  * InternalApi - object-oriented interface
@@ -5723,15 +5861,6 @@ export declare class InternalApi extends BaseAPI {
      * @memberof InternalApi
      */
     createOrganizationV1(bodyCreateOrganizationV1: BodyCreateOrganizationV1, options?: any): Promise<import("axios").AxiosResponse<User>>;
-    /**
-     *
-     * @summary Delete File
-     * @param {string} fileIds
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InternalApi
-     */
-    deleteFileV1(fileIds: string, options?: any): Promise<import("axios").AxiosResponse<boolean>>;
     /**
      *
      * @summary Deleteorganization
@@ -5816,103 +5945,6 @@ export declare class InternalApi extends BaseAPI {
      * @memberof InternalApi
      */
     updateUserV1(userId: string, updateUserPayload: UpdateUserPayload, options?: any): Promise<import("axios").AxiosResponse<User>>;
-    /**
-     *
-     * @summary Upload File
-     * @param {Array<any>} files
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InternalApi
-     */
-    uploadFileV1(files: Array<any>, options?: any): Promise<import("axios").AxiosResponse<Files[]>>;
-}
-/**
- * MetricsApi - axios parameter creator
- * @export
- */
-export declare const MetricsApiAxiosParamCreator: (configuration?: Configuration) => {
-    /**
-     * Get call and other analytics data from Trata AI
-     * @summary Getmetrics
-     * @param {BatchMetricsRequests} batchMetricsRequests
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getMetricsV1MetricsPost: (batchMetricsRequests: BatchMetricsRequests, options?: any) => Promise<RequestArgs>;
-    /**
-     * Get overall call stats and prospect stats data from Trata AI
-     * @summary Getoverallstats
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getOverallStatsV1StatsGet: (options?: any) => Promise<RequestArgs>;
-};
-/**
- * MetricsApi - functional programming interface
- * @export
- */
-export declare const MetricsApiFp: (configuration?: Configuration) => {
-    /**
-     * Get call and other analytics data from Trata AI
-     * @summary Getmetrics
-     * @param {BatchMetricsRequests} batchMetricsRequests
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BatchMetricsResponse>>;
-    /**
-     * Get overall call stats and prospect stats data from Trata AI
-     * @summary Getoverallstats
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getOverallStatsV1StatsGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsResponse>>;
-};
-/**
- * MetricsApi - factory interface
- * @export
- */
-export declare const MetricsApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
-    /**
-     * Get call and other analytics data from Trata AI
-     * @summary Getmetrics
-     * @param {BatchMetricsRequests} batchMetricsRequests
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any): AxiosPromise<BatchMetricsResponse>;
-    /**
-     * Get overall call stats and prospect stats data from Trata AI
-     * @summary Getoverallstats
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getOverallStatsV1StatsGet(options?: any): AxiosPromise<StatsResponse>;
-};
-/**
- * MetricsApi - object-oriented interface
- * @export
- * @class MetricsApi
- * @extends {BaseAPI}
- */
-export declare class MetricsApi extends BaseAPI {
-    /**
-     * Get call and other analytics data from Trata AI
-     * @summary Getmetrics
-     * @param {BatchMetricsRequests} batchMetricsRequests
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MetricsApi
-     */
-    getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any): Promise<import("axios").AxiosResponse<BatchMetricsResponse>>;
-    /**
-     * Get overall call stats and prospect stats data from Trata AI
-     * @summary Getoverallstats
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MetricsApi
-     */
-    getOverallStatsV1StatsGet(options?: any): Promise<import("axios").AxiosResponse<StatsResponse>>;
 }
 /**
  * ProductsApi - axios parameter creator
@@ -5952,8 +5984,8 @@ export declare const ProductsApiAxiosParamCreator: (configuration?: Configuratio
      */
     listAgentsOfProductV1: (productId: string, options?: any) => Promise<RequestArgs>;
     /**
-     * List All Products Under the User&#39;s Organization
-     * @summary List All Products Under the User&#39;s Organization
+     * List All Products
+     * @summary List All Products
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -6015,8 +6047,8 @@ export declare const ProductsApiFp: (configuration?: Configuration) => {
      */
     listAgentsOfProductV1(productId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AIAgentOutput>>>;
     /**
-     * List All Products Under the User&#39;s Organization
-     * @summary List All Products Under the User&#39;s Organization
+     * List All Products
+     * @summary List All Products
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -6078,8 +6110,8 @@ export declare const ProductsApiFactory: (configuration?: Configuration, basePat
      */
     listAgentsOfProductV1(productId: string, options?: any): AxiosPromise<Array<AIAgentOutput>>;
     /**
-     * List All Products Under the User&#39;s Organization
-     * @summary List All Products Under the User&#39;s Organization
+     * List All Products
+     * @summary List All Products
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -6147,8 +6179,8 @@ export declare class ProductsApi extends BaseAPI {
      */
     listAgentsOfProductV1(productId: string, options?: any): Promise<import("axios").AxiosResponse<AIAgentOutput[]>>;
     /**
-     * List All Products Under the User&#39;s Organization
-     * @summary List All Products Under the User&#39;s Organization
+     * List All Products
+     * @summary List All Products
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -6204,8 +6236,8 @@ export declare const ProspectsApiAxiosParamCreator: (configuration?: Configurati
      */
     getProspectV1: (prospectId: string, options?: any) => Promise<RequestArgs>;
     /**
-     * List All Prospects Under the User&#39;s Organization
-     * @summary List All Prospects Under the User&#39;s Organization
+     * List All Prospects
+     * @summary List All Prospects
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -6257,8 +6289,8 @@ export declare const ProspectsApiFp: (configuration?: Configuration) => {
      */
     getProspectV1(prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProspectOutput>>;
     /**
-     * List All Prospects Under the User&#39;s Organization
-     * @summary List All Prospects Under the User&#39;s Organization
+     * List All Prospects
+     * @summary List All Prospects
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -6310,8 +6342,8 @@ export declare const ProspectsApiFactory: (configuration?: Configuration, basePa
      */
     getProspectV1(prospectId: string, options?: any): AxiosPromise<ProspectOutput>;
     /**
-     * List All Prospects Under the User&#39;s Organization
-     * @summary List All Prospects Under the User&#39;s Organization
+     * List All Prospects
+     * @summary List All Prospects
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -6368,8 +6400,8 @@ export declare class ProspectsApi extends BaseAPI {
      */
     getProspectV1(prospectId: string, options?: any): Promise<import("axios").AxiosResponse<ProspectOutput>>;
     /**
-     * List All Prospects Under the User&#39;s Organization
-     * @summary List All Prospects Under the User&#39;s Organization
+     * List All Prospects
+     * @summary List All Prospects
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -6468,10 +6500,11 @@ export declare const ResellerApiAxiosParamCreator: (configuration?: Configuratio
      * @summary Get Customer Org
      * @param {string} customerOrgId
      * @param {boolean} [includeUsers]
+     * @param {boolean} [includeResellerAdminCredentials]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getCustomerOrganizationV1: (customerOrgId: string, includeUsers?: boolean, options?: any) => Promise<RequestArgs>;
+    getCustomerOrganizationV1: (customerOrgId: string, includeUsers?: boolean, includeResellerAdminCredentials?: boolean, options?: any) => Promise<RequestArgs>;
     /**
      * Get organization settings
      * @summary Get Organization Settings
@@ -6669,10 +6702,11 @@ export declare const ResellerApiFp: (configuration?: Configuration) => {
      * @summary Get Customer Org
      * @param {string} customerOrgId
      * @param {boolean} [includeUsers]
+     * @param {boolean} [includeResellerAdminCredentials]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrgUsersPriceCredits>>;
+    getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, includeResellerAdminCredentials?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrgUsersPriceCredits>>;
     /**
      * Get organization settings
      * @summary Get Organization Settings
@@ -6870,10 +6904,11 @@ export declare const ResellerApiFactory: (configuration?: Configuration, basePat
      * @summary Get Customer Org
      * @param {string} customerOrgId
      * @param {boolean} [includeUsers]
+     * @param {boolean} [includeResellerAdminCredentials]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, options?: any): AxiosPromise<OrgUsersPriceCredits>;
+    getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, includeResellerAdminCredentials?: boolean, options?: any): AxiosPromise<OrgUsersPriceCredits>;
     /**
      * Get organization settings
      * @summary Get Organization Settings
@@ -7081,11 +7116,12 @@ export declare class ResellerApi extends BaseAPI {
      * @summary Get Customer Org
      * @param {string} customerOrgId
      * @param {boolean} [includeUsers]
+     * @param {boolean} [includeResellerAdminCredentials]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ResellerApi
      */
-    getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, options?: any): Promise<import("axios").AxiosResponse<OrgUsersPriceCredits>>;
+    getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, includeResellerAdminCredentials?: boolean, options?: any): Promise<import("axios").AxiosResponse<OrgUsersPriceCredits>>;
     /**
      * Get organization settings
      * @summary Get Organization Settings
@@ -7717,8 +7753,8 @@ export declare class UIApi extends BaseAPI {
  */
 export declare const VoiceModelsApiAxiosParamCreator: (configuration?: Configuration) => {
     /**
-     * Get list of voices available for calls
-     * @summary Get list of voices available for calls
+     * Get List Of Voices Available For Conversations
+     * @summary Get List Of Voices Available For Conversations
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7730,8 +7766,8 @@ export declare const VoiceModelsApiAxiosParamCreator: (configuration?: Configura
  */
 export declare const VoiceModelsApiFp: (configuration?: Configuration) => {
     /**
-     * Get list of voices available for calls
-     * @summary Get list of voices available for calls
+     * Get List Of Voices Available For Conversations
+     * @summary Get List Of Voices Available For Conversations
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7743,8 +7779,8 @@ export declare const VoiceModelsApiFp: (configuration?: Configuration) => {
  */
 export declare const VoiceModelsApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
     /**
-     * Get list of voices available for calls
-     * @summary Get list of voices available for calls
+     * Get List Of Voices Available For Conversations
+     * @summary Get List Of Voices Available For Conversations
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7758,8 +7794,8 @@ export declare const VoiceModelsApiFactory: (configuration?: Configuration, base
  */
 export declare class VoiceModelsApi extends BaseAPI {
     /**
-     * Get list of voices available for calls
-     * @summary Get list of voices available for calls
+     * Get List Of Voices Available For Conversations
+     * @summary Get List Of Voices Available For Conversations
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VoiceModelsApi

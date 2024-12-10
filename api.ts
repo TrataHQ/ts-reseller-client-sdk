@@ -2029,6 +2029,12 @@ export interface OrgUsersPriceCredits {
      * @memberof OrgUsersPriceCredits
      */
     credits?: Array<Credit> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrgUsersPriceCredits
+     */
+    resellerAdminUserCredentials?: string | null;
 }
 /**
  * 
@@ -4007,8 +4013,8 @@ export const ActionsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * List All Actions Under the User&#39;s Organization
-         * @summary List All Actions Under the User&#39;s Organization
+         * List All Actions
+         * @summary List All Actions
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -4186,8 +4192,8 @@ export const ActionsApiFp = function(configuration?: Configuration) {
             };
         },
         /**
-         * List All Actions Under the User&#39;s Organization
-         * @summary List All Actions Under the User&#39;s Organization
+         * List All Actions
+         * @summary List All Actions
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -4260,8 +4266,8 @@ export const ActionsApiFactory = function (configuration?: Configuration, basePa
             return ActionsApiFp(configuration).getActionV1(actionId, options).then((request) => request(axios, basePath));
         },
         /**
-         * List All Actions Under the User&#39;s Organization
-         * @summary List All Actions Under the User&#39;s Organization
+         * List All Actions
+         * @summary List All Actions
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -4333,8 +4339,8 @@ export class ActionsApi extends BaseAPI {
     }
 
     /**
-     * List All Actions Under the User&#39;s Organization
-     * @summary List All Actions Under the User&#39;s Organization
+     * List All Actions
+     * @summary List All Actions
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -4511,8 +4517,8 @@ export const AgentsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * List All AI Agents Under the User&#39;s Organization
-         * @summary List All AI Agents Under the User&#39;s Organization
+         * List All AI Agents
+         * @summary List All AI Agents
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -4690,8 +4696,8 @@ export const AgentsApiFp = function(configuration?: Configuration) {
             };
         },
         /**
-         * List All AI Agents Under the User&#39;s Organization
-         * @summary List All AI Agents Under the User&#39;s Organization
+         * List All AI Agents
+         * @summary List All AI Agents
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -4764,8 +4770,8 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
             return AgentsApiFp(configuration).getAIAgentV1(agentId, options).then((request) => request(axios, basePath));
         },
         /**
-         * List All AI Agents Under the User&#39;s Organization
-         * @summary List All AI Agents Under the User&#39;s Organization
+         * List All AI Agents
+         * @summary List All AI Agents
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -4837,8 +4843,8 @@ export class AgentsApi extends BaseAPI {
     }
 
     /**
-     * List All AI Agents Under the User&#39;s Organization
-     * @summary List All AI Agents Under the User&#39;s Organization
+     * List All AI Agents
+     * @summary List All AI Agents
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -4865,6 +4871,199 @@ export class AgentsApi extends BaseAPI {
      */
     public updateAIAgentV1(agentId: string, aIAgentInput: AIAgentInput, options?: any) {
         return AgentsApiFp(this.configuration).updateAIAgentV1(agentId, aIAgentInput, options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+
+/**
+ * AnalyticsApi - axios parameter creator
+ * @export
+ */
+export const AnalyticsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get fine grained analytics data from Trata AI like call, duration stats, etc.
+         * @summary Get Metrics
+         * @param {BatchMetricsRequests} batchMetricsRequests 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMetricsV1MetricsPost: async (batchMetricsRequests: BatchMetricsRequests, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'batchMetricsRequests' is not null or undefined
+            if (batchMetricsRequests === null || batchMetricsRequests === undefined) {
+                throw new RequiredError('batchMetricsRequests','Required parameter batchMetricsRequests was null or undefined when calling getMetricsV1MetricsPost.');
+            }
+            const localVarPath = `/v1/metrics`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof batchMetricsRequests !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(batchMetricsRequests !== undefined ? batchMetricsRequests : {}) : (batchMetricsRequests || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get aggregated stats from Trata AI like call count, prospect count, etc.
+         * @summary Get Aggregated Stats
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOverallStatsV1StatsGet: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/stats`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AnalyticsApi - functional programming interface
+ * @export
+ */
+export const AnalyticsApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * Get fine grained analytics data from Trata AI like call, duration stats, etc.
+         * @summary Get Metrics
+         * @param {BatchMetricsRequests} batchMetricsRequests 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BatchMetricsResponse>> {
+            const localVarAxiosArgs = await AnalyticsApiAxiosParamCreator(configuration).getMetricsV1MetricsPost(batchMetricsRequests, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Get aggregated stats from Trata AI like call count, prospect count, etc.
+         * @summary Get Aggregated Stats
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getOverallStatsV1StatsGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsResponse>> {
+            const localVarAxiosArgs = await AnalyticsApiAxiosParamCreator(configuration).getOverallStatsV1StatsGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * AnalyticsApi - factory interface
+ * @export
+ */
+export const AnalyticsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * Get fine grained analytics data from Trata AI like call, duration stats, etc.
+         * @summary Get Metrics
+         * @param {BatchMetricsRequests} batchMetricsRequests 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any): AxiosPromise<BatchMetricsResponse> {
+            return AnalyticsApiFp(configuration).getMetricsV1MetricsPost(batchMetricsRequests, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get aggregated stats from Trata AI like call count, prospect count, etc.
+         * @summary Get Aggregated Stats
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOverallStatsV1StatsGet(options?: any): AxiosPromise<StatsResponse> {
+            return AnalyticsApiFp(configuration).getOverallStatsV1StatsGet(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * AnalyticsApi - object-oriented interface
+ * @export
+ * @class AnalyticsApi
+ * @extends {BaseAPI}
+ */
+export class AnalyticsApi extends BaseAPI {
+    /**
+     * Get fine grained analytics data from Trata AI like call, duration stats, etc.
+     * @summary Get Metrics
+     * @param {BatchMetricsRequests} batchMetricsRequests 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AnalyticsApi
+     */
+    public getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any) {
+        return AnalyticsApiFp(this.configuration).getMetricsV1MetricsPost(batchMetricsRequests, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get aggregated stats from Trata AI like call count, prospect count, etc.
+     * @summary Get Aggregated Stats
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AnalyticsApi
+     */
+    public getOverallStatsV1StatsGet(options?: any) {
+        return AnalyticsApiFp(this.configuration).getOverallStatsV1StatsGet(options).then((request) => request(this.axios, this.basePath));
     }
 
 }
@@ -6119,8 +6318,8 @@ export const ConversationsApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * List All Conversations Under the User&#39;s Organization
-         * @summary List All Conversations Under the User&#39;s Organization
+         * List All Conversations
+         * @summary List All Conversations
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -6313,8 +6512,8 @@ export const ConversationsApiFp = function(configuration?: Configuration) {
             };
         },
         /**
-         * List All Conversations Under the User&#39;s Organization
-         * @summary List All Conversations Under the User&#39;s Organization
+         * List All Conversations
+         * @summary List All Conversations
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -6398,8 +6597,8 @@ export const ConversationsApiFactory = function (configuration?: Configuration, 
             return ConversationsApiFp(configuration).getConversationV1(conversationId, options).then((request) => request(axios, basePath));
         },
         /**
-         * List All Conversations Under the User&#39;s Organization
-         * @summary List All Conversations Under the User&#39;s Organization
+         * List All Conversations
+         * @summary List All Conversations
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -6484,8 +6683,8 @@ export class ConversationsApi extends BaseAPI {
     }
 
     /**
-     * List All Conversations Under the User&#39;s Organization
-     * @summary List All Conversations Under the User&#39;s Organization
+     * List All Conversations
+     * @summary List All Conversations
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -6524,8 +6723,8 @@ export class ConversationsApi extends BaseAPI {
 export const DataPlaneApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
-         * @summary Createconnection
+         * Create a new connection for an AI Agent to start a voice conversation
+         * @summary Create Connection
          * @param {string} agentId 
          * @param {ConnectionSource} connectionSource 
          * @param {string} [prospectId] 
@@ -6586,8 +6785,8 @@ export const DataPlaneApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * 
-         * @summary Getplivoaudiostreamxml
+         * Get the audio stream xml for Plivo to start a voice conversation
+         * @summary Get Audio Stream XML For Plivo
          * @param {string} connectionId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6631,8 +6830,8 @@ export const DataPlaneApiAxiosParamCreator = function (configuration?: Configura
 export const DataPlaneApiFp = function(configuration?: Configuration) {
     return {
         /**
-         * 
-         * @summary Createconnection
+         * Create a new connection for an AI Agent to start a voice conversation
+         * @summary Create Connection
          * @param {string} agentId 
          * @param {ConnectionSource} connectionSource 
          * @param {string} [prospectId] 
@@ -6647,8 +6846,8 @@ export const DataPlaneApiFp = function(configuration?: Configuration) {
             };
         },
         /**
-         * 
-         * @summary Getplivoaudiostreamxml
+         * Get the audio stream xml for Plivo to start a voice conversation
+         * @summary Get Audio Stream XML For Plivo
          * @param {string} connectionId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6670,8 +6869,8 @@ export const DataPlaneApiFp = function(configuration?: Configuration) {
 export const DataPlaneApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
         /**
-         * 
-         * @summary Createconnection
+         * Create a new connection for an AI Agent to start a voice conversation
+         * @summary Create Connection
          * @param {string} agentId 
          * @param {ConnectionSource} connectionSource 
          * @param {string} [prospectId] 
@@ -6682,8 +6881,8 @@ export const DataPlaneApiFactory = function (configuration?: Configuration, base
             return DataPlaneApiFp(configuration).createConnection(agentId, connectionSource, prospectId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Getplivoaudiostreamxml
+         * Get the audio stream xml for Plivo to start a voice conversation
+         * @summary Get Audio Stream XML For Plivo
          * @param {string} connectionId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6702,8 +6901,8 @@ export const DataPlaneApiFactory = function (configuration?: Configuration, base
  */
 export class DataPlaneApi extends BaseAPI {
     /**
-     * 
-     * @summary Createconnection
+     * Create a new connection for an AI Agent to start a voice conversation
+     * @summary Create Connection
      * @param {string} agentId 
      * @param {ConnectionSource} connectionSource 
      * @param {string} [prospectId] 
@@ -6716,8 +6915,8 @@ export class DataPlaneApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Getplivoaudiostreamxml
+     * Get the audio stream xml for Plivo to start a voice conversation
+     * @summary Get Audio Stream XML For Plivo
      * @param {string} connectionId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -6731,14 +6930,223 @@ export class DataPlaneApi extends BaseAPI {
 
 
 /**
+ * FilesApi - axios parameter creator
+ * @export
+ */
+export const FilesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Delete files from Trata account
+         * @summary Delete Files
+         * @param {string} fileIds 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFileV1: async (fileIds: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'fileIds' is not null or undefined
+            if (fileIds === null || fileIds === undefined) {
+                throw new RequiredError('fileIds','Required parameter fileIds was null or undefined when calling deleteFileV1.');
+            }
+            const localVarPath = `/v1/files`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (fileIds !== undefined) {
+                localVarQueryParameter['file_ids'] = fileIds;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Upload file to Trata account to use in AI Agents
+         * @summary Upload Files
+         * @param {Array<any>} files 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadFileV1: async (files: Array<any>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'files' is not null or undefined
+            if (files === null || files === undefined) {
+                throw new RequiredError('files','Required parameter files was null or undefined when calling uploadFileV1.');
+            }
+            const localVarPath = `/v1/files`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new FormData();
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (files) {
+            
+                localVarFormParams.append('files', files.join(COLLECTION_FORMATS.csv));
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * FilesApi - functional programming interface
+ * @export
+ */
+export const FilesApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * Delete files from Trata account
+         * @summary Delete Files
+         * @param {string} fileIds 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteFileV1(fileIds: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await FilesApiAxiosParamCreator(configuration).deleteFileV1(fileIds, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Upload file to Trata account to use in AI Agents
+         * @summary Upload Files
+         * @param {Array<any>} files 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadFileV1(files: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Files>>> {
+            const localVarAxiosArgs = await FilesApiAxiosParamCreator(configuration).uploadFileV1(files, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * FilesApi - factory interface
+ * @export
+ */
+export const FilesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * Delete files from Trata account
+         * @summary Delete Files
+         * @param {string} fileIds 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFileV1(fileIds: string, options?: any): AxiosPromise<boolean> {
+            return FilesApiFp(configuration).deleteFileV1(fileIds, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Upload file to Trata account to use in AI Agents
+         * @summary Upload Files
+         * @param {Array<any>} files 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadFileV1(files: Array<any>, options?: any): AxiosPromise<Array<Files>> {
+            return FilesApiFp(configuration).uploadFileV1(files, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * FilesApi - object-oriented interface
+ * @export
+ * @class FilesApi
+ * @extends {BaseAPI}
+ */
+export class FilesApi extends BaseAPI {
+    /**
+     * Delete files from Trata account
+     * @summary Delete Files
+     * @param {string} fileIds 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    public deleteFileV1(fileIds: string, options?: any) {
+        return FilesApiFp(this.configuration).deleteFileV1(fileIds, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Upload file to Trata account to use in AI Agents
+     * @summary Upload Files
+     * @param {Array<any>} files 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    public uploadFileV1(files: Array<any>, options?: any) {
+        return FilesApiFp(this.configuration).uploadFileV1(files, options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+
+/**
  * HealthApi - axios parameter creator
  * @export
  */
 export const HealthApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Check the health of all Trata APIs
-         * @summary Check the Health of All TrataAPI
+         * Heart Beat check to check the health of Trata Backend
+         * @summary Heart Beat Status Of Trata Backend
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -6776,8 +7184,8 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
 export const HealthApiFp = function(configuration?: Configuration) {
     return {
         /**
-         * Check the health of all Trata APIs
-         * @summary Check the Health of All TrataAPI
+         * Heart Beat check to check the health of Trata Backend
+         * @summary Heart Beat Status Of Trata Backend
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -6798,8 +7206,8 @@ export const HealthApiFp = function(configuration?: Configuration) {
 export const HealthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
         /**
-         * Check the health of all Trata APIs
-         * @summary Check the Health of All TrataAPI
+         * Heart Beat check to check the health of Trata Backend
+         * @summary Heart Beat Status Of Trata Backend
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -6817,8 +7225,8 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
  */
 export class HealthApi extends BaseAPI {
     /**
-     * Check the health of all Trata APIs
-     * @summary Check the Health of All TrataAPI
+     * Heart Beat check to check the health of Trata Backend
+     * @summary Heart Beat Status Of Trata Backend
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HealthApi
@@ -6975,8 +7383,8 @@ export const HiveApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * List All Hives Under the User&#39;s Organization
-         * @summary List All Hives Under the User&#39;s Organization
+         * List All Hives
+         * @summary List All Hives
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -7154,8 +7562,8 @@ export const HiveApiFp = function(configuration?: Configuration) {
             };
         },
         /**
-         * List All Hives Under the User&#39;s Organization
-         * @summary List All Hives Under the User&#39;s Organization
+         * List All Hives
+         * @summary List All Hives
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -7228,8 +7636,8 @@ export const HiveApiFactory = function (configuration?: Configuration, basePath?
             return HiveApiFp(configuration).getHiveV1(hiveId, options).then((request) => request(axios, basePath));
         },
         /**
-         * List All Hives Under the User&#39;s Organization
-         * @summary List All Hives Under the User&#39;s Organization
+         * List All Hives
+         * @summary List All Hives
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -7301,8 +7709,8 @@ export class HiveApi extends BaseAPI {
     }
 
     /**
-     * List All Hives Under the User&#39;s Organization
-     * @summary List All Hives Under the User&#39;s Organization
+     * List All Hives
+     * @summary List All Hives
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -7817,54 +8225,6 @@ export const InternalApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @summary Delete File
-         * @param {string} fileIds 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteFileV1: async (fileIds: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'fileIds' is not null or undefined
-            if (fileIds === null || fileIds === undefined) {
-                throw new RequiredError('fileIds','Required parameter fileIds was null or undefined when calling deleteFileV1.');
-            }
-            const localVarPath = `/v1/files`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication HTTPBearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken()
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            if (fileIds !== undefined) {
-                localVarQueryParameter['file_ids'] = fileIds;
-            }
-
-
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Deleteorganization
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8290,58 +8650,6 @@ export const InternalApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @summary Upload File
-         * @param {Array<any>} files 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        uploadFileV1: async (files: Array<any>, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'files' is not null or undefined
-            if (files === null || files === undefined) {
-                throw new RequiredError('files','Required parameter files was null or undefined when calling uploadFileV1.');
-            }
-            const localVarPath = `/v1/files`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
-
-            // authentication HTTPBearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken()
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            if (files) {
-            
-                localVarFormParams.append('files', files.join(COLLECTION_FORMATS.csv));
-            }
-    
-    
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -8374,20 +8682,6 @@ export const InternalApiFp = function(configuration?: Configuration) {
          */
         async createOrganizationV1(bodyCreateOrganizationV1: BodyCreateOrganizationV1, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
             const localVarAxiosArgs = await InternalApiAxiosParamCreator(configuration).createOrganizationV1(bodyCreateOrganizationV1, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Delete File
-         * @param {string} fileIds 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteFileV1(fileIds: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
-            const localVarAxiosArgs = await InternalApiAxiosParamCreator(configuration).deleteFileV1(fileIds, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -8517,20 +8811,6 @@ export const InternalApiFp = function(configuration?: Configuration) {
                 return axios.request(axiosRequestArgs);
             };
         },
-        /**
-         * 
-         * @summary Upload File
-         * @param {Array<any>} files 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async uploadFileV1(files: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Files>>> {
-            const localVarAxiosArgs = await InternalApiAxiosParamCreator(configuration).uploadFileV1(files, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
     }
 };
 
@@ -8559,16 +8839,6 @@ export const InternalApiFactory = function (configuration?: Configuration, baseP
          */
         createOrganizationV1(bodyCreateOrganizationV1: BodyCreateOrganizationV1, options?: any): AxiosPromise<User> {
             return InternalApiFp(configuration).createOrganizationV1(bodyCreateOrganizationV1, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Delete File
-         * @param {string} fileIds 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteFileV1(fileIds: string, options?: any): AxiosPromise<boolean> {
-            return InternalApiFp(configuration).deleteFileV1(fileIds, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -8662,16 +8932,6 @@ export const InternalApiFactory = function (configuration?: Configuration, baseP
         updateUserV1(userId: string, updateUserPayload: UpdateUserPayload, options?: any): AxiosPromise<User> {
             return InternalApiFp(configuration).updateUserV1(userId, updateUserPayload, options).then((request) => request(axios, basePath));
         },
-        /**
-         * 
-         * @summary Upload File
-         * @param {Array<any>} files 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        uploadFileV1(files: Array<any>, options?: any): AxiosPromise<Array<Files>> {
-            return InternalApiFp(configuration).uploadFileV1(files, options).then((request) => request(axios, basePath));
-        },
     };
 };
 
@@ -8704,18 +8964,6 @@ export class InternalApi extends BaseAPI {
      */
     public createOrganizationV1(bodyCreateOrganizationV1: BodyCreateOrganizationV1, options?: any) {
         return InternalApiFp(this.configuration).createOrganizationV1(bodyCreateOrganizationV1, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Delete File
-     * @param {string} fileIds 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InternalApi
-     */
-    public deleteFileV1(fileIds: string, options?: any) {
-        return InternalApiFp(this.configuration).deleteFileV1(fileIds, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -8824,211 +9072,6 @@ export class InternalApi extends BaseAPI {
      */
     public updateUserV1(userId: string, updateUserPayload: UpdateUserPayload, options?: any) {
         return InternalApiFp(this.configuration).updateUserV1(userId, updateUserPayload, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Upload File
-     * @param {Array<any>} files 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InternalApi
-     */
-    public uploadFileV1(files: Array<any>, options?: any) {
-        return InternalApiFp(this.configuration).uploadFileV1(files, options).then((request) => request(this.axios, this.basePath));
-    }
-
-}
-
-
-/**
- * MetricsApi - axios parameter creator
- * @export
- */
-export const MetricsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Get call and other analytics data from Trata AI
-         * @summary Getmetrics
-         * @param {BatchMetricsRequests} batchMetricsRequests 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getMetricsV1MetricsPost: async (batchMetricsRequests: BatchMetricsRequests, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'batchMetricsRequests' is not null or undefined
-            if (batchMetricsRequests === null || batchMetricsRequests === undefined) {
-                throw new RequiredError('batchMetricsRequests','Required parameter batchMetricsRequests was null or undefined when calling getMetricsV1MetricsPost.');
-            }
-            const localVarPath = `/v1/metrics`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication HTTPBearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken()
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof batchMetricsRequests !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(batchMetricsRequests !== undefined ? batchMetricsRequests : {}) : (batchMetricsRequests || "");
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get overall call stats and prospect stats data from Trata AI
-         * @summary Getoverallstats
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getOverallStatsV1StatsGet: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/stats`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication HTTPBearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken()
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * MetricsApi - functional programming interface
- * @export
- */
-export const MetricsApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * Get call and other analytics data from Trata AI
-         * @summary Getmetrics
-         * @param {BatchMetricsRequests} batchMetricsRequests 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BatchMetricsResponse>> {
-            const localVarAxiosArgs = await MetricsApiAxiosParamCreator(configuration).getMetricsV1MetricsPost(batchMetricsRequests, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * Get overall call stats and prospect stats data from Trata AI
-         * @summary Getoverallstats
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getOverallStatsV1StatsGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatsResponse>> {
-            const localVarAxiosArgs = await MetricsApiAxiosParamCreator(configuration).getOverallStatsV1StatsGet(options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-    }
-};
-
-/**
- * MetricsApi - factory interface
- * @export
- */
-export const MetricsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    return {
-        /**
-         * Get call and other analytics data from Trata AI
-         * @summary Getmetrics
-         * @param {BatchMetricsRequests} batchMetricsRequests 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any): AxiosPromise<BatchMetricsResponse> {
-            return MetricsApiFp(configuration).getMetricsV1MetricsPost(batchMetricsRequests, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get overall call stats and prospect stats data from Trata AI
-         * @summary Getoverallstats
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getOverallStatsV1StatsGet(options?: any): AxiosPromise<StatsResponse> {
-            return MetricsApiFp(configuration).getOverallStatsV1StatsGet(options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * MetricsApi - object-oriented interface
- * @export
- * @class MetricsApi
- * @extends {BaseAPI}
- */
-export class MetricsApi extends BaseAPI {
-    /**
-     * Get call and other analytics data from Trata AI
-     * @summary Getmetrics
-     * @param {BatchMetricsRequests} batchMetricsRequests 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MetricsApi
-     */
-    public getMetricsV1MetricsPost(batchMetricsRequests: BatchMetricsRequests, options?: any) {
-        return MetricsApiFp(this.configuration).getMetricsV1MetricsPost(batchMetricsRequests, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get overall call stats and prospect stats data from Trata AI
-     * @summary Getoverallstats
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MetricsApi
-     */
-    public getOverallStatsV1StatsGet(options?: any) {
-        return MetricsApiFp(this.configuration).getOverallStatsV1StatsGet(options).then((request) => request(this.axios, this.basePath));
     }
 
 }
@@ -9224,8 +9267,8 @@ export const ProductsApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * List All Products Under the User&#39;s Organization
-         * @summary List All Products Under the User&#39;s Organization
+         * List All Products
+         * @summary List All Products
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -9427,8 +9470,8 @@ export const ProductsApiFp = function(configuration?: Configuration) {
             };
         },
         /**
-         * List All Products Under the User&#39;s Organization
-         * @summary List All Products Under the User&#39;s Organization
+         * List All Products
+         * @summary List All Products
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -9513,8 +9556,8 @@ export const ProductsApiFactory = function (configuration?: Configuration, baseP
             return ProductsApiFp(configuration).listAgentsOfProductV1(productId, options).then((request) => request(axios, basePath));
         },
         /**
-         * List All Products Under the User&#39;s Organization
-         * @summary List All Products Under the User&#39;s Organization
+         * List All Products
+         * @summary List All Products
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -9600,8 +9643,8 @@ export class ProductsApi extends BaseAPI {
     }
 
     /**
-     * List All Products Under the User&#39;s Organization
-     * @summary List All Products Under the User&#39;s Organization
+     * List All Products
+     * @summary List All Products
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -9780,8 +9823,8 @@ export const ProspectsApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * List All Prospects Under the User&#39;s Organization
-         * @summary List All Prospects Under the User&#39;s Organization
+         * List All Prospects
+         * @summary List All Prospects
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -9959,8 +10002,8 @@ export const ProspectsApiFp = function(configuration?: Configuration) {
             };
         },
         /**
-         * List All Prospects Under the User&#39;s Organization
-         * @summary List All Prospects Under the User&#39;s Organization
+         * List All Prospects
+         * @summary List All Prospects
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -10033,8 +10076,8 @@ export const ProspectsApiFactory = function (configuration?: Configuration, base
             return ProspectsApiFp(configuration).getProspectV1(prospectId, options).then((request) => request(axios, basePath));
         },
         /**
-         * List All Prospects Under the User&#39;s Organization
-         * @summary List All Prospects Under the User&#39;s Organization
+         * List All Prospects
+         * @summary List All Prospects
          * @param {string} [searchBy] Field name to search by
          * @param {string} [searchValue] Value to search for in the specified field
          * @param {string} [status] Filter by status
@@ -10106,8 +10149,8 @@ export class ProspectsApi extends BaseAPI {
     }
 
     /**
-     * List All Prospects Under the User&#39;s Organization
-     * @summary List All Prospects Under the User&#39;s Organization
+     * List All Prospects
+     * @summary List All Prospects
      * @param {string} [searchBy] Field name to search by
      * @param {string} [searchValue] Value to search for in the specified field
      * @param {string} [status] Filter by status
@@ -10531,10 +10574,11 @@ export const ResellerApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Get Customer Org
          * @param {string} customerOrgId 
          * @param {boolean} [includeUsers] 
+         * @param {boolean} [includeResellerAdminCredentials] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCustomerOrganizationV1: async (customerOrgId: string, includeUsers?: boolean, options: any = {}): Promise<RequestArgs> => {
+        getCustomerOrganizationV1: async (customerOrgId: string, includeUsers?: boolean, includeResellerAdminCredentials?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'customerOrgId' is not null or undefined
             if (customerOrgId === null || customerOrgId === undefined) {
                 throw new RequiredError('customerOrgId','Required parameter customerOrgId was null or undefined when calling getCustomerOrganizationV1.');
@@ -10561,6 +10605,10 @@ export const ResellerApiAxiosParamCreator = function (configuration?: Configurat
 
             if (includeUsers !== undefined) {
                 localVarQueryParameter['include_users'] = includeUsers;
+            }
+
+            if (includeResellerAdminCredentials !== undefined) {
+                localVarQueryParameter['include_reseller_admin_credentials'] = includeResellerAdminCredentials;
             }
 
 
@@ -11387,11 +11435,12 @@ export const ResellerApiFp = function(configuration?: Configuration) {
          * @summary Get Customer Org
          * @param {string} customerOrgId 
          * @param {boolean} [includeUsers] 
+         * @param {boolean} [includeResellerAdminCredentials] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrgUsersPriceCredits>> {
-            const localVarAxiosArgs = await ResellerApiAxiosParamCreator(configuration).getCustomerOrganizationV1(customerOrgId, includeUsers, options);
+        async getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, includeResellerAdminCredentials?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrgUsersPriceCredits>> {
+            const localVarAxiosArgs = await ResellerApiAxiosParamCreator(configuration).getCustomerOrganizationV1(customerOrgId, includeUsers, includeResellerAdminCredentials, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -11691,11 +11740,12 @@ export const ResellerApiFactory = function (configuration?: Configuration, baseP
          * @summary Get Customer Org
          * @param {string} customerOrgId 
          * @param {boolean} [includeUsers] 
+         * @param {boolean} [includeResellerAdminCredentials] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, options?: any): AxiosPromise<OrgUsersPriceCredits> {
-            return ResellerApiFp(configuration).getCustomerOrganizationV1(customerOrgId, includeUsers, options).then((request) => request(axios, basePath));
+        getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, includeResellerAdminCredentials?: boolean, options?: any): AxiosPromise<OrgUsersPriceCredits> {
+            return ResellerApiFp(configuration).getCustomerOrganizationV1(customerOrgId, includeUsers, includeResellerAdminCredentials, options).then((request) => request(axios, basePath));
         },
         /**
          * Get organization settings
@@ -11956,12 +12006,13 @@ export class ResellerApi extends BaseAPI {
      * @summary Get Customer Org
      * @param {string} customerOrgId 
      * @param {boolean} [includeUsers] 
+     * @param {boolean} [includeResellerAdminCredentials] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ResellerApi
      */
-    public getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, options?: any) {
-        return ResellerApiFp(this.configuration).getCustomerOrganizationV1(customerOrgId, includeUsers, options).then((request) => request(this.axios, this.basePath));
+    public getCustomerOrganizationV1(customerOrgId: string, includeUsers?: boolean, includeResellerAdminCredentials?: boolean, options?: any) {
+        return ResellerApiFp(this.configuration).getCustomerOrganizationV1(customerOrgId, includeUsers, includeResellerAdminCredentials, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -13264,8 +13315,8 @@ export class UIApi extends BaseAPI {
 export const VoiceModelsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Get list of voices available for calls
-         * @summary Get list of voices available for calls
+         * Get List Of Voices Available For Conversations
+         * @summary Get List Of Voices Available For Conversations
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -13312,8 +13363,8 @@ export const VoiceModelsApiAxiosParamCreator = function (configuration?: Configu
 export const VoiceModelsApiFp = function(configuration?: Configuration) {
     return {
         /**
-         * Get list of voices available for calls
-         * @summary Get list of voices available for calls
+         * Get List Of Voices Available For Conversations
+         * @summary Get List Of Voices Available For Conversations
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -13334,8 +13385,8 @@ export const VoiceModelsApiFp = function(configuration?: Configuration) {
 export const VoiceModelsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
         /**
-         * Get list of voices available for calls
-         * @summary Get list of voices available for calls
+         * Get List Of Voices Available For Conversations
+         * @summary Get List Of Voices Available For Conversations
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -13353,8 +13404,8 @@ export const VoiceModelsApiFactory = function (configuration?: Configuration, ba
  */
 export class VoiceModelsApi extends BaseAPI {
     /**
-     * Get list of voices available for calls
-     * @summary Get list of voices available for calls
+     * Get List Of Voices Available For Conversations
+     * @summary Get List Of Voices Available For Conversations
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VoiceModelsApi
