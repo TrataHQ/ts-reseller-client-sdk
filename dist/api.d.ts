@@ -644,6 +644,19 @@ export interface BodyUploadFileV1 {
 /**
  *
  * @export
+ * @interface BodyUploadResellerFilesV1
+ */
+export interface BodyUploadResellerFilesV1 {
+    /**
+     *
+     * @type {Array<any>}
+     * @memberof BodyUploadResellerFilesV1
+     */
+    files: Array<any>;
+}
+/**
+ *
+ * @export
  * @enum {string}
  */
 export declare enum CallSentiment {
@@ -5024,6 +5037,14 @@ export declare const FilesApiAxiosParamCreator: (configuration?: Configuration) 
      */
     deleteFileV1: (fileIds: string, options?: any) => Promise<RequestArgs>;
     /**
+     * Delete files from Trata reseller account
+     * @summary Delete Files
+     * @param {string} fileIds
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteResellerFilesV1: (fileIds: string, options?: any) => Promise<RequestArgs>;
+    /**
      * Upload file to Trata account to use in AI Agents
      * @summary Upload Files
      * @param {Array<any>} files
@@ -5031,6 +5052,14 @@ export declare const FilesApiAxiosParamCreator: (configuration?: Configuration) 
      * @throws {RequiredError}
      */
     uploadFileV1: (files: Array<any>, options?: any) => Promise<RequestArgs>;
+    /**
+     * Upload file to Trata account to use in AI Agents
+     * @summary Upload Files
+     * @param {Array<any>} files
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    uploadResellerFilesV1: (files: Array<any>, options?: any) => Promise<RequestArgs>;
 };
 /**
  * FilesApi - functional programming interface
@@ -5046,6 +5075,14 @@ export declare const FilesApiFp: (configuration?: Configuration) => {
      */
     deleteFileV1(fileIds: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>>;
     /**
+     * Delete files from Trata reseller account
+     * @summary Delete Files
+     * @param {string} fileIds
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteResellerFilesV1(fileIds: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>>;
+    /**
      * Upload file to Trata account to use in AI Agents
      * @summary Upload Files
      * @param {Array<any>} files
@@ -5053,6 +5090,14 @@ export declare const FilesApiFp: (configuration?: Configuration) => {
      * @throws {RequiredError}
      */
     uploadFileV1(files: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Files>>>;
+    /**
+     * Upload file to Trata account to use in AI Agents
+     * @summary Upload Files
+     * @param {Array<any>} files
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    uploadResellerFilesV1(files: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Files>>>;
 };
 /**
  * FilesApi - factory interface
@@ -5068,6 +5113,14 @@ export declare const FilesApiFactory: (configuration?: Configuration, basePath?:
      */
     deleteFileV1(fileIds: string, options?: any): AxiosPromise<boolean>;
     /**
+     * Delete files from Trata reseller account
+     * @summary Delete Files
+     * @param {string} fileIds
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteResellerFilesV1(fileIds: string, options?: any): AxiosPromise<boolean>;
+    /**
      * Upload file to Trata account to use in AI Agents
      * @summary Upload Files
      * @param {Array<any>} files
@@ -5075,6 +5128,14 @@ export declare const FilesApiFactory: (configuration?: Configuration, basePath?:
      * @throws {RequiredError}
      */
     uploadFileV1(files: Array<any>, options?: any): AxiosPromise<Array<Files>>;
+    /**
+     * Upload file to Trata account to use in AI Agents
+     * @summary Upload Files
+     * @param {Array<any>} files
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    uploadResellerFilesV1(files: Array<any>, options?: any): AxiosPromise<Array<Files>>;
 };
 /**
  * FilesApi - object-oriented interface
@@ -5093,6 +5154,15 @@ export declare class FilesApi extends BaseAPI {
      */
     deleteFileV1(fileIds: string, options?: any): Promise<import("axios").AxiosResponse<boolean>>;
     /**
+     * Delete files from Trata reseller account
+     * @summary Delete Files
+     * @param {string} fileIds
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    deleteResellerFilesV1(fileIds: string, options?: any): Promise<import("axios").AxiosResponse<boolean>>;
+    /**
      * Upload file to Trata account to use in AI Agents
      * @summary Upload Files
      * @param {Array<any>} files
@@ -5101,6 +5171,15 @@ export declare class FilesApi extends BaseAPI {
      * @memberof FilesApi
      */
     uploadFileV1(files: Array<any>, options?: any): Promise<import("axios").AxiosResponse<Files[]>>;
+    /**
+     * Upload file to Trata account to use in AI Agents
+     * @summary Upload Files
+     * @param {Array<any>} files
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    uploadResellerFilesV1(files: Array<any>, options?: any): Promise<import("axios").AxiosResponse<Files[]>>;
 }
 /**
  * HealthApi - axios parameter creator

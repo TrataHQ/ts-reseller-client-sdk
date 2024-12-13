@@ -655,6 +655,19 @@ export interface BodyUploadFileV1 {
 /**
  * 
  * @export
+ * @interface BodyUploadResellerFilesV1
+ */
+export interface BodyUploadResellerFilesV1 {
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof BodyUploadResellerFilesV1
+     */
+    files: Array<any>;
+}
+/**
+ * 
+ * @export
  * @enum {string}
  */
 export enum CallSentiment {
@@ -6984,6 +6997,54 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
+         * Delete files from Trata reseller account
+         * @summary Delete Files
+         * @param {string} fileIds 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteResellerFilesV1: async (fileIds: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'fileIds' is not null or undefined
+            if (fileIds === null || fileIds === undefined) {
+                throw new RequiredError('fileIds','Required parameter fileIds was null or undefined when calling deleteResellerFilesV1.');
+            }
+            const localVarPath = `/v1/resellers/files`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (fileIds !== undefined) {
+                localVarQueryParameter['file_ids'] = fileIds;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Upload file to Trata account to use in AI Agents
          * @summary Upload Files
          * @param {Array<any>} files 
@@ -6996,6 +7057,58 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
                 throw new RequiredError('files','Required parameter files was null or undefined when calling uploadFileV1.');
             }
             const localVarPath = `/v1/files`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new FormData();
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (files) {
+            
+                localVarFormParams.append('files', files.join(COLLECTION_FORMATS.csv));
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Upload file to Trata account to use in AI Agents
+         * @summary Upload Files
+         * @param {Array<any>} files 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadResellerFilesV1: async (files: Array<any>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'files' is not null or undefined
+            if (files === null || files === undefined) {
+                throw new RequiredError('files','Required parameter files was null or undefined when calling uploadResellerFilesV1.');
+            }
+            const localVarPath = `/v1/resellers/files`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -7059,6 +7172,20 @@ export const FilesApiFp = function(configuration?: Configuration) {
             };
         },
         /**
+         * Delete files from Trata reseller account
+         * @summary Delete Files
+         * @param {string} fileIds 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteResellerFilesV1(fileIds: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await FilesApiAxiosParamCreator(configuration).deleteResellerFilesV1(fileIds, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * Upload file to Trata account to use in AI Agents
          * @summary Upload Files
          * @param {Array<any>} files 
@@ -7067,6 +7194,20 @@ export const FilesApiFp = function(configuration?: Configuration) {
          */
         async uploadFileV1(files: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Files>>> {
             const localVarAxiosArgs = await FilesApiAxiosParamCreator(configuration).uploadFileV1(files, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Upload file to Trata account to use in AI Agents
+         * @summary Upload Files
+         * @param {Array<any>} files 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadResellerFilesV1(files: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Files>>> {
+            const localVarAxiosArgs = await FilesApiAxiosParamCreator(configuration).uploadResellerFilesV1(files, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -7092,6 +7233,16 @@ export const FilesApiFactory = function (configuration?: Configuration, basePath
             return FilesApiFp(configuration).deleteFileV1(fileIds, options).then((request) => request(axios, basePath));
         },
         /**
+         * Delete files from Trata reseller account
+         * @summary Delete Files
+         * @param {string} fileIds 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteResellerFilesV1(fileIds: string, options?: any): AxiosPromise<boolean> {
+            return FilesApiFp(configuration).deleteResellerFilesV1(fileIds, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Upload file to Trata account to use in AI Agents
          * @summary Upload Files
          * @param {Array<any>} files 
@@ -7100,6 +7251,16 @@ export const FilesApiFactory = function (configuration?: Configuration, basePath
          */
         uploadFileV1(files: Array<any>, options?: any): AxiosPromise<Array<Files>> {
             return FilesApiFp(configuration).uploadFileV1(files, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Upload file to Trata account to use in AI Agents
+         * @summary Upload Files
+         * @param {Array<any>} files 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadResellerFilesV1(files: Array<any>, options?: any): AxiosPromise<Array<Files>> {
+            return FilesApiFp(configuration).uploadResellerFilesV1(files, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -7124,6 +7285,18 @@ export class FilesApi extends BaseAPI {
     }
 
     /**
+     * Delete files from Trata reseller account
+     * @summary Delete Files
+     * @param {string} fileIds 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    public deleteResellerFilesV1(fileIds: string, options?: any) {
+        return FilesApiFp(this.configuration).deleteResellerFilesV1(fileIds, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Upload file to Trata account to use in AI Agents
      * @summary Upload Files
      * @param {Array<any>} files 
@@ -7133,6 +7306,18 @@ export class FilesApi extends BaseAPI {
      */
     public uploadFileV1(files: Array<any>, options?: any) {
         return FilesApiFp(this.configuration).uploadFileV1(files, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Upload file to Trata account to use in AI Agents
+     * @summary Upload Files
+     * @param {Array<any>} files 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    public uploadResellerFilesV1(files: Array<any>, options?: any) {
+        return FilesApiFp(this.configuration).uploadResellerFilesV1(files, options).then((request) => request(this.axios, this.basePath));
     }
 
 }
