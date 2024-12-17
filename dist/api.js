@@ -4998,6 +4998,40 @@ exports.InternalApiAxiosParamCreator = function (configuration) {
         }),
         /**
          *
+         * @summary Getorganizationbranding
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOrganizationBrandingV1: (options = {}) => __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = `/v1/organizations/branding`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = Object.assign(Object.assign({ method: 'GET' }, baseOptions), options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+            localVarUrlObj.query = Object.assign(Object.assign(Object.assign({}, localVarUrlObj.query), localVarQueryParameter), options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        }),
+        /**
+         *
          * @summary Getorganization
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5365,6 +5399,21 @@ exports.InternalApiFp = function (configuration) {
         },
         /**
          *
+         * @summary Getorganizationbranding
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOrganizationBrandingV1(options) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const localVarAxiosArgs = yield exports.InternalApiAxiosParamCreator(configuration).getOrganizationBrandingV1(options);
+                return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
+                    const axiosRequestArgs = Object.assign(Object.assign({}, localVarAxiosArgs.options), { url: basePath + localVarAxiosArgs.url });
+                    return axios.request(axiosRequestArgs);
+                };
+            });
+        },
+        /**
+         *
          * @summary Getorganization
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5521,6 +5570,15 @@ exports.InternalApiFactory = function (configuration, basePath, axios) {
         },
         /**
          *
+         * @summary Getorganizationbranding
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOrganizationBrandingV1(options) {
+            return exports.InternalApiFp(configuration).getOrganizationBrandingV1(options).then((request) => request(axios, basePath));
+        },
+        /**
+         *
          * @summary Getorganization
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5643,6 +5701,16 @@ class InternalApi extends base_1.BaseAPI {
      */
     deleteUserV1(userId, options) {
         return exports.InternalApiFp(this.configuration).deleteUserV1(userId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     *
+     * @summary Getorganizationbranding
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof InternalApi
+     */
+    getOrganizationBrandingV1(options) {
+        return exports.InternalApiFp(this.configuration).getOrganizationBrandingV1(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      *

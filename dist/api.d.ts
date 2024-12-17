@@ -2163,7 +2163,7 @@ export interface OrganizationOutput {
     orgType?: string | null;
 }
 /**
- * Organization settings details of the business
+ *
  * @export
  * @interface OrganizationSettings
  */
@@ -2173,43 +2173,49 @@ export interface OrganizationSettings {
      * @type {string}
      * @memberof OrganizationSettings
      */
-    orgId?: string;
+    orgId?: string | null;
     /**
      *
      * @type {string}
      * @memberof OrganizationSettings
      */
-    domain?: string;
+    name?: string | null;
     /**
      *
      * @type {string}
      * @memberof OrganizationSettings
      */
-    stripeKey?: string;
+    domain?: string | null;
     /**
      *
      * @type {string}
      * @memberof OrganizationSettings
      */
-    brandColor?: string;
+    stripeKey?: string | null;
     /**
      *
      * @type {string}
      * @memberof OrganizationSettings
      */
-    buttonColor?: string;
+    brandColor?: string | null;
     /**
      *
      * @type {string}
      * @memberof OrganizationSettings
      */
-    favicon?: string;
+    buttonColor?: string | null;
     /**
      *
      * @type {string}
      * @memberof OrganizationSettings
      */
-    logo?: string;
+    favicon?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof OrganizationSettings
+     */
+    logo?: string | null;
 }
 /**
  *
@@ -5659,6 +5665,13 @@ export declare const InternalApiAxiosParamCreator: (configuration?: Configuratio
     deleteUserV1: (userId: string, options?: any) => Promise<RequestArgs>;
     /**
      *
+     * @summary Getorganizationbranding
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOrganizationBrandingV1: (options?: any) => Promise<RequestArgs>;
+    /**
+     *
      * @summary Getorganization
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5757,6 +5770,13 @@ export declare const InternalApiFp: (configuration?: Configuration) => {
     deleteUserV1(userId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>>;
     /**
      *
+     * @summary Getorganizationbranding
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOrganizationBrandingV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationSettings | object>>;
+    /**
+     *
      * @summary Getorganization
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5853,6 +5873,13 @@ export declare const InternalApiFactory: (configuration?: Configuration, basePat
      * @throws {RequiredError}
      */
     deleteUserV1(userId: string, options?: any): AxiosPromise<User>;
+    /**
+     *
+     * @summary Getorganizationbranding
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOrganizationBrandingV1(options?: any): AxiosPromise<OrganizationSettings | object>;
     /**
      *
      * @summary Getorganization
@@ -5957,6 +5984,14 @@ export declare class InternalApi extends BaseAPI {
      * @memberof InternalApi
      */
     deleteUserV1(userId: string, options?: any): Promise<import("axios").AxiosResponse<User>>;
+    /**
+     *
+     * @summary Getorganizationbranding
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof InternalApi
+     */
+    getOrganizationBrandingV1(options?: any): Promise<import("axios").AxiosResponse<object | OrganizationSettings>>;
     /**
      *
      * @summary Getorganization

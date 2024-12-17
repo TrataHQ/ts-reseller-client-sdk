@@ -2185,7 +2185,7 @@ export interface OrganizationOutput {
     orgType?: string | null;
 }
 /**
- * Organization settings details of the business
+ * 
  * @export
  * @interface OrganizationSettings
  */
@@ -2195,43 +2195,49 @@ export interface OrganizationSettings {
      * @type {string}
      * @memberof OrganizationSettings
      */
-    orgId?: string;
+    orgId?: string | null;
     /**
      * 
      * @type {string}
      * @memberof OrganizationSettings
      */
-    domain?: string;
+    name?: string | null;
     /**
      * 
      * @type {string}
      * @memberof OrganizationSettings
      */
-    stripeKey?: string;
+    domain?: string | null;
     /**
      * 
      * @type {string}
      * @memberof OrganizationSettings
      */
-    brandColor?: string;
+    stripeKey?: string | null;
     /**
      * 
      * @type {string}
      * @memberof OrganizationSettings
      */
-    buttonColor?: string;
+    brandColor?: string | null;
     /**
      * 
      * @type {string}
      * @memberof OrganizationSettings
      */
-    favicon?: string;
+    buttonColor?: string | null;
     /**
      * 
      * @type {string}
      * @memberof OrganizationSettings
      */
-    logo?: string;
+    favicon?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationSettings
+     */
+    logo?: string | null;
 }
 /**
  * 
@@ -8494,6 +8500,45 @@ export const InternalApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @summary Getorganizationbranding
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOrganizationBrandingV1: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/organizations/branding`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Getorganization
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8901,6 +8946,19 @@ export const InternalApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Getorganizationbranding
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getOrganizationBrandingV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrganizationSettings | object>> {
+            const localVarAxiosArgs = await InternalApiAxiosParamCreator(configuration).getOrganizationBrandingV1(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Getorganization
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -9046,6 +9104,15 @@ export const InternalApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @summary Getorganizationbranding
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOrganizationBrandingV1(options?: any): AxiosPromise<OrganizationSettings | object> {
+            return InternalApiFp(configuration).getOrganizationBrandingV1(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Getorganization
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -9172,6 +9239,17 @@ export class InternalApi extends BaseAPI {
      */
     public deleteUserV1(userId: string, options?: any) {
         return InternalApiFp(this.configuration).deleteUserV1(userId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Getorganizationbranding
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof InternalApi
+     */
+    public getOrganizationBrandingV1(options?: any) {
+        return InternalApiFp(this.configuration).getOrganizationBrandingV1(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
