@@ -2231,13 +2231,31 @@ export interface OrganizationSettings {
      * @type {string}
      * @memberof OrganizationSettings
      */
+    secondaryColor?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationSettings
+     */
     favicon?: string | null;
     /**
      * 
      * @type {string}
      * @memberof OrganizationSettings
      */
+    faviconUrl?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationSettings
+     */
     logo?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganizationSettings
+     */
+    logoUrl?: string | null;
 }
 /**
  * 
@@ -7054,10 +7072,11 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
          * Upload file to Trata account to use in AI Agents
          * @summary Upload Files
          * @param {Array<any>} files 
+         * @param {string} [validator] Validator type to use for file validation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadFileV1: async (files: Array<any>, options: any = {}): Promise<RequestArgs> => {
+        uploadFileV1: async (files: Array<any>, validator?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'files' is not null or undefined
             if (files === null || files === undefined) {
                 throw new RequiredError('files','Required parameter files was null or undefined when calling uploadFileV1.');
@@ -7080,6 +7099,10 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
                     ? configuration.accessToken()
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (validator !== undefined) {
+                localVarQueryParameter['validator'] = validator;
             }
 
             if (files) {
@@ -7195,11 +7218,12 @@ export const FilesApiFp = function(configuration?: Configuration) {
          * Upload file to Trata account to use in AI Agents
          * @summary Upload Files
          * @param {Array<any>} files 
+         * @param {string} [validator] Validator type to use for file validation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async uploadFileV1(files: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Files>>> {
-            const localVarAxiosArgs = await FilesApiAxiosParamCreator(configuration).uploadFileV1(files, options);
+        async uploadFileV1(files: Array<any>, validator?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Files>>> {
+            const localVarAxiosArgs = await FilesApiAxiosParamCreator(configuration).uploadFileV1(files, validator, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -7252,11 +7276,12 @@ export const FilesApiFactory = function (configuration?: Configuration, basePath
          * Upload file to Trata account to use in AI Agents
          * @summary Upload Files
          * @param {Array<any>} files 
+         * @param {string} [validator] Validator type to use for file validation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadFileV1(files: Array<any>, options?: any): AxiosPromise<Array<Files>> {
-            return FilesApiFp(configuration).uploadFileV1(files, options).then((request) => request(axios, basePath));
+        uploadFileV1(files: Array<any>, validator?: string, options?: any): AxiosPromise<Array<Files>> {
+            return FilesApiFp(configuration).uploadFileV1(files, validator, options).then((request) => request(axios, basePath));
         },
         /**
          * Upload file to Trata account to use in AI Agents
@@ -7306,12 +7331,13 @@ export class FilesApi extends BaseAPI {
      * Upload file to Trata account to use in AI Agents
      * @summary Upload Files
      * @param {Array<any>} files 
+     * @param {string} [validator] Validator type to use for file validation
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FilesApi
      */
-    public uploadFileV1(files: Array<any>, options?: any) {
-        return FilesApiFp(this.configuration).uploadFileV1(files, options).then((request) => request(this.axios, this.basePath));
+    public uploadFileV1(files: Array<any>, validator?: string, options?: any) {
+        return FilesApiFp(this.configuration).uploadFileV1(files, validator, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
