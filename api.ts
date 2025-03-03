@@ -229,10 +229,10 @@ export interface ActionInput {
     parameters: object;
     /**
      * Endpoint for the action
-     * @type {HttpActionEndpoint | InternalActionEndpoint}
+     * @type {HttpActionEndpoint | InternalActionEndpoint | AgenticWorkflowActionEndpoint}
      * @memberof ActionInput
      */
-    endpoint: HttpActionEndpoint | InternalActionEndpoint;
+    endpoint: HttpActionEndpoint | InternalActionEndpoint | AgenticWorkflowActionEndpoint;
     /**
      * Text to be rendered to user when action is invoked
      * @type {string}
@@ -480,6 +480,111 @@ export interface AgentConfig {
 /**
  * 
  * @export
+ * @interface AgenticWorkflowActionEndpoint
+ */
+export interface AgenticWorkflowActionEndpoint {
+    /**
+     * Agentic workflow id
+     * @type {string}
+     * @memberof AgenticWorkflowActionEndpoint
+     */
+    workflowId: string;
+}
+/**
+ * Connection represents an instance of an app with specific credentials and configuration
+ * @export
+ * @interface AgenticWorkflowDbModelsConnection
+ */
+export interface AgenticWorkflowDbModelsConnection {
+    /**
+     * The user who created.
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    createdBy?: string;
+    /**
+     * The date and time it was created.
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    createdAt?: string;
+    /**
+     * The user who last updated.
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    updatedBy?: string;
+    /**
+     * The date and time when it was last updated.
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    updatedAt?: string;
+    /**
+     * The workspace of the entity.
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    orgId?: string;
+    /**
+     * The name of the connection
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    name?: string;
+    /**
+     * The unique identifier of the app
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    appId?: string;
+    /**
+     * The version of the app
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    appVersion?: string;
+    /**
+     * The description of the connection
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    description?: string | null;
+    /**
+     * OAuth or API key authentication configuration
+     * @type {OAuthCredentials | ApiKeyCredentials | BasicAuthCredentials | NoAuthCredentials}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    credentials: OAuthCredentials | ApiKeyCredentials | BasicAuthCredentials | NoAuthCredentials;
+    /**
+     * The unique identifier of the connection
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    id?: string;
+}
+/**
+ * 
+ * @export
+ * @interface AgenticWorkflowModelsBaseBaseResponse
+ */
+export interface AgenticWorkflowModelsBaseBaseResponse {
+    /**
+     * The message of the response
+     * @type {string}
+     * @memberof AgenticWorkflowModelsBaseBaseResponse
+     */
+    message?: string;
+    /**
+     * The status of the response
+     * @type {string}
+     * @memberof AgenticWorkflowModelsBaseBaseResponse
+     */
+    status?: string;
+}
+/**
+ * 
+ * @export
  * @enum {string}
  */
 export enum AggregationFormula {
@@ -500,6 +605,56 @@ export enum AggregationPeriod {
 }
 
 /**
+ * API key authentication configuration
+ * @export
+ * @interface ApiKeyAuth
+ */
+export interface ApiKeyAuth {
+    /**
+     * The type of authentication
+     * @type {string}
+     * @memberof ApiKeyAuth
+     */
+    authType?: ApiKeyAuthAuthTypeEnum;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum ApiKeyAuthAuthTypeEnum {
+    Apikey = 'apikey'
+}
+
+/**
+ * 
+ * @export
+ * @interface ApiKeyCredentials
+ */
+export interface ApiKeyCredentials {
+    /**
+     * Credential type identifier
+     * @type {string}
+     * @memberof ApiKeyCredentials
+     */
+    credentialsType?: ApiKeyCredentialsCredentialsTypeEnum;
+    /**
+     * The API key for the app
+     * @type {string}
+     * @memberof ApiKeyCredentials
+     */
+    apiKey: string;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum ApiKeyCredentialsCredentialsTypeEnum {
+    Apikey = 'apikey'
+}
+
+/**
  * 
  * @export
  * @interface ApiKeyRequest
@@ -511,6 +666,297 @@ export interface ApiKeyRequest {
      * @memberof ApiKeyRequest
      */
     key_type?: string | null;
+}
+/**
+ * App represents an integration that can be connected to perform actions and triggers
+ * @export
+ * @interface App
+ */
+export interface App {
+    /**
+     * The user who created.
+     * @type {string}
+     * @memberof App
+     */
+    createdBy?: string;
+    /**
+     * The date and time it was created.
+     * @type {string}
+     * @memberof App
+     */
+    createdAt?: string;
+    /**
+     * The user who last updated.
+     * @type {string}
+     * @memberof App
+     */
+    updatedBy?: string;
+    /**
+     * The date and time when it was last updated.
+     * @type {string}
+     * @memberof App
+     */
+    updatedAt?: string;
+    /**
+     * The workspace of the entity.
+     * @type {string}
+     * @memberof App
+     */
+    orgId?: string;
+    /**
+     * The name of the app
+     * @type {string}
+     * @memberof App
+     */
+    name?: string;
+    /**
+     * The description of the app
+     * @type {string}
+     * @memberof App
+     */
+    description?: string | null;
+    /**
+     * API Endpoint URL for the app
+     * @type {string}
+     * @memberof App
+     */
+    endpointUrl?: string | null;
+    /**
+     * URL to the app\'s logo image
+     * @type {string}
+     * @memberof App
+     */
+    logoUrl?: string | null;
+    /**
+     * Authentication configuration for the app
+     * @type {Array<OAuth | ApiKeyAuth | BasicAuth | NoAuth>}
+     * @memberof App
+     */
+    auth: Array<OAuth | ApiKeyAuth | BasicAuth | NoAuth>;
+    /**
+     * The version of the app
+     * @type {string}
+     * @memberof App
+     */
+    version?: string;
+    /**
+     * The unique identifier of the app
+     * @type {string}
+     * @memberof App
+     */
+    id?: string;
+}
+/**
+ * AppAction represents an action that can be performed by an app
+ * @export
+ * @interface AppAction
+ */
+export interface AppAction {
+    /**
+     * The user who created.
+     * @type {string}
+     * @memberof AppAction
+     */
+    createdBy?: string;
+    /**
+     * The date and time it was created.
+     * @type {string}
+     * @memberof AppAction
+     */
+    createdAt?: string;
+    /**
+     * The user who last updated.
+     * @type {string}
+     * @memberof AppAction
+     */
+    updatedBy?: string;
+    /**
+     * The date and time when it was last updated.
+     * @type {string}
+     * @memberof AppAction
+     */
+    updatedAt?: string;
+    /**
+     * The workspace of the entity.
+     * @type {string}
+     * @memberof AppAction
+     */
+    orgId?: string;
+    /**
+     * The type of the step, can be either trigger or action
+     * @type {AppActionType}
+     * @memberof AppAction
+     */
+    actionType: AppActionType;
+    /**
+     * The name of the step. This name should be unique within the app
+     * @type {string}
+     * @memberof AppAction
+     */
+    name?: string;
+    /**
+     * The description of the step
+     * @type {string}
+     * @memberof AppAction
+     */
+    description?: string;
+    /**
+     * JSON Schema for the step data
+     * @type {object}
+     * @memberof AppAction
+     */
+    dataSchema: object;
+    /**
+     * JSON Schema for the UI representation
+     * @type {object}
+     * @memberof AppAction
+     */
+    uiSchema: object;
+    /**
+     * This represents how this action should be displayed in the UI
+     * @type {UiNodeType}
+     * @memberof AppAction
+     */
+    uiNodeType: UiNodeType;
+    /**
+     * The ID of the app that this action belongs to
+     * @type {string}
+     * @memberof AppAction
+     */
+    appId: string;
+    /**
+     * The version of the app that this action belongs to
+     * @type {string}
+     * @memberof AppAction
+     */
+    appVersion: string;
+    /**
+     * The unique identifier of the app action
+     * @type {string}
+     * @memberof AppAction
+     */
+    id?: string;
+}
+/**
+ * App Action Model
+ * @export
+ * @interface AppActionEntity
+ */
+export interface AppActionEntity {
+    /**
+     * The type of the step, can be either trigger or action
+     * @type {AppActionType}
+     * @memberof AppActionEntity
+     */
+    actionType: AppActionType;
+    /**
+     * The name of the step. This name should be unique within the app
+     * @type {string}
+     * @memberof AppActionEntity
+     */
+    name?: string;
+    /**
+     * The description of the step
+     * @type {string}
+     * @memberof AppActionEntity
+     */
+    description?: string;
+    /**
+     * JSON Schema for the step data
+     * @type {object}
+     * @memberof AppActionEntity
+     */
+    dataSchema: object;
+    /**
+     * JSON Schema for the UI representation
+     * @type {object}
+     * @memberof AppActionEntity
+     */
+    uiSchema: object;
+    /**
+     * This represents how this action should be displayed in the UI
+     * @type {UiNodeType}
+     * @memberof AppActionEntity
+     */
+    uiNodeType: UiNodeType;
+}
+/**
+ * Enum for step types
+ * @export
+ * @enum {string}
+ */
+export enum AppActionType {
+    TRIGGER = 'TRIGGER',
+    ACTION = 'ACTION'
+}
+
+/**
+ * App DTO Model filled by user
+ * @export
+ * @interface AppEntity
+ */
+export interface AppEntity {
+    /**
+     * The name of the app
+     * @type {string}
+     * @memberof AppEntity
+     */
+    name?: string;
+    /**
+     * The description of the app
+     * @type {string}
+     * @memberof AppEntity
+     */
+    description?: string | null;
+    /**
+     * API Endpoint URL for the app
+     * @type {string}
+     * @memberof AppEntity
+     */
+    endpointUrl?: string | null;
+    /**
+     * URL to the app\'s logo image
+     * @type {string}
+     * @memberof AppEntity
+     */
+    logoUrl?: string | null;
+    /**
+     * Authentication configuration for the app
+     * @type {Array<OAuth | ApiKeyAuth | BasicAuth | NoAuth>}
+     * @memberof AppEntity
+     */
+    auth: Array<OAuth | ApiKeyAuth | BasicAuth | NoAuth>;
+    /**
+     * The version of the app
+     * @type {string}
+     * @memberof AppEntity
+     */
+    version?: string;
+    /**
+     * Array of available actions with their configurations
+     * @type {Array<AppActionEntity>}
+     * @memberof AppEntity
+     */
+    actions: Array<AppActionEntity>;
+}
+/**
+ * 
+ * @export
+ * @interface AppResponse
+ */
+export interface AppResponse {
+    /**
+     * 
+     * @type {App}
+     * @memberof AppResponse
+     */
+    app: App;
+    /**
+     * 
+     * @type {Array<AppAction>}
+     * @memberof AppResponse
+     */
+    actions: Array<AppAction>;
 }
 /**
  * 
@@ -546,16 +992,72 @@ export interface AvailablePhoneNumber {
 /**
  * 
  * @export
- * @interface BaseResponse
+ * @interface BaseResponseInput
  */
-export interface BaseResponse {
+export interface BaseResponseInput {
     /**
      * Address line 1
      * @type {string}
-     * @memberof BaseResponse
+     * @memberof BaseResponseInput
      */
     message: string;
 }
+/**
+ * Basic authentication configuration
+ * @export
+ * @interface BasicAuth
+ */
+export interface BasicAuth {
+    /**
+     * The type of authentication
+     * @type {string}
+     * @memberof BasicAuth
+     */
+    authType?: BasicAuthAuthTypeEnum;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum BasicAuthAuthTypeEnum {
+    Basic = 'basic'
+}
+
+/**
+ * 
+ * @export
+ * @interface BasicAuthCredentials
+ */
+export interface BasicAuthCredentials {
+    /**
+     * Credential type identifier
+     * @type {string}
+     * @memberof BasicAuthCredentials
+     */
+    credentialsType?: BasicAuthCredentialsCredentialsTypeEnum;
+    /**
+     * The username for the app
+     * @type {string}
+     * @memberof BasicAuthCredentials
+     */
+    username: string;
+    /**
+     * The password for the app
+     * @type {string}
+     * @memberof BasicAuthCredentials
+     */
+    password: string;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum BasicAuthCredentialsCredentialsTypeEnum {
+    Basic = 'basic'
+}
+
 /**
  * 
  * @export
@@ -696,75 +1198,131 @@ export interface Comment {
     rating: number;
 }
 /**
+ * Condition Model for branching/looping logic
+ * @export
+ * @interface Condition
+ */
+export interface Condition {
+    /**
+     * Condition expression to evaluate
+     * @type {string}
+     * @memberof Condition
+     */
+    when: string;
+    /**
+     * Next step ID if condition is true
+     * @type {string}
+     * @memberof Condition
+     */
+    stepId: string;
+}
+/**
+ * Core Connection Model
+ * @export
+ * @interface ConnectionCore
+ */
+export interface ConnectionCore {
+    /**
+     * The name of the connection
+     * @type {string}
+     * @memberof ConnectionCore
+     */
+    name?: string;
+    /**
+     * The unique identifier of the app
+     * @type {string}
+     * @memberof ConnectionCore
+     */
+    appId?: string;
+    /**
+     * The version of the app
+     * @type {string}
+     * @memberof ConnectionCore
+     */
+    appVersion?: string;
+    /**
+     * The description of the connection
+     * @type {string}
+     * @memberof ConnectionCore
+     */
+    description?: string | null;
+    /**
+     * OAuth or API key authentication configuration
+     * @type {OAuthCredentials | ApiKeyCredentials | BasicAuthCredentials | NoAuthCredentials}
+     * @memberof ConnectionCore
+     */
+    credentials: OAuthCredentials | ApiKeyCredentials | BasicAuthCredentials | NoAuthCredentials;
+}
+/**
  * This represents the connection between the user and the assistant
  * @export
- * @interface Connection
+ * @interface ConnectionOutput
  */
-export interface Connection {
+export interface ConnectionOutput {
     /**
      * 
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     id?: string;
     /**
      * 
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     orgId?: string;
     /**
      * 
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     sourceName?: string;
     /**
      * 
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     sourceId?: string;
     /**
      * 
      * @type {object}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     sourceProps?: object | null;
     /**
      * 
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     agentId?: string;
     /**
      * 
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     prospectId?: string | null;
     /**
      * 
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     createdBy?: string;
     /**
      * 
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     createdAt?: string;
     /**
      * 
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     updatedBy?: string;
     /**
      * 
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     updatedAt?: string;
 }
@@ -1994,6 +2552,69 @@ export interface Mission {
     farewell?: string | null;
 }
 /**
+ * Defines how to determine the next step
+ * @export
+ * @interface NextStepResolver
+ */
+export interface NextStepResolver {
+    /**
+     * Array of conditions to evaluate
+     * @type {Array<Condition>}
+     * @memberof NextStepResolver
+     */
+    conditions?: Array<Condition> | null;
+    /**
+     * Direct next step ID
+     * @type {string}
+     * @memberof NextStepResolver
+     */
+    nextStepId?: string | null;
+}
+/**
+ * No authentication configuration
+ * @export
+ * @interface NoAuth
+ */
+export interface NoAuth {
+    /**
+     * The type of authentication
+     * @type {string}
+     * @memberof NoAuth
+     */
+    authType?: NoAuthAuthTypeEnum;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum NoAuthAuthTypeEnum {
+    Noauth = 'noauth'
+}
+
+/**
+ * 
+ * @export
+ * @interface NoAuthCredentials
+ */
+export interface NoAuthCredentials {
+    /**
+     * Credential type identifier
+     * @type {string}
+     * @memberof NoAuthCredentials
+     */
+    credentialsType?: NoAuthCredentialsCredentialsTypeEnum;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum NoAuthCredentialsCredentialsTypeEnum {
+    Noauth = 'noauth'
+}
+
+/**
  * 
  * @export
  * @interface NumberPurchaseRequest
@@ -2012,6 +2633,110 @@ export interface NumberPurchaseRequest {
      */
     phoneNumber: string;
 }
+/**
+ * OAuth authentication configuration
+ * @export
+ * @interface OAuth
+ */
+export interface OAuth {
+    /**
+     * The type of authentication
+     * @type {string}
+     * @memberof OAuth
+     */
+    authType?: OAuthAuthTypeEnum;
+    /**
+     * The client ID for the OAuth app
+     * @type {string}
+     * @memberof OAuth
+     */
+    clientId: string;
+    /**
+     * The client secret for the OAuth app
+     * @type {string}
+     * @memberof OAuth
+     */
+    clientSecret: string;
+    /**
+     * The redirect URI for the OAuth app
+     * @type {string}
+     * @memberof OAuth
+     */
+    redirectUri: string;
+    /**
+     * The scopes for the OAuth app
+     * @type {Array<string>}
+     * @memberof OAuth
+     */
+    scopes?: Array<string> | null;
+    /**
+     * The authorization URL for the OAuth app
+     * @type {string}
+     * @memberof OAuth
+     */
+    authUrl: string;
+    /**
+     * The token URL for the OAuth app
+     * @type {string}
+     * @memberof OAuth
+     */
+    tokenUrl: string;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum OAuthAuthTypeEnum {
+    Oauth = 'oauth'
+}
+
+/**
+ * 
+ * @export
+ * @interface OAuthCredentials
+ */
+export interface OAuthCredentials {
+    /**
+     * Credential type identifier
+     * @type {string}
+     * @memberof OAuthCredentials
+     */
+    credentialsType?: OAuthCredentialsCredentialsTypeEnum;
+    /**
+     * The code for the OAuth app
+     * @type {string}
+     * @memberof OAuthCredentials
+     */
+    code: string | null;
+    /**
+     * The access token for the OAuth app
+     * @type {string}
+     * @memberof OAuthCredentials
+     */
+    accessToken: string | null;
+    /**
+     * The refresh token for the OAuth app
+     * @type {string}
+     * @memberof OAuthCredentials
+     */
+    refreshToken: string | null;
+    /**
+     * The expiration date of the access token
+     * @type {string}
+     * @memberof OAuthCredentials
+     */
+    expiresAt: string | null;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum OAuthCredentialsCredentialsTypeEnum {
+    Oauth = 'oauth'
+}
+
 /**
  * 
  * @export
@@ -3307,6 +4032,18 @@ export interface Transcriber {
     providerProps?: object | null;
 }
 /**
+ * Enum for UI node types
+ * @export
+ * @enum {string}
+ */
+export enum UiNodeType {
+    ACTION = 'ACTION',
+    CONDITION = 'CONDITION',
+    LOOP = 'LOOP',
+    SUBFLOW = 'SUBFLOW'
+}
+
+/**
  * 
  * @export
  * @interface UpdateResellerOrganizationRequest
@@ -3606,6 +4343,355 @@ export enum VoiceOutputGenderEnum {
     Neutral = 'Neutral'
 }
 
+/**
+ * Workflow represents a sequence of steps that can be performed by an app
+ * @export
+ * @interface Workflow
+ */
+export interface Workflow {
+    /**
+     * The user who created.
+     * @type {string}
+     * @memberof Workflow
+     */
+    createdBy?: string;
+    /**
+     * The date and time it was created.
+     * @type {string}
+     * @memberof Workflow
+     */
+    createdAt?: string;
+    /**
+     * The user who last updated.
+     * @type {string}
+     * @memberof Workflow
+     */
+    updatedBy?: string;
+    /**
+     * The date and time when it was last updated.
+     * @type {string}
+     * @memberof Workflow
+     */
+    updatedAt?: string;
+    /**
+     * The workspace of the entity.
+     * @type {string}
+     * @memberof Workflow
+     */
+    orgId?: string;
+    /**
+     * The name of the workflow
+     * @type {string}
+     * @memberof Workflow
+     */
+    name?: string;
+    /**
+     * The description of the workflow
+     * @type {string}
+     * @memberof Workflow
+     */
+    description?: string | null;
+    /**
+     * The version of the workflow
+     * @type {string}
+     * @memberof Workflow
+     */
+    version?: string;
+    /**
+     * The steps of the workflow
+     * @type {{ [key: string]: WorkflowStepOutput; }}
+     * @memberof Workflow
+     */
+    steps: { [key: string]: WorkflowStepOutput; };
+    /**
+     * The id of the start step
+     * @type {string}
+     * @memberof Workflow
+     */
+    startStepId?: string;
+    /**
+     * The unique identifier of the workflow
+     * @type {string}
+     * @memberof Workflow
+     */
+    id?: string;
+}
+/**
+ * Workflow Context Model
+ * @export
+ * @interface WorkflowContext
+ */
+export interface WorkflowContext {
+    /**
+     * The ID of the organization
+     * @type {string}
+     * @memberof WorkflowContext
+     */
+    orgId: string;
+    /**
+     * The ID of the workflow
+     * @type {string}
+     * @memberof WorkflowContext
+     */
+    workflowId: string;
+    /**
+     * The input of the step
+     * @type {object}
+     * @memberof WorkflowContext
+     */
+    stepInput: object;
+    /**
+     * The response of the step
+     * @type {object}
+     * @memberof WorkflowContext
+     */
+    stepResponse: object;
+    /**
+     * The order of the steps
+     * @type {Array<string>}
+     * @memberof WorkflowContext
+     */
+    stepOrder: Array<string>;
+}
+/**
+ * Core Workflow Model
+ * @export
+ * @interface WorkflowCore
+ */
+export interface WorkflowCore {
+    /**
+     * The name of the workflow
+     * @type {string}
+     * @memberof WorkflowCore
+     */
+    name?: string;
+    /**
+     * The description of the workflow
+     * @type {string}
+     * @memberof WorkflowCore
+     */
+    description?: string | null;
+    /**
+     * The version of the workflow
+     * @type {string}
+     * @memberof WorkflowCore
+     */
+    version?: string;
+    /**
+     * The steps of the workflow
+     * @type {{ [key: string]: WorkflowStepInput; }}
+     * @memberof WorkflowCore
+     */
+    steps: { [key: string]: WorkflowStepInput; };
+    /**
+     * The id of the start step
+     * @type {string}
+     * @memberof WorkflowCore
+     */
+    startStepId?: string;
+}
+/**
+ * WorkflowExecution represents a single execution of a workflow
+ * @export
+ * @interface WorkflowExecution
+ */
+export interface WorkflowExecution {
+    /**
+     * The user who created.
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    createdBy?: string;
+    /**
+     * The date and time it was created.
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    createdAt?: string;
+    /**
+     * The user who last updated.
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    updatedBy?: string;
+    /**
+     * The date and time when it was last updated.
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    updatedAt?: string;
+    /**
+     * The workspace of the entity.
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    orgId?: string;
+    /**
+     * The id of the workflow
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    workflowId?: string;
+    /**
+     * The id of the workflow run
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    workflowRunId?: string;
+    /**
+     * The status of the workflow execution
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    status?: string;
+    /**
+     * The unique identifier of the workflow execution
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    id?: string;
+}
+/**
+ * Flow Step Model
+ * @export
+ * @interface WorkflowStepInput
+ */
+export interface WorkflowStepInput {
+    /**
+     * The id of the step
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    stepId?: string;
+    /**
+     * The connection id of the app
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    appConnectionId?: string | null;
+    /**
+     * The app action id of the app
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    appActionId?: string;
+    /**
+     * The id of the app
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    appId?: string;
+    /**
+     * The name of the app. It must match the app name in AppDefinition implementation
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    appName?: string;
+    /**
+     * The version of the app. It must match the app version in AppDefinition implementation
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    appVersion?: string;
+    /**
+     * The step to be performed
+     * @type {AppActionEntity}
+     * @memberof WorkflowStepInput
+     */
+    stepPayload?: AppActionEntity;
+    /**
+     * The data resolver on how to resolve the data for the step
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    dataResolver?: string | null;
+    /**
+     * Resolver for determining the next step
+     * @type {NextStepResolver}
+     * @memberof WorkflowStepInput
+     */
+    nextStepResolver: NextStepResolver;
+}
+/**
+ * Flow Step Model
+ * @export
+ * @interface WorkflowStepOutput
+ */
+export interface WorkflowStepOutput {
+    /**
+     * The id of the step
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    stepId?: string;
+    /**
+     * The connection id of the app
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    appConnectionId?: string | null;
+    /**
+     * The app action id of the app
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    appActionId?: string;
+    /**
+     * The id of the app
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    appId?: string;
+    /**
+     * The name of the app. It must match the app name in AppDefinition implementation
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    appName?: string;
+    /**
+     * The version of the app. It must match the app version in AppDefinition implementation
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    appVersion?: string;
+    /**
+     * The step to be performed
+     * @type {AppActionEntity}
+     * @memberof WorkflowStepOutput
+     */
+    stepPayload?: AppActionEntity;
+    /**
+     * The data resolver on how to resolve the data for the step
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    dataResolver?: string | null;
+    /**
+     * Resolver for determining the next step
+     * @type {NextStepResolver}
+     * @memberof WorkflowStepOutput
+     */
+    nextStepResolver: NextStepResolver;
+}
+/**
+ * 
+ * @export
+ * @interface WorkflowStepTriggerRequest
+ */
+export interface WorkflowStepTriggerRequest {
+    /**
+     * 
+     * @type {WorkflowContext}
+     * @memberof WorkflowStepTriggerRequest
+     */
+    workflowContext: WorkflowContext;
+    /**
+     * 
+     * @type {WorkflowStepInput}
+     * @memberof WorkflowStepTriggerRequest
+     */
+    workflowStep: WorkflowStepInput;
+}
 
 /**
  * ActionAgentLinkApi - axios parameter creator
@@ -3777,7 +4863,7 @@ export const ActionAgentLinkApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async createActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ActionAgentLinkApiAxiosParamCreator(configuration).createActionAgentLinkV1(actionId, agentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -3792,7 +4878,7 @@ export const ActionAgentLinkApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ActionAgentLinkApiAxiosParamCreator(configuration).deleteActionAgentLinkV1(actionId, agentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -3830,7 +4916,7 @@ export const ActionAgentLinkApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createActionAgentLinkV1(actionId: string, agentId: string, options?: any): AxiosPromise<BaseResponse> {
+        createActionAgentLinkV1(actionId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return ActionAgentLinkApiFp(configuration).createActionAgentLinkV1(actionId, agentId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3841,7 +4927,7 @@ export const ActionAgentLinkApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteActionAgentLinkV1(actionId: string, agentId: string, options?: any): AxiosPromise<BaseResponse> {
+        deleteActionAgentLinkV1(actionId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return ActionAgentLinkApiFp(configuration).deleteActionAgentLinkV1(actionId, agentId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4207,7 +5293,7 @@ export const ActionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteActionV1(actionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteActionV1(actionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ActionsApiAxiosParamCreator(configuration).deleteActionV1(actionId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -4289,7 +5375,7 @@ export const ActionsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteActionV1(actionId: string, options?: any): AxiosPromise<BaseResponse> {
+        deleteActionV1(actionId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return ActionsApiFp(configuration).deleteActionV1(actionId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4711,7 +5797,7 @@ export const AgentsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteAIAgentV1(agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteAIAgentV1(agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await AgentsApiAxiosParamCreator(configuration).deleteAIAgentV1(agentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -4793,7 +5879,7 @@ export const AgentsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteAIAgentV1(agentId: string, options?: any): AxiosPromise<BaseResponse> {
+        deleteAIAgentV1(agentId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return AgentsApiFp(configuration).deleteAIAgentV1(agentId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5313,7 +6399,7 @@ export const ApiKeyApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteApiKeyV1(keyId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteApiKeyV1(keyId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ApiKeyApiAxiosParamCreator(configuration).deleteApiKeyV1(keyId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -5372,7 +6458,7 @@ export const ApiKeyApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteApiKeyV1(keyId: string, options?: any): AxiosPromise<BaseResponse> {
+        deleteApiKeyV1(keyId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return ApiKeyApiFp(configuration).deleteApiKeyV1(keyId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6028,7 +7114,7 @@ export const ConversationProspectLinkApiFp = function(configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async createConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ConversationProspectLinkApiAxiosParamCreator(configuration).createConversationProspectLinkV1(conversationId, prospectId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -6043,7 +7129,7 @@ export const ConversationProspectLinkApiFp = function(configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ConversationProspectLinkApiAxiosParamCreator(configuration).deleteConversationProspectLinkV1(conversationId, prospectId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -6081,7 +7167,7 @@ export const ConversationProspectLinkApiFactory = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): AxiosPromise<BaseResponse> {
+        createConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return ConversationProspectLinkApiFp(configuration).createConversationProspectLinkV1(conversationId, prospectId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6092,7 +7178,7 @@ export const ConversationProspectLinkApiFactory = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): AxiosPromise<BaseResponse> {
+        deleteConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return ConversationProspectLinkApiFp(configuration).deleteConversationProspectLinkV1(conversationId, prospectId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6527,7 +7613,7 @@ export const ConversationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteConversationV1(conversationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteConversationV1(conversationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ConversationsApiAxiosParamCreator(configuration).deleteConversationV1(conversationId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -6620,7 +7706,7 @@ export const ConversationsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteConversationV1(conversationId: string, options?: any): AxiosPromise<BaseResponse> {
+        deleteConversationV1(conversationId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return ConversationsApiFp(configuration).deleteConversationV1(conversationId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6875,7 +7961,7 @@ export const DataPlaneApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Connection>> {
+        async createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConnectionOutput>> {
             const localVarAxiosArgs = await DataPlaneApiAxiosParamCreator(configuration).createConnection(agentId, connectionSource, prospectId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -6889,7 +7975,7 @@ export const DataPlaneApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPlivoAudioStreamXml(connectionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async getPlivoAudioStreamXml(connectionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await DataPlaneApiAxiosParamCreator(configuration).getPlivoAudioStreamXml(connectionId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -6914,7 +8000,7 @@ export const DataPlaneApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): AxiosPromise<Connection> {
+        createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): AxiosPromise<ConnectionOutput> {
             return DataPlaneApiFp(configuration).createConnection(agentId, connectionSource, prospectId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6924,7 +8010,7 @@ export const DataPlaneApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPlivoAudioStreamXml(connectionId: string, options?: any): AxiosPromise<BaseResponse> {
+        getPlivoAudioStreamXml(connectionId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return DataPlaneApiFp(configuration).getPlivoAudioStreamXml(connectionId, options).then((request) => request(axios, basePath));
         },
     };
@@ -7391,6 +8477,36 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Heart Beat check to check the health of Workflow Service
+         * @summary Heart Beat Status Of Workflow Service
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        statusWorkflowsStatusGet: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/workflows/status`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -7408,6 +8524,19 @@ export const HealthApiFp = function(configuration?: Configuration) {
          */
         async statusStatusGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await HealthApiAxiosParamCreator(configuration).statusStatusGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Heart Beat check to check the health of Workflow Service
+         * @summary Heart Beat Status Of Workflow Service
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async statusWorkflowsStatusGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await HealthApiAxiosParamCreator(configuration).statusWorkflowsStatusGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -7431,6 +8560,15 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
         statusStatusGet(options?: any): AxiosPromise<object> {
             return HealthApiFp(configuration).statusStatusGet(options).then((request) => request(axios, basePath));
         },
+        /**
+         * Heart Beat check to check the health of Workflow Service
+         * @summary Heart Beat Status Of Workflow Service
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        statusWorkflowsStatusGet(options?: any): AxiosPromise<object> {
+            return HealthApiFp(configuration).statusWorkflowsStatusGet(options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -7450,6 +8588,17 @@ export class HealthApi extends BaseAPI {
      */
     public statusStatusGet(options?: any) {
         return HealthApiFp(this.configuration).statusStatusGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Heart Beat check to check the health of Workflow Service
+     * @summary Heart Beat Status Of Workflow Service
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof HealthApi
+     */
+    public statusWorkflowsStatusGet(options?: any) {
+        return HealthApiFp(this.configuration).statusWorkflowsStatusGet(options).then((request) => request(this.axios, this.basePath));
     }
 
 }
@@ -7757,7 +8906,7 @@ export const HiveApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteHiveV1(hiveId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteHiveV1(hiveId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await HiveApiAxiosParamCreator(configuration).deleteHiveV1(hiveId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -7839,7 +8988,7 @@ export const HiveApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteHiveV1(hiveId: string, options?: any): AxiosPromise<BaseResponse> {
+        deleteHiveV1(hiveId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return HiveApiFp(configuration).deleteHiveV1(hiveId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8174,7 +9323,7 @@ export const HiveAgentLinkApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async createHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await HiveAgentLinkApiAxiosParamCreator(configuration).createHiveAgentLinkV1(hiveId, agentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -8189,7 +9338,7 @@ export const HiveAgentLinkApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await HiveAgentLinkApiAxiosParamCreator(configuration).deleteHiveAgentLinkV1(hiveId, agentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -8241,7 +9390,7 @@ export const HiveAgentLinkApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): AxiosPromise<BaseResponse> {
+        createHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return HiveAgentLinkApiFp(configuration).createHiveAgentLinkV1(hiveId, agentId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8252,7 +9401,7 @@ export const HiveAgentLinkApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): AxiosPromise<BaseResponse> {
+        deleteHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return HiveAgentLinkApiFp(configuration).deleteHiveAgentLinkV1(hiveId, agentId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8949,7 +10098,7 @@ export const InternalApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteOrganizationV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteOrganizationV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await InternalApiAxiosParamCreator(configuration).deleteOrganizationV1(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -9115,7 +10264,7 @@ export const InternalApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteOrganizationV1(options?: any): AxiosPromise<BaseResponse> {
+        deleteOrganizationV1(options?: any): AxiosPromise<BaseResponseInput> {
             return InternalApiFp(configuration).deleteOrganizationV1(options).then((request) => request(axios, basePath));
         },
         /**
@@ -9723,7 +10872,7 @@ export const ProductsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteProductV1(productId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteProductV1(productId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ProductsApiAxiosParamCreator(configuration).deleteProductV1(productId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -9821,7 +10970,7 @@ export const ProductsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteProductV1(productId: string, options?: any): AxiosPromise<BaseResponse> {
+        deleteProductV1(productId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return ProductsApiFp(configuration).deleteProductV1(productId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -10269,7 +11418,7 @@ export const ProspectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteProspectV1(prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async deleteProspectV1(prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ProspectsApiAxiosParamCreator(configuration).deleteProspectV1(prospectId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -10351,7 +11500,7 @@ export const ProspectsApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteProspectV1(prospectId: string, options?: any): AxiosPromise<BaseResponse> {
+        deleteProspectV1(prospectId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return ProspectsApiFp(configuration).deleteProspectV1(prospectId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -11628,7 +12777,7 @@ export const ResellerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addCustomerCreditV1(customerOrgId: string, customerCreditRequest: Array<CustomerCreditRequest>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async addCustomerCreditV1(customerOrgId: string, customerCreditRequest: Array<CustomerCreditRequest>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ResellerApiAxiosParamCreator(configuration).addCustomerCreditV1(customerOrgId, customerCreditRequest, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -11869,7 +13018,7 @@ export const ResellerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async stripeSyncV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async stripeSyncV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ResellerApiAxiosParamCreator(configuration).stripeSyncV1(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -11884,7 +13033,7 @@ export const ResellerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateCustomerPricingV1(customerOrgId: string, priceUpdateRequest: Array<PriceUpdateRequest>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async updateCustomerPricingV1(customerOrgId: string, priceUpdateRequest: Array<PriceUpdateRequest>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await ResellerApiAxiosParamCreator(configuration).updateCustomerPricingV1(customerOrgId, priceUpdateRequest, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -11961,7 +13110,7 @@ export const ResellerApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addCustomerCreditV1(customerOrgId: string, customerCreditRequest: Array<CustomerCreditRequest>, options?: any): AxiosPromise<BaseResponse> {
+        addCustomerCreditV1(customerOrgId: string, customerCreditRequest: Array<CustomerCreditRequest>, options?: any): AxiosPromise<BaseResponseInput> {
             return ResellerApiFp(configuration).addCustomerCreditV1(customerOrgId, customerCreditRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -12138,7 +13287,7 @@ export const ResellerApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stripeSyncV1(options?: any): AxiosPromise<BaseResponse> {
+        stripeSyncV1(options?: any): AxiosPromise<BaseResponseInput> {
             return ResellerApiFp(configuration).stripeSyncV1(options).then((request) => request(axios, basePath));
         },
         /**
@@ -12149,7 +13298,7 @@ export const ResellerApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateCustomerPricingV1(customerOrgId: string, priceUpdateRequest: Array<PriceUpdateRequest>, options?: any): AxiosPromise<BaseResponse> {
+        updateCustomerPricingV1(customerOrgId: string, priceUpdateRequest: Array<PriceUpdateRequest>, options?: any): AxiosPromise<BaseResponseInput> {
             return ResellerApiFp(configuration).updateCustomerPricingV1(customerOrgId, priceUpdateRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -12885,7 +14034,7 @@ export const TelephonyApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async linkPhoneToAgentV1(phoneId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async linkPhoneToAgentV1(phoneId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await TelephonyApiAxiosParamCreator(configuration).linkPhoneToAgentV1(phoneId, agentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -12954,7 +14103,7 @@ export const TelephonyApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async releasePhoneV1(phoneId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async releasePhoneV1(phoneId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await TelephonyApiAxiosParamCreator(configuration).releasePhoneV1(phoneId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -12969,7 +14118,7 @@ export const TelephonyApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unlinkPhoneFromAgentV1(phoneId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>> {
+        async unlinkPhoneFromAgentV1(phoneId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>> {
             const localVarAxiosArgs = await TelephonyApiAxiosParamCreator(configuration).unlinkPhoneFromAgentV1(phoneId, agentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -13003,7 +14152,7 @@ export const TelephonyApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        linkPhoneToAgentV1(phoneId: string, agentId: string, options?: any): AxiosPromise<BaseResponse> {
+        linkPhoneToAgentV1(phoneId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return TelephonyApiFp(configuration).linkPhoneToAgentV1(phoneId, agentId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -13052,7 +14201,7 @@ export const TelephonyApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        releasePhoneV1(phoneId: string, options?: any): AxiosPromise<BaseResponse> {
+        releasePhoneV1(phoneId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return TelephonyApiFp(configuration).releasePhoneV1(phoneId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -13063,7 +14212,7 @@ export const TelephonyApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        unlinkPhoneFromAgentV1(phoneId: string, agentId: string, options?: any): AxiosPromise<BaseResponse> {
+        unlinkPhoneFromAgentV1(phoneId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput> {
             return TelephonyApiFp(configuration).unlinkPhoneFromAgentV1(phoneId, agentId, options).then((request) => request(axios, basePath));
         },
     };
@@ -13701,6 +14850,1955 @@ export class VoiceModelsApi extends BaseAPI {
      */
     public listVoiceModelsV1(options?: any) {
         return VoiceModelsApiFp(this.configuration).listVoiceModelsV1(options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+
+/**
+ * WorkflowsApi - axios parameter creator
+ * @export
+ */
+export const WorkflowsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create Workflow
+         * @param {WorkflowCore} workflowCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createWorkflowV1WorkflowsPost: async (workflowCore: WorkflowCore, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workflowCore' is not null or undefined
+            if (workflowCore === null || workflowCore === undefined) {
+                throw new RequiredError('workflowCore','Required parameter workflowCore was null or undefined when calling createWorkflowV1WorkflowsPost.');
+            }
+            const localVarPath = `/v1/workflows/`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof workflowCore !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(workflowCore !== undefined ? workflowCore : {}) : (workflowCore || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete Workflow
+         * @param {string} workflowId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteWorkflowV1WorkflowsWorkflowIdDelete: async (workflowId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workflowId' is not null or undefined
+            if (workflowId === null || workflowId === undefined) {
+                throw new RequiredError('workflowId','Required parameter workflowId was null or undefined when calling deleteWorkflowV1WorkflowsWorkflowIdDelete.');
+            }
+            const localVarPath = `/v1/workflows/{workflow_id}`
+                .replace(`{${"workflow_id"}}`, encodeURIComponent(String(workflowId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Read Workflow
+         * @param {string} workflowId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readWorkflowV1WorkflowsWorkflowIdGet: async (workflowId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workflowId' is not null or undefined
+            if (workflowId === null || workflowId === undefined) {
+                throw new RequiredError('workflowId','Required parameter workflowId was null or undefined when calling readWorkflowV1WorkflowsWorkflowIdGet.');
+            }
+            const localVarPath = `/v1/workflows/{workflow_id}`
+                .replace(`{${"workflow_id"}}`, encodeURIComponent(String(workflowId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Read Workflows
+         * @param {number} [skip] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readWorkflowsV1WorkflowsGet: async (skip?: number, limit?: number, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/workflows/`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (skip !== undefined) {
+                localVarQueryParameter['skip'] = skip;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Trigger Workflow Step
+         * @param {string} workflowId 
+         * @param {string} stepId 
+         * @param {WorkflowStepTriggerRequest} workflowStepTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost: async (workflowId: string, stepId: string, workflowStepTriggerRequest: WorkflowStepTriggerRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workflowId' is not null or undefined
+            if (workflowId === null || workflowId === undefined) {
+                throw new RequiredError('workflowId','Required parameter workflowId was null or undefined when calling triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost.');
+            }
+            // verify required parameter 'stepId' is not null or undefined
+            if (stepId === null || stepId === undefined) {
+                throw new RequiredError('stepId','Required parameter stepId was null or undefined when calling triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost.');
+            }
+            // verify required parameter 'workflowStepTriggerRequest' is not null or undefined
+            if (workflowStepTriggerRequest === null || workflowStepTriggerRequest === undefined) {
+                throw new RequiredError('workflowStepTriggerRequest','Required parameter workflowStepTriggerRequest was null or undefined when calling triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost.');
+            }
+            const localVarPath = `/v1/workflows/{workflow_id}/step/{step_id}/trigger`
+                .replace(`{${"workflow_id"}}`, encodeURIComponent(String(workflowId)))
+                .replace(`{${"step_id"}}`, encodeURIComponent(String(stepId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof workflowStepTriggerRequest !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(workflowStepTriggerRequest !== undefined ? workflowStepTriggerRequest : {}) : (workflowStepTriggerRequest || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update Workflow
+         * @param {string} workflowId 
+         * @param {WorkflowCore} workflowCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateWorkflowV1WorkflowsWorkflowIdPut: async (workflowId: string, workflowCore: WorkflowCore, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workflowId' is not null or undefined
+            if (workflowId === null || workflowId === undefined) {
+                throw new RequiredError('workflowId','Required parameter workflowId was null or undefined when calling updateWorkflowV1WorkflowsWorkflowIdPut.');
+            }
+            // verify required parameter 'workflowCore' is not null or undefined
+            if (workflowCore === null || workflowCore === undefined) {
+                throw new RequiredError('workflowCore','Required parameter workflowCore was null or undefined when calling updateWorkflowV1WorkflowsWorkflowIdPut.');
+            }
+            const localVarPath = `/v1/workflows/{workflow_id}`
+                .replace(`{${"workflow_id"}}`, encodeURIComponent(String(workflowId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof workflowCore !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(workflowCore !== undefined ? workflowCore : {}) : (workflowCore || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * WorkflowsApi - functional programming interface
+ * @export
+ */
+export const WorkflowsApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create Workflow
+         * @param {WorkflowCore} workflowCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createWorkflowV1WorkflowsPost(workflowCore: WorkflowCore, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workflow>> {
+            const localVarAxiosArgs = await WorkflowsApiAxiosParamCreator(configuration).createWorkflowV1WorkflowsPost(workflowCore, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Delete Workflow
+         * @param {string} workflowId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteWorkflowV1WorkflowsWorkflowIdDelete(workflowId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowModelsBaseBaseResponse>> {
+            const localVarAxiosArgs = await WorkflowsApiAxiosParamCreator(configuration).deleteWorkflowV1WorkflowsWorkflowIdDelete(workflowId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Read Workflow
+         * @param {string} workflowId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async readWorkflowV1WorkflowsWorkflowIdGet(workflowId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workflow>> {
+            const localVarAxiosArgs = await WorkflowsApiAxiosParamCreator(configuration).readWorkflowV1WorkflowsWorkflowIdGet(workflowId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Read Workflows
+         * @param {number} [skip] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async readWorkflowsV1WorkflowsGet(skip?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Workflow>>> {
+            const localVarAxiosArgs = await WorkflowsApiAxiosParamCreator(configuration).readWorkflowsV1WorkflowsGet(skip, limit, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Trigger Workflow Step
+         * @param {string} workflowId 
+         * @param {string} stepId 
+         * @param {WorkflowStepTriggerRequest} workflowStepTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost(workflowId: string, stepId: string, workflowStepTriggerRequest: WorkflowStepTriggerRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await WorkflowsApiAxiosParamCreator(configuration).triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost(workflowId, stepId, workflowStepTriggerRequest, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Update Workflow
+         * @param {string} workflowId 
+         * @param {WorkflowCore} workflowCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateWorkflowV1WorkflowsWorkflowIdPut(workflowId: string, workflowCore: WorkflowCore, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workflow>> {
+            const localVarAxiosArgs = await WorkflowsApiAxiosParamCreator(configuration).updateWorkflowV1WorkflowsWorkflowIdPut(workflowId, workflowCore, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * WorkflowsApi - factory interface
+ * @export
+ */
+export const WorkflowsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @summary Create Workflow
+         * @param {WorkflowCore} workflowCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createWorkflowV1WorkflowsPost(workflowCore: WorkflowCore, options?: any): AxiosPromise<Workflow> {
+            return WorkflowsApiFp(configuration).createWorkflowV1WorkflowsPost(workflowCore, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete Workflow
+         * @param {string} workflowId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteWorkflowV1WorkflowsWorkflowIdDelete(workflowId: string, options?: any): AxiosPromise<AgenticWorkflowModelsBaseBaseResponse> {
+            return WorkflowsApiFp(configuration).deleteWorkflowV1WorkflowsWorkflowIdDelete(workflowId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Read Workflow
+         * @param {string} workflowId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readWorkflowV1WorkflowsWorkflowIdGet(workflowId: string, options?: any): AxiosPromise<Workflow> {
+            return WorkflowsApiFp(configuration).readWorkflowV1WorkflowsWorkflowIdGet(workflowId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Read Workflows
+         * @param {number} [skip] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readWorkflowsV1WorkflowsGet(skip?: number, limit?: number, options?: any): AxiosPromise<Array<Workflow>> {
+            return WorkflowsApiFp(configuration).readWorkflowsV1WorkflowsGet(skip, limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Trigger Workflow Step
+         * @param {string} workflowId 
+         * @param {string} stepId 
+         * @param {WorkflowStepTriggerRequest} workflowStepTriggerRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost(workflowId: string, stepId: string, workflowStepTriggerRequest: WorkflowStepTriggerRequest, options?: any): AxiosPromise<object> {
+            return WorkflowsApiFp(configuration).triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost(workflowId, stepId, workflowStepTriggerRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update Workflow
+         * @param {string} workflowId 
+         * @param {WorkflowCore} workflowCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateWorkflowV1WorkflowsWorkflowIdPut(workflowId: string, workflowCore: WorkflowCore, options?: any): AxiosPromise<Workflow> {
+            return WorkflowsApiFp(configuration).updateWorkflowV1WorkflowsWorkflowIdPut(workflowId, workflowCore, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * WorkflowsApi - object-oriented interface
+ * @export
+ * @class WorkflowsApi
+ * @extends {BaseAPI}
+ */
+export class WorkflowsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create Workflow
+     * @param {WorkflowCore} workflowCore 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    public createWorkflowV1WorkflowsPost(workflowCore: WorkflowCore, options?: any) {
+        return WorkflowsApiFp(this.configuration).createWorkflowV1WorkflowsPost(workflowCore, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete Workflow
+     * @param {string} workflowId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    public deleteWorkflowV1WorkflowsWorkflowIdDelete(workflowId: string, options?: any) {
+        return WorkflowsApiFp(this.configuration).deleteWorkflowV1WorkflowsWorkflowIdDelete(workflowId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Read Workflow
+     * @param {string} workflowId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    public readWorkflowV1WorkflowsWorkflowIdGet(workflowId: string, options?: any) {
+        return WorkflowsApiFp(this.configuration).readWorkflowV1WorkflowsWorkflowIdGet(workflowId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Read Workflows
+     * @param {number} [skip] 
+     * @param {number} [limit] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    public readWorkflowsV1WorkflowsGet(skip?: number, limit?: number, options?: any) {
+        return WorkflowsApiFp(this.configuration).readWorkflowsV1WorkflowsGet(skip, limit, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Trigger Workflow Step
+     * @param {string} workflowId 
+     * @param {string} stepId 
+     * @param {WorkflowStepTriggerRequest} workflowStepTriggerRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    public triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost(workflowId: string, stepId: string, workflowStepTriggerRequest: WorkflowStepTriggerRequest, options?: any) {
+        return WorkflowsApiFp(this.configuration).triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost(workflowId, stepId, workflowStepTriggerRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update Workflow
+     * @param {string} workflowId 
+     * @param {WorkflowCore} workflowCore 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    public updateWorkflowV1WorkflowsWorkflowIdPut(workflowId: string, workflowCore: WorkflowCore, options?: any) {
+        return WorkflowsApiFp(this.configuration).updateWorkflowV1WorkflowsWorkflowIdPut(workflowId, workflowCore, options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+
+/**
+ * WorkflowsAppsApi - axios parameter creator
+ * @export
+ */
+export const WorkflowsAppsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create App
+         * @param {AppEntity} appEntity 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createAppV1WorkflowsAppsPost: async (appEntity: AppEntity, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appEntity' is not null or undefined
+            if (appEntity === null || appEntity === undefined) {
+                throw new RequiredError('appEntity','Required parameter appEntity was null or undefined when calling createAppV1WorkflowsAppsPost.');
+            }
+            const localVarPath = `/v1/workflows/apps/`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof appEntity !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(appEntity !== undefined ? appEntity : {}) : (appEntity || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete App
+         * @param {string} appId 
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAppV1WorkflowsAppsAppIdDelete: async (appId: string, version?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            if (appId === null || appId === undefined) {
+                throw new RequiredError('appId','Required parameter appId was null or undefined when calling deleteAppV1WorkflowsAppsAppIdDelete.');
+            }
+            const localVarPath = `/v1/workflows/apps/{app_id}`
+                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (version !== undefined) {
+                localVarQueryParameter['version'] = version;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Connections By App Id
+         * @param {string} appId 
+         * @param {string} version 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet: async (appId: string, version: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            if (appId === null || appId === undefined) {
+                throw new RequiredError('appId','Required parameter appId was null or undefined when calling getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet.');
+            }
+            // verify required parameter 'version' is not null or undefined
+            if (version === null || version === undefined) {
+                throw new RequiredError('version','Required parameter version was null or undefined when calling getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet.');
+            }
+            const localVarPath = `/v1/workflows/apps/{app_id}/versions/{version}/connections`
+                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Read App
+         * @param {string} appId 
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readAppV1WorkflowsAppsAppIdGet: async (appId: string, version?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            if (appId === null || appId === undefined) {
+                throw new RequiredError('appId','Required parameter appId was null or undefined when calling readAppV1WorkflowsAppsAppIdGet.');
+            }
+            const localVarPath = `/v1/workflows/apps/{app_id}`
+                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (version !== undefined) {
+                localVarQueryParameter['version'] = version;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Read Apps
+         * @param {number} [skip] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readAppsV1WorkflowsAppsGet: async (skip?: number, limit?: number, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/workflows/apps/`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (skip !== undefined) {
+                localVarQueryParameter['skip'] = skip;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update App
+         * @param {string} appId 
+         * @param {AppEntity} appEntity 
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAppV1WorkflowsAppsAppIdPut: async (appId: string, appEntity: AppEntity, version?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            if (appId === null || appId === undefined) {
+                throw new RequiredError('appId','Required parameter appId was null or undefined when calling updateAppV1WorkflowsAppsAppIdPut.');
+            }
+            // verify required parameter 'appEntity' is not null or undefined
+            if (appEntity === null || appEntity === undefined) {
+                throw new RequiredError('appEntity','Required parameter appEntity was null or undefined when calling updateAppV1WorkflowsAppsAppIdPut.');
+            }
+            const localVarPath = `/v1/workflows/apps/{app_id}`
+                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (version !== undefined) {
+                localVarQueryParameter['version'] = version;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof appEntity !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(appEntity !== undefined ? appEntity : {}) : (appEntity || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * WorkflowsAppsApi - functional programming interface
+ * @export
+ */
+export const WorkflowsAppsApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create App
+         * @param {AppEntity} appEntity 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createAppV1WorkflowsAppsPost(appEntity: AppEntity, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppResponse>> {
+            const localVarAxiosArgs = await WorkflowsAppsApiAxiosParamCreator(configuration).createAppV1WorkflowsAppsPost(appEntity, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Delete App
+         * @param {string} appId 
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAppV1WorkflowsAppsAppIdDelete(appId: string, version?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowModelsBaseBaseResponse>> {
+            const localVarAxiosArgs = await WorkflowsAppsApiAxiosParamCreator(configuration).deleteAppV1WorkflowsAppsAppIdDelete(appId, version, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Get Connections By App Id
+         * @param {string} appId 
+         * @param {string} version 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet(appId: string, version: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConnectionCore>>> {
+            const localVarAxiosArgs = await WorkflowsAppsApiAxiosParamCreator(configuration).getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet(appId, version, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Read App
+         * @param {string} appId 
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async readAppV1WorkflowsAppsAppIdGet(appId: string, version?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppResponse>> {
+            const localVarAxiosArgs = await WorkflowsAppsApiAxiosParamCreator(configuration).readAppV1WorkflowsAppsAppIdGet(appId, version, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Read Apps
+         * @param {number} [skip] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async readAppsV1WorkflowsAppsGet(skip?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AppResponse>>> {
+            const localVarAxiosArgs = await WorkflowsAppsApiAxiosParamCreator(configuration).readAppsV1WorkflowsAppsGet(skip, limit, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Update App
+         * @param {string} appId 
+         * @param {AppEntity} appEntity 
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateAppV1WorkflowsAppsAppIdPut(appId: string, appEntity: AppEntity, version?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppResponse>> {
+            const localVarAxiosArgs = await WorkflowsAppsApiAxiosParamCreator(configuration).updateAppV1WorkflowsAppsAppIdPut(appId, appEntity, version, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * WorkflowsAppsApi - factory interface
+ * @export
+ */
+export const WorkflowsAppsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @summary Create App
+         * @param {AppEntity} appEntity 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createAppV1WorkflowsAppsPost(appEntity: AppEntity, options?: any): AxiosPromise<AppResponse> {
+            return WorkflowsAppsApiFp(configuration).createAppV1WorkflowsAppsPost(appEntity, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete App
+         * @param {string} appId 
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAppV1WorkflowsAppsAppIdDelete(appId: string, version?: string, options?: any): AxiosPromise<AgenticWorkflowModelsBaseBaseResponse> {
+            return WorkflowsAppsApiFp(configuration).deleteAppV1WorkflowsAppsAppIdDelete(appId, version, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Connections By App Id
+         * @param {string} appId 
+         * @param {string} version 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet(appId: string, version: string, options?: any): AxiosPromise<Array<ConnectionCore>> {
+            return WorkflowsAppsApiFp(configuration).getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet(appId, version, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Read App
+         * @param {string} appId 
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readAppV1WorkflowsAppsAppIdGet(appId: string, version?: string, options?: any): AxiosPromise<AppResponse> {
+            return WorkflowsAppsApiFp(configuration).readAppV1WorkflowsAppsAppIdGet(appId, version, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Read Apps
+         * @param {number} [skip] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readAppsV1WorkflowsAppsGet(skip?: number, limit?: number, options?: any): AxiosPromise<Array<AppResponse>> {
+            return WorkflowsAppsApiFp(configuration).readAppsV1WorkflowsAppsGet(skip, limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update App
+         * @param {string} appId 
+         * @param {AppEntity} appEntity 
+         * @param {string} [version] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAppV1WorkflowsAppsAppIdPut(appId: string, appEntity: AppEntity, version?: string, options?: any): AxiosPromise<AppResponse> {
+            return WorkflowsAppsApiFp(configuration).updateAppV1WorkflowsAppsAppIdPut(appId, appEntity, version, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * WorkflowsAppsApi - object-oriented interface
+ * @export
+ * @class WorkflowsAppsApi
+ * @extends {BaseAPI}
+ */
+export class WorkflowsAppsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create App
+     * @param {AppEntity} appEntity 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    public createAppV1WorkflowsAppsPost(appEntity: AppEntity, options?: any) {
+        return WorkflowsAppsApiFp(this.configuration).createAppV1WorkflowsAppsPost(appEntity, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete App
+     * @param {string} appId 
+     * @param {string} [version] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    public deleteAppV1WorkflowsAppsAppIdDelete(appId: string, version?: string, options?: any) {
+        return WorkflowsAppsApiFp(this.configuration).deleteAppV1WorkflowsAppsAppIdDelete(appId, version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Connections By App Id
+     * @param {string} appId 
+     * @param {string} version 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    public getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet(appId: string, version: string, options?: any) {
+        return WorkflowsAppsApiFp(this.configuration).getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet(appId, version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Read App
+     * @param {string} appId 
+     * @param {string} [version] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    public readAppV1WorkflowsAppsAppIdGet(appId: string, version?: string, options?: any) {
+        return WorkflowsAppsApiFp(this.configuration).readAppV1WorkflowsAppsAppIdGet(appId, version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Read Apps
+     * @param {number} [skip] 
+     * @param {number} [limit] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    public readAppsV1WorkflowsAppsGet(skip?: number, limit?: number, options?: any) {
+        return WorkflowsAppsApiFp(this.configuration).readAppsV1WorkflowsAppsGet(skip, limit, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update App
+     * @param {string} appId 
+     * @param {AppEntity} appEntity 
+     * @param {string} [version] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    public updateAppV1WorkflowsAppsAppIdPut(appId: string, appEntity: AppEntity, version?: string, options?: any) {
+        return WorkflowsAppsApiFp(this.configuration).updateAppV1WorkflowsAppsAppIdPut(appId, appEntity, version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+
+/**
+ * WorkflowsConnectionsApi - axios parameter creator
+ * @export
+ */
+export const WorkflowsConnectionsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create Connection
+         * @param {ConnectionCore} connectionCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createConnectionV1WorkflowsConnectionsPost: async (connectionCore: ConnectionCore, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectionCore' is not null or undefined
+            if (connectionCore === null || connectionCore === undefined) {
+                throw new RequiredError('connectionCore','Required parameter connectionCore was null or undefined when calling createConnectionV1WorkflowsConnectionsPost.');
+            }
+            const localVarPath = `/v1/workflows/connections/`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof connectionCore !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(connectionCore !== undefined ? connectionCore : {}) : (connectionCore || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete Connection
+         * @param {string} connectionId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteConnectionV1WorkflowsConnectionsConnectionIdDelete: async (connectionId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectionId' is not null or undefined
+            if (connectionId === null || connectionId === undefined) {
+                throw new RequiredError('connectionId','Required parameter connectionId was null or undefined when calling deleteConnectionV1WorkflowsConnectionsConnectionIdDelete.');
+            }
+            const localVarPath = `/v1/workflows/connections/{connection_id}`
+                .replace(`{${"connection_id"}}`, encodeURIComponent(String(connectionId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Read Connection
+         * @param {string} connectionId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readConnectionV1WorkflowsConnectionsConnectionIdGet: async (connectionId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectionId' is not null or undefined
+            if (connectionId === null || connectionId === undefined) {
+                throw new RequiredError('connectionId','Required parameter connectionId was null or undefined when calling readConnectionV1WorkflowsConnectionsConnectionIdGet.');
+            }
+            const localVarPath = `/v1/workflows/connections/{connection_id}`
+                .replace(`{${"connection_id"}}`, encodeURIComponent(String(connectionId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Read Connections
+         * @param {number} [skip] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readConnectionsV1WorkflowsConnectionsGet: async (skip?: number, limit?: number, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/workflows/connections/`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (skip !== undefined) {
+                localVarQueryParameter['skip'] = skip;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update Connection
+         * @param {string} connectionId 
+         * @param {ConnectionCore} connectionCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateConnectionV1WorkflowsConnectionsConnectionIdPut: async (connectionId: string, connectionCore: ConnectionCore, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectionId' is not null or undefined
+            if (connectionId === null || connectionId === undefined) {
+                throw new RequiredError('connectionId','Required parameter connectionId was null or undefined when calling updateConnectionV1WorkflowsConnectionsConnectionIdPut.');
+            }
+            // verify required parameter 'connectionCore' is not null or undefined
+            if (connectionCore === null || connectionCore === undefined) {
+                throw new RequiredError('connectionCore','Required parameter connectionCore was null or undefined when calling updateConnectionV1WorkflowsConnectionsConnectionIdPut.');
+            }
+            const localVarPath = `/v1/workflows/connections/{connection_id}`
+                .replace(`{${"connection_id"}}`, encodeURIComponent(String(connectionId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof connectionCore !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(connectionCore !== undefined ? connectionCore : {}) : (connectionCore || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * WorkflowsConnectionsApi - functional programming interface
+ * @export
+ */
+export const WorkflowsConnectionsApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create Connection
+         * @param {ConnectionCore} connectionCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createConnectionV1WorkflowsConnectionsPost(connectionCore: ConnectionCore, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowDbModelsConnection>> {
+            const localVarAxiosArgs = await WorkflowsConnectionsApiAxiosParamCreator(configuration).createConnectionV1WorkflowsConnectionsPost(connectionCore, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Delete Connection
+         * @param {string} connectionId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteConnectionV1WorkflowsConnectionsConnectionIdDelete(connectionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowModelsBaseBaseResponse>> {
+            const localVarAxiosArgs = await WorkflowsConnectionsApiAxiosParamCreator(configuration).deleteConnectionV1WorkflowsConnectionsConnectionIdDelete(connectionId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Read Connection
+         * @param {string} connectionId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async readConnectionV1WorkflowsConnectionsConnectionIdGet(connectionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowDbModelsConnection>> {
+            const localVarAxiosArgs = await WorkflowsConnectionsApiAxiosParamCreator(configuration).readConnectionV1WorkflowsConnectionsConnectionIdGet(connectionId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Read Connections
+         * @param {number} [skip] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async readConnectionsV1WorkflowsConnectionsGet(skip?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AgenticWorkflowDbModelsConnection>>> {
+            const localVarAxiosArgs = await WorkflowsConnectionsApiAxiosParamCreator(configuration).readConnectionsV1WorkflowsConnectionsGet(skip, limit, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Update Connection
+         * @param {string} connectionId 
+         * @param {ConnectionCore} connectionCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateConnectionV1WorkflowsConnectionsConnectionIdPut(connectionId: string, connectionCore: ConnectionCore, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowDbModelsConnection>> {
+            const localVarAxiosArgs = await WorkflowsConnectionsApiAxiosParamCreator(configuration).updateConnectionV1WorkflowsConnectionsConnectionIdPut(connectionId, connectionCore, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * WorkflowsConnectionsApi - factory interface
+ * @export
+ */
+export const WorkflowsConnectionsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @summary Create Connection
+         * @param {ConnectionCore} connectionCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createConnectionV1WorkflowsConnectionsPost(connectionCore: ConnectionCore, options?: any): AxiosPromise<AgenticWorkflowDbModelsConnection> {
+            return WorkflowsConnectionsApiFp(configuration).createConnectionV1WorkflowsConnectionsPost(connectionCore, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete Connection
+         * @param {string} connectionId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteConnectionV1WorkflowsConnectionsConnectionIdDelete(connectionId: string, options?: any): AxiosPromise<AgenticWorkflowModelsBaseBaseResponse> {
+            return WorkflowsConnectionsApiFp(configuration).deleteConnectionV1WorkflowsConnectionsConnectionIdDelete(connectionId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Read Connection
+         * @param {string} connectionId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readConnectionV1WorkflowsConnectionsConnectionIdGet(connectionId: string, options?: any): AxiosPromise<AgenticWorkflowDbModelsConnection> {
+            return WorkflowsConnectionsApiFp(configuration).readConnectionV1WorkflowsConnectionsConnectionIdGet(connectionId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Read Connections
+         * @param {number} [skip] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        readConnectionsV1WorkflowsConnectionsGet(skip?: number, limit?: number, options?: any): AxiosPromise<Array<AgenticWorkflowDbModelsConnection>> {
+            return WorkflowsConnectionsApiFp(configuration).readConnectionsV1WorkflowsConnectionsGet(skip, limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update Connection
+         * @param {string} connectionId 
+         * @param {ConnectionCore} connectionCore 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateConnectionV1WorkflowsConnectionsConnectionIdPut(connectionId: string, connectionCore: ConnectionCore, options?: any): AxiosPromise<AgenticWorkflowDbModelsConnection> {
+            return WorkflowsConnectionsApiFp(configuration).updateConnectionV1WorkflowsConnectionsConnectionIdPut(connectionId, connectionCore, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * WorkflowsConnectionsApi - object-oriented interface
+ * @export
+ * @class WorkflowsConnectionsApi
+ * @extends {BaseAPI}
+ */
+export class WorkflowsConnectionsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create Connection
+     * @param {ConnectionCore} connectionCore 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsConnectionsApi
+     */
+    public createConnectionV1WorkflowsConnectionsPost(connectionCore: ConnectionCore, options?: any) {
+        return WorkflowsConnectionsApiFp(this.configuration).createConnectionV1WorkflowsConnectionsPost(connectionCore, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete Connection
+     * @param {string} connectionId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsConnectionsApi
+     */
+    public deleteConnectionV1WorkflowsConnectionsConnectionIdDelete(connectionId: string, options?: any) {
+        return WorkflowsConnectionsApiFp(this.configuration).deleteConnectionV1WorkflowsConnectionsConnectionIdDelete(connectionId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Read Connection
+     * @param {string} connectionId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsConnectionsApi
+     */
+    public readConnectionV1WorkflowsConnectionsConnectionIdGet(connectionId: string, options?: any) {
+        return WorkflowsConnectionsApiFp(this.configuration).readConnectionV1WorkflowsConnectionsConnectionIdGet(connectionId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Read Connections
+     * @param {number} [skip] 
+     * @param {number} [limit] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsConnectionsApi
+     */
+    public readConnectionsV1WorkflowsConnectionsGet(skip?: number, limit?: number, options?: any) {
+        return WorkflowsConnectionsApiFp(this.configuration).readConnectionsV1WorkflowsConnectionsGet(skip, limit, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update Connection
+     * @param {string} connectionId 
+     * @param {ConnectionCore} connectionCore 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsConnectionsApi
+     */
+    public updateConnectionV1WorkflowsConnectionsConnectionIdPut(connectionId: string, connectionCore: ConnectionCore, options?: any) {
+        return WorkflowsConnectionsApiFp(this.configuration).updateConnectionV1WorkflowsConnectionsConnectionIdPut(connectionId, connectionCore, options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+
+/**
+ * WorkflowsExecutionsApi - axios parameter creator
+ * @export
+ */
+export const WorkflowsExecutionsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Get Workflow Info
+         * @param {string} workflowId 
+         * @param {string} runId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet: async (workflowId: string, runId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workflowId' is not null or undefined
+            if (workflowId === null || workflowId === undefined) {
+                throw new RequiredError('workflowId','Required parameter workflowId was null or undefined when calling getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet.');
+            }
+            // verify required parameter 'runId' is not null or undefined
+            if (runId === null || runId === undefined) {
+                throw new RequiredError('runId','Required parameter runId was null or undefined when calling getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet.');
+            }
+            const localVarPath = `/v1/workflows/executions/{workflow_id}/run/{run_id}/history`
+                .replace(`{${"workflow_id"}}`, encodeURIComponent(String(workflowId)))
+                .replace(`{${"run_id"}}`, encodeURIComponent(String(runId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Trigger Workflow Execution
+         * @param {string} workflowId 
+         * @param {object} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost: async (workflowId: string, body: object, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workflowId' is not null or undefined
+            if (workflowId === null || workflowId === undefined) {
+                throw new RequiredError('workflowId','Required parameter workflowId was null or undefined when calling triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost.');
+            }
+            // verify required parameter 'body' is not null or undefined
+            if (body === null || body === undefined) {
+                throw new RequiredError('body','Required parameter body was null or undefined when calling triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost.');
+            }
+            const localVarPath = `/v1/workflows/executions/{workflow_id}/trigger`
+                .replace(`{${"workflow_id"}}`, encodeURIComponent(String(workflowId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * WorkflowsExecutionsApi - functional programming interface
+ * @export
+ */
+export const WorkflowsExecutionsApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Get Workflow Info
+         * @param {string} workflowId 
+         * @param {string} runId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet(workflowId: string, runId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkflowContext>> {
+            const localVarAxiosArgs = await WorkflowsExecutionsApiAxiosParamCreator(configuration).getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet(workflowId, runId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Trigger Workflow Execution
+         * @param {string} workflowId 
+         * @param {object} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost(workflowId: string, body: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkflowExecution>> {
+            const localVarAxiosArgs = await WorkflowsExecutionsApiAxiosParamCreator(configuration).triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost(workflowId, body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * WorkflowsExecutionsApi - factory interface
+ * @export
+ */
+export const WorkflowsExecutionsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @summary Get Workflow Info
+         * @param {string} workflowId 
+         * @param {string} runId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet(workflowId: string, runId: string, options?: any): AxiosPromise<WorkflowContext> {
+            return WorkflowsExecutionsApiFp(configuration).getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet(workflowId, runId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Trigger Workflow Execution
+         * @param {string} workflowId 
+         * @param {object} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost(workflowId: string, body: object, options?: any): AxiosPromise<WorkflowExecution> {
+            return WorkflowsExecutionsApiFp(configuration).triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost(workflowId, body, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * WorkflowsExecutionsApi - object-oriented interface
+ * @export
+ * @class WorkflowsExecutionsApi
+ * @extends {BaseAPI}
+ */
+export class WorkflowsExecutionsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Get Workflow Info
+     * @param {string} workflowId 
+     * @param {string} runId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsExecutionsApi
+     */
+    public getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet(workflowId: string, runId: string, options?: any) {
+        return WorkflowsExecutionsApiFp(this.configuration).getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet(workflowId, runId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Trigger Workflow Execution
+     * @param {string} workflowId 
+     * @param {object} body 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsExecutionsApi
+     */
+    public triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost(workflowId: string, body: object, options?: any) {
+        return WorkflowsExecutionsApiFp(this.configuration).triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost(workflowId, body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+
+/**
+ * WorkflowsSubWorkflowsApi - axios parameter creator
+ * @export
+ */
+export const WorkflowsSubWorkflowsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Returns all sub workflows which can be invoked for a given workflow step
+         * @summary Get Sub Workflows
+         * @param {WorkflowStepInput} workflowStepInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost: async (workflowStepInput: WorkflowStepInput, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workflowStepInput' is not null or undefined
+            if (workflowStepInput === null || workflowStepInput === undefined) {
+                throw new RequiredError('workflowStepInput','Required parameter workflowStepInput was null or undefined when calling getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost.');
+            }
+            const localVarPath = `/v1/workflows/steps/sub_workflows`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication HTTPBearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken()
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof workflowStepInput !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(workflowStepInput !== undefined ? workflowStepInput : {}) : (workflowStepInput || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * WorkflowsSubWorkflowsApi - functional programming interface
+ * @export
+ */
+export const WorkflowsSubWorkflowsApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * Returns all sub workflows which can be invoked for a given workflow step
+         * @summary Get Sub Workflows
+         * @param {WorkflowStepInput} workflowStepInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost(workflowStepInput: WorkflowStepInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Workflow>>> {
+            const localVarAxiosArgs = await WorkflowsSubWorkflowsApiAxiosParamCreator(configuration).getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost(workflowStepInput, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * WorkflowsSubWorkflowsApi - factory interface
+ * @export
+ */
+export const WorkflowsSubWorkflowsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * Returns all sub workflows which can be invoked for a given workflow step
+         * @summary Get Sub Workflows
+         * @param {WorkflowStepInput} workflowStepInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost(workflowStepInput: WorkflowStepInput, options?: any): AxiosPromise<Array<Workflow>> {
+            return WorkflowsSubWorkflowsApiFp(configuration).getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost(workflowStepInput, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * WorkflowsSubWorkflowsApi - object-oriented interface
+ * @export
+ * @class WorkflowsSubWorkflowsApi
+ * @extends {BaseAPI}
+ */
+export class WorkflowsSubWorkflowsApi extends BaseAPI {
+    /**
+     * Returns all sub workflows which can be invoked for a given workflow step
+     * @summary Get Sub Workflows
+     * @param {WorkflowStepInput} workflowStepInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsSubWorkflowsApi
+     */
+    public getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost(workflowStepInput: WorkflowStepInput, options?: any) {
+        return WorkflowsSubWorkflowsApiFp(this.configuration).getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost(workflowStepInput, options).then((request) => request(this.axios, this.basePath));
     }
 
 }

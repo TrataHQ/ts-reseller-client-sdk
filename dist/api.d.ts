@@ -221,10 +221,10 @@ export interface ActionInput {
     parameters: object;
     /**
      * Endpoint for the action
-     * @type {HttpActionEndpoint | InternalActionEndpoint}
+     * @type {HttpActionEndpoint | InternalActionEndpoint | AgenticWorkflowActionEndpoint}
      * @memberof ActionInput
      */
-    endpoint: HttpActionEndpoint | InternalActionEndpoint;
+    endpoint: HttpActionEndpoint | InternalActionEndpoint | AgenticWorkflowActionEndpoint;
     /**
      * Text to be rendered to user when action is invoked
      * @type {string}
@@ -471,6 +471,111 @@ export interface AgentConfig {
 /**
  *
  * @export
+ * @interface AgenticWorkflowActionEndpoint
+ */
+export interface AgenticWorkflowActionEndpoint {
+    /**
+     * Agentic workflow id
+     * @type {string}
+     * @memberof AgenticWorkflowActionEndpoint
+     */
+    workflowId: string;
+}
+/**
+ * Connection represents an instance of an app with specific credentials and configuration
+ * @export
+ * @interface AgenticWorkflowDbModelsConnection
+ */
+export interface AgenticWorkflowDbModelsConnection {
+    /**
+     * The user who created.
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    createdBy?: string;
+    /**
+     * The date and time it was created.
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    createdAt?: string;
+    /**
+     * The user who last updated.
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    updatedBy?: string;
+    /**
+     * The date and time when it was last updated.
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    updatedAt?: string;
+    /**
+     * The workspace of the entity.
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    orgId?: string;
+    /**
+     * The name of the connection
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    name?: string;
+    /**
+     * The unique identifier of the app
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    appId?: string;
+    /**
+     * The version of the app
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    appVersion?: string;
+    /**
+     * The description of the connection
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    description?: string | null;
+    /**
+     * OAuth or API key authentication configuration
+     * @type {OAuthCredentials | ApiKeyCredentials | BasicAuthCredentials | NoAuthCredentials}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    credentials: OAuthCredentials | ApiKeyCredentials | BasicAuthCredentials | NoAuthCredentials;
+    /**
+     * The unique identifier of the connection
+     * @type {string}
+     * @memberof AgenticWorkflowDbModelsConnection
+     */
+    id?: string;
+}
+/**
+ *
+ * @export
+ * @interface AgenticWorkflowModelsBaseBaseResponse
+ */
+export interface AgenticWorkflowModelsBaseBaseResponse {
+    /**
+     * The message of the response
+     * @type {string}
+     * @memberof AgenticWorkflowModelsBaseBaseResponse
+     */
+    message?: string;
+    /**
+     * The status of the response
+     * @type {string}
+     * @memberof AgenticWorkflowModelsBaseBaseResponse
+     */
+    status?: string;
+}
+/**
+ *
+ * @export
  * @enum {string}
  */
 export declare enum AggregationFormula {
@@ -489,6 +594,52 @@ export declare enum AggregationPeriod {
     DAILY = "DAILY"
 }
 /**
+ * API key authentication configuration
+ * @export
+ * @interface ApiKeyAuth
+ */
+export interface ApiKeyAuth {
+    /**
+     * The type of authentication
+     * @type {string}
+     * @memberof ApiKeyAuth
+     */
+    authType?: ApiKeyAuthAuthTypeEnum;
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export declare enum ApiKeyAuthAuthTypeEnum {
+    Apikey = "apikey"
+}
+/**
+ *
+ * @export
+ * @interface ApiKeyCredentials
+ */
+export interface ApiKeyCredentials {
+    /**
+     * Credential type identifier
+     * @type {string}
+     * @memberof ApiKeyCredentials
+     */
+    credentialsType?: ApiKeyCredentialsCredentialsTypeEnum;
+    /**
+     * The API key for the app
+     * @type {string}
+     * @memberof ApiKeyCredentials
+     */
+    apiKey: string;
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export declare enum ApiKeyCredentialsCredentialsTypeEnum {
+    Apikey = "apikey"
+}
+/**
  *
  * @export
  * @interface ApiKeyRequest
@@ -500,6 +651,296 @@ export interface ApiKeyRequest {
      * @memberof ApiKeyRequest
      */
     key_type?: string | null;
+}
+/**
+ * App represents an integration that can be connected to perform actions and triggers
+ * @export
+ * @interface App
+ */
+export interface App {
+    /**
+     * The user who created.
+     * @type {string}
+     * @memberof App
+     */
+    createdBy?: string;
+    /**
+     * The date and time it was created.
+     * @type {string}
+     * @memberof App
+     */
+    createdAt?: string;
+    /**
+     * The user who last updated.
+     * @type {string}
+     * @memberof App
+     */
+    updatedBy?: string;
+    /**
+     * The date and time when it was last updated.
+     * @type {string}
+     * @memberof App
+     */
+    updatedAt?: string;
+    /**
+     * The workspace of the entity.
+     * @type {string}
+     * @memberof App
+     */
+    orgId?: string;
+    /**
+     * The name of the app
+     * @type {string}
+     * @memberof App
+     */
+    name?: string;
+    /**
+     * The description of the app
+     * @type {string}
+     * @memberof App
+     */
+    description?: string | null;
+    /**
+     * API Endpoint URL for the app
+     * @type {string}
+     * @memberof App
+     */
+    endpointUrl?: string | null;
+    /**
+     * URL to the app\'s logo image
+     * @type {string}
+     * @memberof App
+     */
+    logoUrl?: string | null;
+    /**
+     * Authentication configuration for the app
+     * @type {Array<OAuth | ApiKeyAuth | BasicAuth | NoAuth>}
+     * @memberof App
+     */
+    auth: Array<OAuth | ApiKeyAuth | BasicAuth | NoAuth>;
+    /**
+     * The version of the app
+     * @type {string}
+     * @memberof App
+     */
+    version?: string;
+    /**
+     * The unique identifier of the app
+     * @type {string}
+     * @memberof App
+     */
+    id?: string;
+}
+/**
+ * AppAction represents an action that can be performed by an app
+ * @export
+ * @interface AppAction
+ */
+export interface AppAction {
+    /**
+     * The user who created.
+     * @type {string}
+     * @memberof AppAction
+     */
+    createdBy?: string;
+    /**
+     * The date and time it was created.
+     * @type {string}
+     * @memberof AppAction
+     */
+    createdAt?: string;
+    /**
+     * The user who last updated.
+     * @type {string}
+     * @memberof AppAction
+     */
+    updatedBy?: string;
+    /**
+     * The date and time when it was last updated.
+     * @type {string}
+     * @memberof AppAction
+     */
+    updatedAt?: string;
+    /**
+     * The workspace of the entity.
+     * @type {string}
+     * @memberof AppAction
+     */
+    orgId?: string;
+    /**
+     * The type of the step, can be either trigger or action
+     * @type {AppActionType}
+     * @memberof AppAction
+     */
+    actionType: AppActionType;
+    /**
+     * The name of the step. This name should be unique within the app
+     * @type {string}
+     * @memberof AppAction
+     */
+    name?: string;
+    /**
+     * The description of the step
+     * @type {string}
+     * @memberof AppAction
+     */
+    description?: string;
+    /**
+     * JSON Schema for the step data
+     * @type {object}
+     * @memberof AppAction
+     */
+    dataSchema: object;
+    /**
+     * JSON Schema for the UI representation
+     * @type {object}
+     * @memberof AppAction
+     */
+    uiSchema: object;
+    /**
+     * This represents how this action should be displayed in the UI
+     * @type {UiNodeType}
+     * @memberof AppAction
+     */
+    uiNodeType: UiNodeType;
+    /**
+     * The ID of the app that this action belongs to
+     * @type {string}
+     * @memberof AppAction
+     */
+    appId: string;
+    /**
+     * The version of the app that this action belongs to
+     * @type {string}
+     * @memberof AppAction
+     */
+    appVersion: string;
+    /**
+     * The unique identifier of the app action
+     * @type {string}
+     * @memberof AppAction
+     */
+    id?: string;
+}
+/**
+ * App Action Model
+ * @export
+ * @interface AppActionEntity
+ */
+export interface AppActionEntity {
+    /**
+     * The type of the step, can be either trigger or action
+     * @type {AppActionType}
+     * @memberof AppActionEntity
+     */
+    actionType: AppActionType;
+    /**
+     * The name of the step. This name should be unique within the app
+     * @type {string}
+     * @memberof AppActionEntity
+     */
+    name?: string;
+    /**
+     * The description of the step
+     * @type {string}
+     * @memberof AppActionEntity
+     */
+    description?: string;
+    /**
+     * JSON Schema for the step data
+     * @type {object}
+     * @memberof AppActionEntity
+     */
+    dataSchema: object;
+    /**
+     * JSON Schema for the UI representation
+     * @type {object}
+     * @memberof AppActionEntity
+     */
+    uiSchema: object;
+    /**
+     * This represents how this action should be displayed in the UI
+     * @type {UiNodeType}
+     * @memberof AppActionEntity
+     */
+    uiNodeType: UiNodeType;
+}
+/**
+ * Enum for step types
+ * @export
+ * @enum {string}
+ */
+export declare enum AppActionType {
+    TRIGGER = "TRIGGER",
+    ACTION = "ACTION"
+}
+/**
+ * App DTO Model filled by user
+ * @export
+ * @interface AppEntity
+ */
+export interface AppEntity {
+    /**
+     * The name of the app
+     * @type {string}
+     * @memberof AppEntity
+     */
+    name?: string;
+    /**
+     * The description of the app
+     * @type {string}
+     * @memberof AppEntity
+     */
+    description?: string | null;
+    /**
+     * API Endpoint URL for the app
+     * @type {string}
+     * @memberof AppEntity
+     */
+    endpointUrl?: string | null;
+    /**
+     * URL to the app\'s logo image
+     * @type {string}
+     * @memberof AppEntity
+     */
+    logoUrl?: string | null;
+    /**
+     * Authentication configuration for the app
+     * @type {Array<OAuth | ApiKeyAuth | BasicAuth | NoAuth>}
+     * @memberof AppEntity
+     */
+    auth: Array<OAuth | ApiKeyAuth | BasicAuth | NoAuth>;
+    /**
+     * The version of the app
+     * @type {string}
+     * @memberof AppEntity
+     */
+    version?: string;
+    /**
+     * Array of available actions with their configurations
+     * @type {Array<AppActionEntity>}
+     * @memberof AppEntity
+     */
+    actions: Array<AppActionEntity>;
+}
+/**
+ *
+ * @export
+ * @interface AppResponse
+ */
+export interface AppResponse {
+    /**
+     *
+     * @type {App}
+     * @memberof AppResponse
+     */
+    app: App;
+    /**
+     *
+     * @type {Array<AppAction>}
+     * @memberof AppResponse
+     */
+    actions: Array<AppAction>;
 }
 /**
  *
@@ -535,15 +976,67 @@ export interface AvailablePhoneNumber {
 /**
  *
  * @export
- * @interface BaseResponse
+ * @interface BaseResponseInput
  */
-export interface BaseResponse {
+export interface BaseResponseInput {
     /**
      * Address line 1
      * @type {string}
-     * @memberof BaseResponse
+     * @memberof BaseResponseInput
      */
     message: string;
+}
+/**
+ * Basic authentication configuration
+ * @export
+ * @interface BasicAuth
+ */
+export interface BasicAuth {
+    /**
+     * The type of authentication
+     * @type {string}
+     * @memberof BasicAuth
+     */
+    authType?: BasicAuthAuthTypeEnum;
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export declare enum BasicAuthAuthTypeEnum {
+    Basic = "basic"
+}
+/**
+ *
+ * @export
+ * @interface BasicAuthCredentials
+ */
+export interface BasicAuthCredentials {
+    /**
+     * Credential type identifier
+     * @type {string}
+     * @memberof BasicAuthCredentials
+     */
+    credentialsType?: BasicAuthCredentialsCredentialsTypeEnum;
+    /**
+     * The username for the app
+     * @type {string}
+     * @memberof BasicAuthCredentials
+     */
+    username: string;
+    /**
+     * The password for the app
+     * @type {string}
+     * @memberof BasicAuthCredentials
+     */
+    password: string;
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export declare enum BasicAuthCredentialsCredentialsTypeEnum {
+    Basic = "basic"
 }
 /**
  *
@@ -684,75 +1177,131 @@ export interface Comment {
     rating: number;
 }
 /**
+ * Condition Model for branching/looping logic
+ * @export
+ * @interface Condition
+ */
+export interface Condition {
+    /**
+     * Condition expression to evaluate
+     * @type {string}
+     * @memberof Condition
+     */
+    when: string;
+    /**
+     * Next step ID if condition is true
+     * @type {string}
+     * @memberof Condition
+     */
+    stepId: string;
+}
+/**
+ * Core Connection Model
+ * @export
+ * @interface ConnectionCore
+ */
+export interface ConnectionCore {
+    /**
+     * The name of the connection
+     * @type {string}
+     * @memberof ConnectionCore
+     */
+    name?: string;
+    /**
+     * The unique identifier of the app
+     * @type {string}
+     * @memberof ConnectionCore
+     */
+    appId?: string;
+    /**
+     * The version of the app
+     * @type {string}
+     * @memberof ConnectionCore
+     */
+    appVersion?: string;
+    /**
+     * The description of the connection
+     * @type {string}
+     * @memberof ConnectionCore
+     */
+    description?: string | null;
+    /**
+     * OAuth or API key authentication configuration
+     * @type {OAuthCredentials | ApiKeyCredentials | BasicAuthCredentials | NoAuthCredentials}
+     * @memberof ConnectionCore
+     */
+    credentials: OAuthCredentials | ApiKeyCredentials | BasicAuthCredentials | NoAuthCredentials;
+}
+/**
  * This represents the connection between the user and the assistant
  * @export
- * @interface Connection
+ * @interface ConnectionOutput
  */
-export interface Connection {
+export interface ConnectionOutput {
     /**
      *
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     id?: string;
     /**
      *
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     orgId?: string;
     /**
      *
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     sourceName?: string;
     /**
      *
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     sourceId?: string;
     /**
      *
      * @type {object}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     sourceProps?: object | null;
     /**
      *
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     agentId?: string;
     /**
      *
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     prospectId?: string | null;
     /**
      *
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     createdBy?: string;
     /**
      *
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     createdAt?: string;
     /**
      *
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     updatedBy?: string;
     /**
      *
      * @type {string}
-     * @memberof Connection
+     * @memberof ConnectionOutput
      */
     updatedAt?: string;
 }
@@ -1972,6 +2521,65 @@ export interface Mission {
     farewell?: string | null;
 }
 /**
+ * Defines how to determine the next step
+ * @export
+ * @interface NextStepResolver
+ */
+export interface NextStepResolver {
+    /**
+     * Array of conditions to evaluate
+     * @type {Array<Condition>}
+     * @memberof NextStepResolver
+     */
+    conditions?: Array<Condition> | null;
+    /**
+     * Direct next step ID
+     * @type {string}
+     * @memberof NextStepResolver
+     */
+    nextStepId?: string | null;
+}
+/**
+ * No authentication configuration
+ * @export
+ * @interface NoAuth
+ */
+export interface NoAuth {
+    /**
+     * The type of authentication
+     * @type {string}
+     * @memberof NoAuth
+     */
+    authType?: NoAuthAuthTypeEnum;
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export declare enum NoAuthAuthTypeEnum {
+    Noauth = "noauth"
+}
+/**
+ *
+ * @export
+ * @interface NoAuthCredentials
+ */
+export interface NoAuthCredentials {
+    /**
+     * Credential type identifier
+     * @type {string}
+     * @memberof NoAuthCredentials
+     */
+    credentialsType?: NoAuthCredentialsCredentialsTypeEnum;
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export declare enum NoAuthCredentialsCredentialsTypeEnum {
+    Noauth = "noauth"
+}
+/**
  *
  * @export
  * @interface NumberPurchaseRequest
@@ -1989,6 +2597,106 @@ export interface NumberPurchaseRequest {
      * @memberof NumberPurchaseRequest
      */
     phoneNumber: string;
+}
+/**
+ * OAuth authentication configuration
+ * @export
+ * @interface OAuth
+ */
+export interface OAuth {
+    /**
+     * The type of authentication
+     * @type {string}
+     * @memberof OAuth
+     */
+    authType?: OAuthAuthTypeEnum;
+    /**
+     * The client ID for the OAuth app
+     * @type {string}
+     * @memberof OAuth
+     */
+    clientId: string;
+    /**
+     * The client secret for the OAuth app
+     * @type {string}
+     * @memberof OAuth
+     */
+    clientSecret: string;
+    /**
+     * The redirect URI for the OAuth app
+     * @type {string}
+     * @memberof OAuth
+     */
+    redirectUri: string;
+    /**
+     * The scopes for the OAuth app
+     * @type {Array<string>}
+     * @memberof OAuth
+     */
+    scopes?: Array<string> | null;
+    /**
+     * The authorization URL for the OAuth app
+     * @type {string}
+     * @memberof OAuth
+     */
+    authUrl: string;
+    /**
+     * The token URL for the OAuth app
+     * @type {string}
+     * @memberof OAuth
+     */
+    tokenUrl: string;
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export declare enum OAuthAuthTypeEnum {
+    Oauth = "oauth"
+}
+/**
+ *
+ * @export
+ * @interface OAuthCredentials
+ */
+export interface OAuthCredentials {
+    /**
+     * Credential type identifier
+     * @type {string}
+     * @memberof OAuthCredentials
+     */
+    credentialsType?: OAuthCredentialsCredentialsTypeEnum;
+    /**
+     * The code for the OAuth app
+     * @type {string}
+     * @memberof OAuthCredentials
+     */
+    code: string | null;
+    /**
+     * The access token for the OAuth app
+     * @type {string}
+     * @memberof OAuthCredentials
+     */
+    accessToken: string | null;
+    /**
+     * The refresh token for the OAuth app
+     * @type {string}
+     * @memberof OAuthCredentials
+     */
+    refreshToken: string | null;
+    /**
+     * The expiration date of the access token
+     * @type {string}
+     * @memberof OAuthCredentials
+     */
+    expiresAt: string | null;
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export declare enum OAuthCredentialsCredentialsTypeEnum {
+    Oauth = "oauth"
 }
 /**
  *
@@ -3279,6 +3987,17 @@ export interface Transcriber {
     providerProps?: object | null;
 }
 /**
+ * Enum for UI node types
+ * @export
+ * @enum {string}
+ */
+export declare enum UiNodeType {
+    ACTION = "ACTION",
+    CONDITION = "CONDITION",
+    LOOP = "LOOP",
+    SUBFLOW = "SUBFLOW"
+}
+/**
  *
  * @export
  * @interface UpdateResellerOrganizationRequest
@@ -3575,6 +4294,359 @@ export declare enum VoiceOutputGenderEnum {
     Neutral = "Neutral"
 }
 /**
+ * Workflow represents a sequence of steps that can be performed by an app
+ * @export
+ * @interface Workflow
+ */
+export interface Workflow {
+    /**
+     * The user who created.
+     * @type {string}
+     * @memberof Workflow
+     */
+    createdBy?: string;
+    /**
+     * The date and time it was created.
+     * @type {string}
+     * @memberof Workflow
+     */
+    createdAt?: string;
+    /**
+     * The user who last updated.
+     * @type {string}
+     * @memberof Workflow
+     */
+    updatedBy?: string;
+    /**
+     * The date and time when it was last updated.
+     * @type {string}
+     * @memberof Workflow
+     */
+    updatedAt?: string;
+    /**
+     * The workspace of the entity.
+     * @type {string}
+     * @memberof Workflow
+     */
+    orgId?: string;
+    /**
+     * The name of the workflow
+     * @type {string}
+     * @memberof Workflow
+     */
+    name?: string;
+    /**
+     * The description of the workflow
+     * @type {string}
+     * @memberof Workflow
+     */
+    description?: string | null;
+    /**
+     * The version of the workflow
+     * @type {string}
+     * @memberof Workflow
+     */
+    version?: string;
+    /**
+     * The steps of the workflow
+     * @type {{ [key: string]: WorkflowStepOutput; }}
+     * @memberof Workflow
+     */
+    steps: {
+        [key: string]: WorkflowStepOutput;
+    };
+    /**
+     * The id of the start step
+     * @type {string}
+     * @memberof Workflow
+     */
+    startStepId?: string;
+    /**
+     * The unique identifier of the workflow
+     * @type {string}
+     * @memberof Workflow
+     */
+    id?: string;
+}
+/**
+ * Workflow Context Model
+ * @export
+ * @interface WorkflowContext
+ */
+export interface WorkflowContext {
+    /**
+     * The ID of the organization
+     * @type {string}
+     * @memberof WorkflowContext
+     */
+    orgId: string;
+    /**
+     * The ID of the workflow
+     * @type {string}
+     * @memberof WorkflowContext
+     */
+    workflowId: string;
+    /**
+     * The input of the step
+     * @type {object}
+     * @memberof WorkflowContext
+     */
+    stepInput: object;
+    /**
+     * The response of the step
+     * @type {object}
+     * @memberof WorkflowContext
+     */
+    stepResponse: object;
+    /**
+     * The order of the steps
+     * @type {Array<string>}
+     * @memberof WorkflowContext
+     */
+    stepOrder: Array<string>;
+}
+/**
+ * Core Workflow Model
+ * @export
+ * @interface WorkflowCore
+ */
+export interface WorkflowCore {
+    /**
+     * The name of the workflow
+     * @type {string}
+     * @memberof WorkflowCore
+     */
+    name?: string;
+    /**
+     * The description of the workflow
+     * @type {string}
+     * @memberof WorkflowCore
+     */
+    description?: string | null;
+    /**
+     * The version of the workflow
+     * @type {string}
+     * @memberof WorkflowCore
+     */
+    version?: string;
+    /**
+     * The steps of the workflow
+     * @type {{ [key: string]: WorkflowStepInput; }}
+     * @memberof WorkflowCore
+     */
+    steps: {
+        [key: string]: WorkflowStepInput;
+    };
+    /**
+     * The id of the start step
+     * @type {string}
+     * @memberof WorkflowCore
+     */
+    startStepId?: string;
+}
+/**
+ * WorkflowExecution represents a single execution of a workflow
+ * @export
+ * @interface WorkflowExecution
+ */
+export interface WorkflowExecution {
+    /**
+     * The user who created.
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    createdBy?: string;
+    /**
+     * The date and time it was created.
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    createdAt?: string;
+    /**
+     * The user who last updated.
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    updatedBy?: string;
+    /**
+     * The date and time when it was last updated.
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    updatedAt?: string;
+    /**
+     * The workspace of the entity.
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    orgId?: string;
+    /**
+     * The id of the workflow
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    workflowId?: string;
+    /**
+     * The id of the workflow run
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    workflowRunId?: string;
+    /**
+     * The status of the workflow execution
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    status?: string;
+    /**
+     * The unique identifier of the workflow execution
+     * @type {string}
+     * @memberof WorkflowExecution
+     */
+    id?: string;
+}
+/**
+ * Flow Step Model
+ * @export
+ * @interface WorkflowStepInput
+ */
+export interface WorkflowStepInput {
+    /**
+     * The id of the step
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    stepId?: string;
+    /**
+     * The connection id of the app
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    appConnectionId?: string | null;
+    /**
+     * The app action id of the app
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    appActionId?: string;
+    /**
+     * The id of the app
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    appId?: string;
+    /**
+     * The name of the app. It must match the app name in AppDefinition implementation
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    appName?: string;
+    /**
+     * The version of the app. It must match the app version in AppDefinition implementation
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    appVersion?: string;
+    /**
+     * The step to be performed
+     * @type {AppActionEntity}
+     * @memberof WorkflowStepInput
+     */
+    stepPayload?: AppActionEntity;
+    /**
+     * The data resolver on how to resolve the data for the step
+     * @type {string}
+     * @memberof WorkflowStepInput
+     */
+    dataResolver?: string | null;
+    /**
+     * Resolver for determining the next step
+     * @type {NextStepResolver}
+     * @memberof WorkflowStepInput
+     */
+    nextStepResolver: NextStepResolver;
+}
+/**
+ * Flow Step Model
+ * @export
+ * @interface WorkflowStepOutput
+ */
+export interface WorkflowStepOutput {
+    /**
+     * The id of the step
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    stepId?: string;
+    /**
+     * The connection id of the app
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    appConnectionId?: string | null;
+    /**
+     * The app action id of the app
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    appActionId?: string;
+    /**
+     * The id of the app
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    appId?: string;
+    /**
+     * The name of the app. It must match the app name in AppDefinition implementation
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    appName?: string;
+    /**
+     * The version of the app. It must match the app version in AppDefinition implementation
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    appVersion?: string;
+    /**
+     * The step to be performed
+     * @type {AppActionEntity}
+     * @memberof WorkflowStepOutput
+     */
+    stepPayload?: AppActionEntity;
+    /**
+     * The data resolver on how to resolve the data for the step
+     * @type {string}
+     * @memberof WorkflowStepOutput
+     */
+    dataResolver?: string | null;
+    /**
+     * Resolver for determining the next step
+     * @type {NextStepResolver}
+     * @memberof WorkflowStepOutput
+     */
+    nextStepResolver: NextStepResolver;
+}
+/**
+ *
+ * @export
+ * @interface WorkflowStepTriggerRequest
+ */
+export interface WorkflowStepTriggerRequest {
+    /**
+     *
+     * @type {WorkflowContext}
+     * @memberof WorkflowStepTriggerRequest
+     */
+    workflowContext: WorkflowContext;
+    /**
+     *
+     * @type {WorkflowStepInput}
+     * @memberof WorkflowStepTriggerRequest
+     */
+    workflowStep: WorkflowStepInput;
+}
+/**
  * ActionAgentLinkApi - axios parameter creator
  * @export
  */
@@ -3619,7 +4691,7 @@ export declare const ActionAgentLinkApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    createActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Delete a Link Between an Action and an Agent
      * @summary Delete a Link Between an Action and an Agent
@@ -3628,7 +4700,7 @@ export declare const ActionAgentLinkApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * List All Actions Linked to a Specific Agent
      * @summary List All Actions Linked to a Specific Agent
@@ -3651,7 +4723,7 @@ export declare const ActionAgentLinkApiFactory: (configuration?: Configuration, 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createActionAgentLinkV1(actionId: string, agentId: string, options?: any): AxiosPromise<BaseResponse>;
+    createActionAgentLinkV1(actionId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Delete a Link Between an Action and an Agent
      * @summary Delete a Link Between an Action and an Agent
@@ -3660,7 +4732,7 @@ export declare const ActionAgentLinkApiFactory: (configuration?: Configuration, 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteActionAgentLinkV1(actionId: string, agentId: string, options?: any): AxiosPromise<BaseResponse>;
+    deleteActionAgentLinkV1(actionId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * List All Actions Linked to a Specific Agent
      * @summary List All Actions Linked to a Specific Agent
@@ -3686,7 +4758,7 @@ export declare class ActionAgentLinkApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ActionAgentLinkApi
      */
-    createActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    createActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Delete a Link Between an Action and an Agent
      * @summary Delete a Link Between an Action and an Agent
@@ -3696,7 +4768,7 @@ export declare class ActionAgentLinkApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ActionAgentLinkApi
      */
-    deleteActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteActionAgentLinkV1(actionId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * List All Actions Linked to a Specific Agent
      * @summary List All Actions Linked to a Specific Agent
@@ -3780,7 +4852,7 @@ export declare const ActionsApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteActionV1(actionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteActionV1(actionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Get a Specific Action by ID
      * @summary Get a Specific Action by ID
@@ -3833,7 +4905,7 @@ export declare const ActionsApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteActionV1(actionId: string, options?: any): AxiosPromise<BaseResponse>;
+    deleteActionV1(actionId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Get a Specific Action by ID
      * @summary Get a Specific Action by ID
@@ -3890,7 +4962,7 @@ export declare class ActionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ActionsApi
      */
-    deleteActionV1(actionId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteActionV1(actionId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Get a Specific Action by ID
      * @summary Get a Specific Action by ID
@@ -3999,7 +5071,7 @@ export declare const AgentsApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteAIAgentV1(agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteAIAgentV1(agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Get a Specific AI Agent by ID
      * @summary Get a Specific AI Agent by ID
@@ -4052,7 +5124,7 @@ export declare const AgentsApiFactory: (configuration?: Configuration, basePath?
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteAIAgentV1(agentId: string, options?: any): AxiosPromise<BaseResponse>;
+    deleteAIAgentV1(agentId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Get a Specific AI Agent by ID
      * @summary Get a Specific AI Agent by ID
@@ -4109,7 +5181,7 @@ export declare class AgentsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AgentsApi
      */
-    deleteAIAgentV1(agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteAIAgentV1(agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Get a Specific AI Agent by ID
      * @summary Get a Specific AI Agent by ID
@@ -4289,7 +5361,7 @@ export declare const ApiKeyApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteApiKeyV1(keyId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteApiKeyV1(keyId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      *
      * @summary Get Call Key
@@ -4325,7 +5397,7 @@ export declare const ApiKeyApiFactory: (configuration?: Configuration, basePath?
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteApiKeyV1(keyId: string, options?: any): AxiosPromise<BaseResponse>;
+    deleteApiKeyV1(keyId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      *
      * @summary Get Call Key
@@ -4365,7 +5437,7 @@ export declare class ApiKeyApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ApiKeyApi
      */
-    deleteApiKeyV1(keyId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteApiKeyV1(keyId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      *
      * @summary Get Call Key
@@ -4603,7 +5675,7 @@ export declare const ConversationProspectLinkApiFp: (configuration?: Configurati
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    createConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Delete a link between a conversation and a prospect
      * @summary Delete a link between a conversation and a prospect
@@ -4612,7 +5684,7 @@ export declare const ConversationProspectLinkApiFp: (configuration?: Configurati
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * List all conversations linked to a specific prospect
      * @summary List all conversations linked to a specific prospect
@@ -4635,7 +5707,7 @@ export declare const ConversationProspectLinkApiFactory: (configuration?: Config
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): AxiosPromise<BaseResponse>;
+    createConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Delete a link between a conversation and a prospect
      * @summary Delete a link between a conversation and a prospect
@@ -4644,7 +5716,7 @@ export declare const ConversationProspectLinkApiFactory: (configuration?: Config
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): AxiosPromise<BaseResponse>;
+    deleteConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * List all conversations linked to a specific prospect
      * @summary List all conversations linked to a specific prospect
@@ -4670,7 +5742,7 @@ export declare class ConversationProspectLinkApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ConversationProspectLinkApi
      */
-    createConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    createConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Delete a link between a conversation and a prospect
      * @summary Delete a link between a conversation and a prospect
@@ -4680,7 +5752,7 @@ export declare class ConversationProspectLinkApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ConversationProspectLinkApi
      */
-    deleteConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteConversationProspectLinkV1(conversationId: string, prospectId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * List all conversations linked to a specific prospect
      * @summary List all conversations linked to a specific prospect
@@ -4782,7 +5854,7 @@ export declare const ConversationsApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteConversationV1(conversationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteConversationV1(conversationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Get a Specific Conversation by ID
      * @summary Get a Specific Conversation by ID
@@ -4844,7 +5916,7 @@ export declare const ConversationsApiFactory: (configuration?: Configuration, ba
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteConversationV1(conversationId: string, options?: any): AxiosPromise<BaseResponse>;
+    deleteConversationV1(conversationId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Get a Specific Conversation by ID
      * @summary Get a Specific Conversation by ID
@@ -4911,7 +5983,7 @@ export declare class ConversationsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ConversationsApi
      */
-    deleteConversationV1(conversationId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteConversationV1(conversationId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Get a Specific Conversation by ID
      * @summary Get a Specific Conversation by ID
@@ -4985,7 +6057,7 @@ export declare const DataPlaneApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Connection>>;
+    createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConnectionOutput>>;
     /**
      * Get the audio stream xml for Plivo to start a voice conversation
      * @summary Get Audio Stream XML For Plivo
@@ -4993,7 +6065,7 @@ export declare const DataPlaneApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getPlivoAudioStreamXml(connectionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    getPlivoAudioStreamXml(connectionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
 };
 /**
  * DataPlaneApi - factory interface
@@ -5009,7 +6081,7 @@ export declare const DataPlaneApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): AxiosPromise<Connection>;
+    createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): AxiosPromise<ConnectionOutput>;
     /**
      * Get the audio stream xml for Plivo to start a voice conversation
      * @summary Get Audio Stream XML For Plivo
@@ -5017,7 +6089,7 @@ export declare const DataPlaneApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getPlivoAudioStreamXml(connectionId: string, options?: any): AxiosPromise<BaseResponse>;
+    getPlivoAudioStreamXml(connectionId: string, options?: any): AxiosPromise<BaseResponseInput>;
 };
 /**
  * DataPlaneApi - object-oriented interface
@@ -5036,7 +6108,7 @@ export declare class DataPlaneApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DataPlaneApi
      */
-    createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): Promise<import("axios").AxiosResponse<Connection>>;
+    createConnection(agentId: string, connectionSource: ConnectionSource, prospectId?: string, options?: any): Promise<import("axios").AxiosResponse<ConnectionOutput>>;
     /**
      * Get the audio stream xml for Plivo to start a voice conversation
      * @summary Get Audio Stream XML For Plivo
@@ -5045,7 +6117,7 @@ export declare class DataPlaneApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DataPlaneApi
      */
-    getPlivoAudioStreamXml(connectionId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    getPlivoAudioStreamXml(connectionId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
 }
 /**
  * FilesApi - axios parameter creator
@@ -5221,6 +6293,13 @@ export declare const HealthApiAxiosParamCreator: (configuration?: Configuration)
      * @throws {RequiredError}
      */
     statusStatusGet: (options?: any) => Promise<RequestArgs>;
+    /**
+     * Heart Beat check to check the health of Workflow Service
+     * @summary Heart Beat Status Of Workflow Service
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    statusWorkflowsStatusGet: (options?: any) => Promise<RequestArgs>;
 };
 /**
  * HealthApi - functional programming interface
@@ -5234,6 +6313,13 @@ export declare const HealthApiFp: (configuration?: Configuration) => {
      * @throws {RequiredError}
      */
     statusStatusGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>>;
+    /**
+     * Heart Beat check to check the health of Workflow Service
+     * @summary Heart Beat Status Of Workflow Service
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    statusWorkflowsStatusGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>>;
 };
 /**
  * HealthApi - factory interface
@@ -5247,6 +6333,13 @@ export declare const HealthApiFactory: (configuration?: Configuration, basePath?
      * @throws {RequiredError}
      */
     statusStatusGet(options?: any): AxiosPromise<object>;
+    /**
+     * Heart Beat check to check the health of Workflow Service
+     * @summary Heart Beat Status Of Workflow Service
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    statusWorkflowsStatusGet(options?: any): AxiosPromise<object>;
 };
 /**
  * HealthApi - object-oriented interface
@@ -5263,6 +6356,14 @@ export declare class HealthApi extends BaseAPI {
      * @memberof HealthApi
      */
     statusStatusGet(options?: any): Promise<import("axios").AxiosResponse<object>>;
+    /**
+     * Heart Beat check to check the health of Workflow Service
+     * @summary Heart Beat Status Of Workflow Service
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof HealthApi
+     */
+    statusWorkflowsStatusGet(options?: any): Promise<import("axios").AxiosResponse<object>>;
 }
 /**
  * HiveApi - axios parameter creator
@@ -5337,7 +6438,7 @@ export declare const HiveApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteHiveV1(hiveId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteHiveV1(hiveId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Get a Specific Hive by ID
      * @summary Get a Specific Hive by ID
@@ -5390,7 +6491,7 @@ export declare const HiveApiFactory: (configuration?: Configuration, basePath?: 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteHiveV1(hiveId: string, options?: any): AxiosPromise<BaseResponse>;
+    deleteHiveV1(hiveId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Get a Specific Hive by ID
      * @summary Get a Specific Hive by ID
@@ -5447,7 +6548,7 @@ export declare class HiveApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HiveApi
      */
-    deleteHiveV1(hiveId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteHiveV1(hiveId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Get a Specific Hive by ID
      * @summary Get a Specific Hive by ID
@@ -5536,7 +6637,7 @@ export declare const HiveAgentLinkApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    createHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Delete a Link Between a Hive and an Agent
      * @summary Delete a Link Between a Hive and an Agent
@@ -5545,7 +6646,7 @@ export declare const HiveAgentLinkApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * List All Agents Linked to a Specific Hive
      * @summary List All Agents Linked to a Specific Hive
@@ -5576,7 +6677,7 @@ export declare const HiveAgentLinkApiFactory: (configuration?: Configuration, ba
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): AxiosPromise<BaseResponse>;
+    createHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Delete a Link Between a Hive and an Agent
      * @summary Delete a Link Between a Hive and an Agent
@@ -5585,7 +6686,7 @@ export declare const HiveAgentLinkApiFactory: (configuration?: Configuration, ba
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): AxiosPromise<BaseResponse>;
+    deleteHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * List All Agents Linked to a Specific Hive
      * @summary List All Agents Linked to a Specific Hive
@@ -5619,7 +6720,7 @@ export declare class HiveAgentLinkApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HiveAgentLinkApi
      */
-    createHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    createHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Delete a Link Between a Hive and an Agent
      * @summary Delete a Link Between a Hive and an Agent
@@ -5629,7 +6730,7 @@ export declare class HiveAgentLinkApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HiveAgentLinkApi
      */
-    deleteHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteHiveAgentLinkV1(hiveId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * List All Agents Linked to a Specific Hive
      * @summary List All Agents Linked to a Specific Hive
@@ -5781,7 +6882,7 @@ export declare const InternalApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteOrganizationV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteOrganizationV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Delete a user
      * @summary Deleteuser
@@ -5886,7 +6987,7 @@ export declare const InternalApiFactory: (configuration?: Configuration, basePat
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteOrganizationV1(options?: any): AxiosPromise<BaseResponse>;
+    deleteOrganizationV1(options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Delete a user
      * @summary Deleteuser
@@ -5996,7 +7097,7 @@ export declare class InternalApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof InternalApi
      */
-    deleteOrganizationV1(options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteOrganizationV1(options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Delete a user
      * @summary Deleteuser
@@ -6165,7 +7266,7 @@ export declare const ProductsApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteProductV1(productId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteProductV1(productId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Get a Specific Product by ID
      * @summary Get a Specific Product by ID
@@ -6228,7 +7329,7 @@ export declare const ProductsApiFactory: (configuration?: Configuration, basePat
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteProductV1(productId: string, options?: any): AxiosPromise<BaseResponse>;
+    deleteProductV1(productId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Get a Specific Product by ID
      * @summary Get a Specific Product by ID
@@ -6295,7 +7396,7 @@ export declare class ProductsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ProductsApi
      */
-    deleteProductV1(productId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteProductV1(productId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Get a Specific Product by ID
      * @summary Get a Specific Product by ID
@@ -6415,7 +7516,7 @@ export declare const ProspectsApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteProspectV1(prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    deleteProspectV1(prospectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Get a Specific Prospect by ID
      * @summary Get a Specific Prospect by ID
@@ -6468,7 +7569,7 @@ export declare const ProspectsApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteProspectV1(prospectId: string, options?: any): AxiosPromise<BaseResponse>;
+    deleteProspectV1(prospectId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Get a Specific Prospect by ID
      * @summary Get a Specific Prospect by ID
@@ -6525,7 +7626,7 @@ export declare class ProspectsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ProspectsApi
      */
-    deleteProspectV1(prospectId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    deleteProspectV1(prospectId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Get a Specific Prospect by ID
      * @summary Get a Specific Prospect by ID
@@ -6784,7 +7885,7 @@ export declare const ResellerApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addCustomerCreditV1(customerOrgId: string, customerCreditRequest: Array<CustomerCreditRequest>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    addCustomerCreditV1(customerOrgId: string, customerCreditRequest: Array<CustomerCreditRequest>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Add Reseller settings
      * @summary Organization Settings
@@ -6929,7 +8030,7 @@ export declare const ResellerApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    stripeSyncV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    stripeSyncV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Update customer pricing
      * @summary Reseller Customer Pricing Update
@@ -6938,7 +8039,7 @@ export declare const ResellerApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateCustomerPricingV1(customerOrgId: string, priceUpdateRequest: Array<PriceUpdateRequest>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    updateCustomerPricingV1(customerOrgId: string, priceUpdateRequest: Array<PriceUpdateRequest>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      * Update a reseller organization
      * @summary Update Reseller Organization
@@ -6986,7 +8087,7 @@ export declare const ResellerApiFactory: (configuration?: Configuration, basePat
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addCustomerCreditV1(customerOrgId: string, customerCreditRequest: Array<CustomerCreditRequest>, options?: any): AxiosPromise<BaseResponse>;
+    addCustomerCreditV1(customerOrgId: string, customerCreditRequest: Array<CustomerCreditRequest>, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Add Reseller settings
      * @summary Organization Settings
@@ -7131,7 +8232,7 @@ export declare const ResellerApiFactory: (configuration?: Configuration, basePat
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    stripeSyncV1(options?: any): AxiosPromise<BaseResponse>;
+    stripeSyncV1(options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Update customer pricing
      * @summary Reseller Customer Pricing Update
@@ -7140,7 +8241,7 @@ export declare const ResellerApiFactory: (configuration?: Configuration, basePat
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateCustomerPricingV1(customerOrgId: string, priceUpdateRequest: Array<PriceUpdateRequest>, options?: any): AxiosPromise<BaseResponse>;
+    updateCustomerPricingV1(customerOrgId: string, priceUpdateRequest: Array<PriceUpdateRequest>, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      * Update a reseller organization
      * @summary Update Reseller Organization
@@ -7192,7 +8293,7 @@ export declare class ResellerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ResellerApi
      */
-    addCustomerCreditV1(customerOrgId: string, customerCreditRequest: Array<CustomerCreditRequest>, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    addCustomerCreditV1(customerOrgId: string, customerCreditRequest: Array<CustomerCreditRequest>, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Add Reseller settings
      * @summary Organization Settings
@@ -7353,7 +8454,7 @@ export declare class ResellerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ResellerApi
      */
-    stripeSyncV1(options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    stripeSyncV1(options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Update customer pricing
      * @summary Reseller Customer Pricing Update
@@ -7363,7 +8464,7 @@ export declare class ResellerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ResellerApi
      */
-    updateCustomerPricingV1(customerOrgId: string, priceUpdateRequest: Array<PriceUpdateRequest>, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    updateCustomerPricingV1(customerOrgId: string, priceUpdateRequest: Array<PriceUpdateRequest>, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      * Update a reseller organization
      * @summary Update Reseller Organization
@@ -7485,7 +8586,7 @@ export declare const TelephonyApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    linkPhoneToAgentV1(phoneId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    linkPhoneToAgentV1(phoneId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      *
      * @summary List Available Phones
@@ -7524,7 +8625,7 @@ export declare const TelephonyApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    releasePhoneV1(phoneId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    releasePhoneV1(phoneId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
     /**
      *
      * @summary Unlink Phone From Agent
@@ -7533,7 +8634,7 @@ export declare const TelephonyApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    unlinkPhoneFromAgentV1(phoneId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponse>>;
+    unlinkPhoneFromAgentV1(phoneId: string, agentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BaseResponseInput>>;
 };
 /**
  * TelephonyApi - factory interface
@@ -7556,7 +8657,7 @@ export declare const TelephonyApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    linkPhoneToAgentV1(phoneId: string, agentId: string, options?: any): AxiosPromise<BaseResponse>;
+    linkPhoneToAgentV1(phoneId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      *
      * @summary List Available Phones
@@ -7595,7 +8696,7 @@ export declare const TelephonyApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    releasePhoneV1(phoneId: string, options?: any): AxiosPromise<BaseResponse>;
+    releasePhoneV1(phoneId: string, options?: any): AxiosPromise<BaseResponseInput>;
     /**
      *
      * @summary Unlink Phone From Agent
@@ -7604,7 +8705,7 @@ export declare const TelephonyApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    unlinkPhoneFromAgentV1(phoneId: string, agentId: string, options?: any): AxiosPromise<BaseResponse>;
+    unlinkPhoneFromAgentV1(phoneId: string, agentId: string, options?: any): AxiosPromise<BaseResponseInput>;
 };
 /**
  * TelephonyApi - object-oriented interface
@@ -7631,7 +8732,7 @@ export declare class TelephonyApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TelephonyApi
      */
-    linkPhoneToAgentV1(phoneId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    linkPhoneToAgentV1(phoneId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      *
      * @summary List Available Phones
@@ -7675,7 +8776,7 @@ export declare class TelephonyApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TelephonyApi
      */
-    releasePhoneV1(phoneId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    releasePhoneV1(phoneId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
     /**
      *
      * @summary Unlink Phone From Agent
@@ -7685,7 +8786,7 @@ export declare class TelephonyApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TelephonyApi
      */
-    unlinkPhoneFromAgentV1(phoneId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponse>>;
+    unlinkPhoneFromAgentV1(phoneId: string, agentId: string, options?: any): Promise<import("axios").AxiosResponse<BaseResponseInput>>;
 }
 /**
  * UIApi - axios parameter creator
@@ -7937,4 +9038,850 @@ export declare class VoiceModelsApi extends BaseAPI {
      * @memberof VoiceModelsApi
      */
     listVoiceModelsV1(options?: any): Promise<import("axios").AxiosResponse<VoiceModel[]>>;
+}
+/**
+ * WorkflowsApi - axios parameter creator
+ * @export
+ */
+export declare const WorkflowsApiAxiosParamCreator: (configuration?: Configuration) => {
+    /**
+     *
+     * @summary Create Workflow
+     * @param {WorkflowCore} workflowCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createWorkflowV1WorkflowsPost: (workflowCore: WorkflowCore, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Delete Workflow
+     * @param {string} workflowId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteWorkflowV1WorkflowsWorkflowIdDelete: (workflowId: string, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Read Workflow
+     * @param {string} workflowId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readWorkflowV1WorkflowsWorkflowIdGet: (workflowId: string, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Read Workflows
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readWorkflowsV1WorkflowsGet: (skip?: number, limit?: number, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Trigger Workflow Step
+     * @param {string} workflowId
+     * @param {string} stepId
+     * @param {WorkflowStepTriggerRequest} workflowStepTriggerRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost: (workflowId: string, stepId: string, workflowStepTriggerRequest: WorkflowStepTriggerRequest, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Update Workflow
+     * @param {string} workflowId
+     * @param {WorkflowCore} workflowCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateWorkflowV1WorkflowsWorkflowIdPut: (workflowId: string, workflowCore: WorkflowCore, options?: any) => Promise<RequestArgs>;
+};
+/**
+ * WorkflowsApi - functional programming interface
+ * @export
+ */
+export declare const WorkflowsApiFp: (configuration?: Configuration) => {
+    /**
+     *
+     * @summary Create Workflow
+     * @param {WorkflowCore} workflowCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createWorkflowV1WorkflowsPost(workflowCore: WorkflowCore, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workflow>>;
+    /**
+     *
+     * @summary Delete Workflow
+     * @param {string} workflowId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteWorkflowV1WorkflowsWorkflowIdDelete(workflowId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowModelsBaseBaseResponse>>;
+    /**
+     *
+     * @summary Read Workflow
+     * @param {string} workflowId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readWorkflowV1WorkflowsWorkflowIdGet(workflowId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workflow>>;
+    /**
+     *
+     * @summary Read Workflows
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readWorkflowsV1WorkflowsGet(skip?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Workflow>>>;
+    /**
+     *
+     * @summary Trigger Workflow Step
+     * @param {string} workflowId
+     * @param {string} stepId
+     * @param {WorkflowStepTriggerRequest} workflowStepTriggerRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost(workflowId: string, stepId: string, workflowStepTriggerRequest: WorkflowStepTriggerRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>>;
+    /**
+     *
+     * @summary Update Workflow
+     * @param {string} workflowId
+     * @param {WorkflowCore} workflowCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateWorkflowV1WorkflowsWorkflowIdPut(workflowId: string, workflowCore: WorkflowCore, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workflow>>;
+};
+/**
+ * WorkflowsApi - factory interface
+ * @export
+ */
+export declare const WorkflowsApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
+    /**
+     *
+     * @summary Create Workflow
+     * @param {WorkflowCore} workflowCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createWorkflowV1WorkflowsPost(workflowCore: WorkflowCore, options?: any): AxiosPromise<Workflow>;
+    /**
+     *
+     * @summary Delete Workflow
+     * @param {string} workflowId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteWorkflowV1WorkflowsWorkflowIdDelete(workflowId: string, options?: any): AxiosPromise<AgenticWorkflowModelsBaseBaseResponse>;
+    /**
+     *
+     * @summary Read Workflow
+     * @param {string} workflowId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readWorkflowV1WorkflowsWorkflowIdGet(workflowId: string, options?: any): AxiosPromise<Workflow>;
+    /**
+     *
+     * @summary Read Workflows
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readWorkflowsV1WorkflowsGet(skip?: number, limit?: number, options?: any): AxiosPromise<Array<Workflow>>;
+    /**
+     *
+     * @summary Trigger Workflow Step
+     * @param {string} workflowId
+     * @param {string} stepId
+     * @param {WorkflowStepTriggerRequest} workflowStepTriggerRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost(workflowId: string, stepId: string, workflowStepTriggerRequest: WorkflowStepTriggerRequest, options?: any): AxiosPromise<object>;
+    /**
+     *
+     * @summary Update Workflow
+     * @param {string} workflowId
+     * @param {WorkflowCore} workflowCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateWorkflowV1WorkflowsWorkflowIdPut(workflowId: string, workflowCore: WorkflowCore, options?: any): AxiosPromise<Workflow>;
+};
+/**
+ * WorkflowsApi - object-oriented interface
+ * @export
+ * @class WorkflowsApi
+ * @extends {BaseAPI}
+ */
+export declare class WorkflowsApi extends BaseAPI {
+    /**
+     *
+     * @summary Create Workflow
+     * @param {WorkflowCore} workflowCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    createWorkflowV1WorkflowsPost(workflowCore: WorkflowCore, options?: any): Promise<import("axios").AxiosResponse<Workflow>>;
+    /**
+     *
+     * @summary Delete Workflow
+     * @param {string} workflowId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    deleteWorkflowV1WorkflowsWorkflowIdDelete(workflowId: string, options?: any): Promise<import("axios").AxiosResponse<AgenticWorkflowModelsBaseBaseResponse>>;
+    /**
+     *
+     * @summary Read Workflow
+     * @param {string} workflowId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    readWorkflowV1WorkflowsWorkflowIdGet(workflowId: string, options?: any): Promise<import("axios").AxiosResponse<Workflow>>;
+    /**
+     *
+     * @summary Read Workflows
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    readWorkflowsV1WorkflowsGet(skip?: number, limit?: number, options?: any): Promise<import("axios").AxiosResponse<Workflow[]>>;
+    /**
+     *
+     * @summary Trigger Workflow Step
+     * @param {string} workflowId
+     * @param {string} stepId
+     * @param {WorkflowStepTriggerRequest} workflowStepTriggerRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    triggerWorkflowStepV1WorkflowsWorkflowIdStepStepIdTriggerPost(workflowId: string, stepId: string, workflowStepTriggerRequest: WorkflowStepTriggerRequest, options?: any): Promise<import("axios").AxiosResponse<object>>;
+    /**
+     *
+     * @summary Update Workflow
+     * @param {string} workflowId
+     * @param {WorkflowCore} workflowCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsApi
+     */
+    updateWorkflowV1WorkflowsWorkflowIdPut(workflowId: string, workflowCore: WorkflowCore, options?: any): Promise<import("axios").AxiosResponse<Workflow>>;
+}
+/**
+ * WorkflowsAppsApi - axios parameter creator
+ * @export
+ */
+export declare const WorkflowsAppsApiAxiosParamCreator: (configuration?: Configuration) => {
+    /**
+     *
+     * @summary Create App
+     * @param {AppEntity} appEntity
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createAppV1WorkflowsAppsPost: (appEntity: AppEntity, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Delete App
+     * @param {string} appId
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteAppV1WorkflowsAppsAppIdDelete: (appId: string, version?: string, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Get Connections By App Id
+     * @param {string} appId
+     * @param {string} version
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet: (appId: string, version: string, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Read App
+     * @param {string} appId
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readAppV1WorkflowsAppsAppIdGet: (appId: string, version?: string, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Read Apps
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readAppsV1WorkflowsAppsGet: (skip?: number, limit?: number, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Update App
+     * @param {string} appId
+     * @param {AppEntity} appEntity
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateAppV1WorkflowsAppsAppIdPut: (appId: string, appEntity: AppEntity, version?: string, options?: any) => Promise<RequestArgs>;
+};
+/**
+ * WorkflowsAppsApi - functional programming interface
+ * @export
+ */
+export declare const WorkflowsAppsApiFp: (configuration?: Configuration) => {
+    /**
+     *
+     * @summary Create App
+     * @param {AppEntity} appEntity
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createAppV1WorkflowsAppsPost(appEntity: AppEntity, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppResponse>>;
+    /**
+     *
+     * @summary Delete App
+     * @param {string} appId
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteAppV1WorkflowsAppsAppIdDelete(appId: string, version?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowModelsBaseBaseResponse>>;
+    /**
+     *
+     * @summary Get Connections By App Id
+     * @param {string} appId
+     * @param {string} version
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet(appId: string, version: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConnectionCore>>>;
+    /**
+     *
+     * @summary Read App
+     * @param {string} appId
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readAppV1WorkflowsAppsAppIdGet(appId: string, version?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppResponse>>;
+    /**
+     *
+     * @summary Read Apps
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readAppsV1WorkflowsAppsGet(skip?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AppResponse>>>;
+    /**
+     *
+     * @summary Update App
+     * @param {string} appId
+     * @param {AppEntity} appEntity
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateAppV1WorkflowsAppsAppIdPut(appId: string, appEntity: AppEntity, version?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppResponse>>;
+};
+/**
+ * WorkflowsAppsApi - factory interface
+ * @export
+ */
+export declare const WorkflowsAppsApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
+    /**
+     *
+     * @summary Create App
+     * @param {AppEntity} appEntity
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createAppV1WorkflowsAppsPost(appEntity: AppEntity, options?: any): AxiosPromise<AppResponse>;
+    /**
+     *
+     * @summary Delete App
+     * @param {string} appId
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteAppV1WorkflowsAppsAppIdDelete(appId: string, version?: string, options?: any): AxiosPromise<AgenticWorkflowModelsBaseBaseResponse>;
+    /**
+     *
+     * @summary Get Connections By App Id
+     * @param {string} appId
+     * @param {string} version
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet(appId: string, version: string, options?: any): AxiosPromise<Array<ConnectionCore>>;
+    /**
+     *
+     * @summary Read App
+     * @param {string} appId
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readAppV1WorkflowsAppsAppIdGet(appId: string, version?: string, options?: any): AxiosPromise<AppResponse>;
+    /**
+     *
+     * @summary Read Apps
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readAppsV1WorkflowsAppsGet(skip?: number, limit?: number, options?: any): AxiosPromise<Array<AppResponse>>;
+    /**
+     *
+     * @summary Update App
+     * @param {string} appId
+     * @param {AppEntity} appEntity
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateAppV1WorkflowsAppsAppIdPut(appId: string, appEntity: AppEntity, version?: string, options?: any): AxiosPromise<AppResponse>;
+};
+/**
+ * WorkflowsAppsApi - object-oriented interface
+ * @export
+ * @class WorkflowsAppsApi
+ * @extends {BaseAPI}
+ */
+export declare class WorkflowsAppsApi extends BaseAPI {
+    /**
+     *
+     * @summary Create App
+     * @param {AppEntity} appEntity
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    createAppV1WorkflowsAppsPost(appEntity: AppEntity, options?: any): Promise<import("axios").AxiosResponse<AppResponse>>;
+    /**
+     *
+     * @summary Delete App
+     * @param {string} appId
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    deleteAppV1WorkflowsAppsAppIdDelete(appId: string, version?: string, options?: any): Promise<import("axios").AxiosResponse<AgenticWorkflowModelsBaseBaseResponse>>;
+    /**
+     *
+     * @summary Get Connections By App Id
+     * @param {string} appId
+     * @param {string} version
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    getConnectionsByAppIdV1WorkflowsAppsAppIdVersionsVersionConnectionsGet(appId: string, version: string, options?: any): Promise<import("axios").AxiosResponse<ConnectionCore[]>>;
+    /**
+     *
+     * @summary Read App
+     * @param {string} appId
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    readAppV1WorkflowsAppsAppIdGet(appId: string, version?: string, options?: any): Promise<import("axios").AxiosResponse<AppResponse>>;
+    /**
+     *
+     * @summary Read Apps
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    readAppsV1WorkflowsAppsGet(skip?: number, limit?: number, options?: any): Promise<import("axios").AxiosResponse<AppResponse[]>>;
+    /**
+     *
+     * @summary Update App
+     * @param {string} appId
+     * @param {AppEntity} appEntity
+     * @param {string} [version]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsAppsApi
+     */
+    updateAppV1WorkflowsAppsAppIdPut(appId: string, appEntity: AppEntity, version?: string, options?: any): Promise<import("axios").AxiosResponse<AppResponse>>;
+}
+/**
+ * WorkflowsConnectionsApi - axios parameter creator
+ * @export
+ */
+export declare const WorkflowsConnectionsApiAxiosParamCreator: (configuration?: Configuration) => {
+    /**
+     *
+     * @summary Create Connection
+     * @param {ConnectionCore} connectionCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createConnectionV1WorkflowsConnectionsPost: (connectionCore: ConnectionCore, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Delete Connection
+     * @param {string} connectionId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteConnectionV1WorkflowsConnectionsConnectionIdDelete: (connectionId: string, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Read Connection
+     * @param {string} connectionId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readConnectionV1WorkflowsConnectionsConnectionIdGet: (connectionId: string, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Read Connections
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readConnectionsV1WorkflowsConnectionsGet: (skip?: number, limit?: number, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Update Connection
+     * @param {string} connectionId
+     * @param {ConnectionCore} connectionCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateConnectionV1WorkflowsConnectionsConnectionIdPut: (connectionId: string, connectionCore: ConnectionCore, options?: any) => Promise<RequestArgs>;
+};
+/**
+ * WorkflowsConnectionsApi - functional programming interface
+ * @export
+ */
+export declare const WorkflowsConnectionsApiFp: (configuration?: Configuration) => {
+    /**
+     *
+     * @summary Create Connection
+     * @param {ConnectionCore} connectionCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createConnectionV1WorkflowsConnectionsPost(connectionCore: ConnectionCore, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowDbModelsConnection>>;
+    /**
+     *
+     * @summary Delete Connection
+     * @param {string} connectionId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteConnectionV1WorkflowsConnectionsConnectionIdDelete(connectionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowModelsBaseBaseResponse>>;
+    /**
+     *
+     * @summary Read Connection
+     * @param {string} connectionId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readConnectionV1WorkflowsConnectionsConnectionIdGet(connectionId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowDbModelsConnection>>;
+    /**
+     *
+     * @summary Read Connections
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readConnectionsV1WorkflowsConnectionsGet(skip?: number, limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AgenticWorkflowDbModelsConnection>>>;
+    /**
+     *
+     * @summary Update Connection
+     * @param {string} connectionId
+     * @param {ConnectionCore} connectionCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateConnectionV1WorkflowsConnectionsConnectionIdPut(connectionId: string, connectionCore: ConnectionCore, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgenticWorkflowDbModelsConnection>>;
+};
+/**
+ * WorkflowsConnectionsApi - factory interface
+ * @export
+ */
+export declare const WorkflowsConnectionsApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
+    /**
+     *
+     * @summary Create Connection
+     * @param {ConnectionCore} connectionCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createConnectionV1WorkflowsConnectionsPost(connectionCore: ConnectionCore, options?: any): AxiosPromise<AgenticWorkflowDbModelsConnection>;
+    /**
+     *
+     * @summary Delete Connection
+     * @param {string} connectionId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteConnectionV1WorkflowsConnectionsConnectionIdDelete(connectionId: string, options?: any): AxiosPromise<AgenticWorkflowModelsBaseBaseResponse>;
+    /**
+     *
+     * @summary Read Connection
+     * @param {string} connectionId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readConnectionV1WorkflowsConnectionsConnectionIdGet(connectionId: string, options?: any): AxiosPromise<AgenticWorkflowDbModelsConnection>;
+    /**
+     *
+     * @summary Read Connections
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    readConnectionsV1WorkflowsConnectionsGet(skip?: number, limit?: number, options?: any): AxiosPromise<Array<AgenticWorkflowDbModelsConnection>>;
+    /**
+     *
+     * @summary Update Connection
+     * @param {string} connectionId
+     * @param {ConnectionCore} connectionCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateConnectionV1WorkflowsConnectionsConnectionIdPut(connectionId: string, connectionCore: ConnectionCore, options?: any): AxiosPromise<AgenticWorkflowDbModelsConnection>;
+};
+/**
+ * WorkflowsConnectionsApi - object-oriented interface
+ * @export
+ * @class WorkflowsConnectionsApi
+ * @extends {BaseAPI}
+ */
+export declare class WorkflowsConnectionsApi extends BaseAPI {
+    /**
+     *
+     * @summary Create Connection
+     * @param {ConnectionCore} connectionCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsConnectionsApi
+     */
+    createConnectionV1WorkflowsConnectionsPost(connectionCore: ConnectionCore, options?: any): Promise<import("axios").AxiosResponse<AgenticWorkflowDbModelsConnection>>;
+    /**
+     *
+     * @summary Delete Connection
+     * @param {string} connectionId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsConnectionsApi
+     */
+    deleteConnectionV1WorkflowsConnectionsConnectionIdDelete(connectionId: string, options?: any): Promise<import("axios").AxiosResponse<AgenticWorkflowModelsBaseBaseResponse>>;
+    /**
+     *
+     * @summary Read Connection
+     * @param {string} connectionId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsConnectionsApi
+     */
+    readConnectionV1WorkflowsConnectionsConnectionIdGet(connectionId: string, options?: any): Promise<import("axios").AxiosResponse<AgenticWorkflowDbModelsConnection>>;
+    /**
+     *
+     * @summary Read Connections
+     * @param {number} [skip]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsConnectionsApi
+     */
+    readConnectionsV1WorkflowsConnectionsGet(skip?: number, limit?: number, options?: any): Promise<import("axios").AxiosResponse<AgenticWorkflowDbModelsConnection[]>>;
+    /**
+     *
+     * @summary Update Connection
+     * @param {string} connectionId
+     * @param {ConnectionCore} connectionCore
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsConnectionsApi
+     */
+    updateConnectionV1WorkflowsConnectionsConnectionIdPut(connectionId: string, connectionCore: ConnectionCore, options?: any): Promise<import("axios").AxiosResponse<AgenticWorkflowDbModelsConnection>>;
+}
+/**
+ * WorkflowsExecutionsApi - axios parameter creator
+ * @export
+ */
+export declare const WorkflowsExecutionsApiAxiosParamCreator: (configuration?: Configuration) => {
+    /**
+     *
+     * @summary Get Workflow Info
+     * @param {string} workflowId
+     * @param {string} runId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet: (workflowId: string, runId: string, options?: any) => Promise<RequestArgs>;
+    /**
+     *
+     * @summary Trigger Workflow Execution
+     * @param {string} workflowId
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost: (workflowId: string, body: object, options?: any) => Promise<RequestArgs>;
+};
+/**
+ * WorkflowsExecutionsApi - functional programming interface
+ * @export
+ */
+export declare const WorkflowsExecutionsApiFp: (configuration?: Configuration) => {
+    /**
+     *
+     * @summary Get Workflow Info
+     * @param {string} workflowId
+     * @param {string} runId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet(workflowId: string, runId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkflowContext>>;
+    /**
+     *
+     * @summary Trigger Workflow Execution
+     * @param {string} workflowId
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost(workflowId: string, body: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkflowExecution>>;
+};
+/**
+ * WorkflowsExecutionsApi - factory interface
+ * @export
+ */
+export declare const WorkflowsExecutionsApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
+    /**
+     *
+     * @summary Get Workflow Info
+     * @param {string} workflowId
+     * @param {string} runId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet(workflowId: string, runId: string, options?: any): AxiosPromise<WorkflowContext>;
+    /**
+     *
+     * @summary Trigger Workflow Execution
+     * @param {string} workflowId
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost(workflowId: string, body: object, options?: any): AxiosPromise<WorkflowExecution>;
+};
+/**
+ * WorkflowsExecutionsApi - object-oriented interface
+ * @export
+ * @class WorkflowsExecutionsApi
+ * @extends {BaseAPI}
+ */
+export declare class WorkflowsExecutionsApi extends BaseAPI {
+    /**
+     *
+     * @summary Get Workflow Info
+     * @param {string} workflowId
+     * @param {string} runId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsExecutionsApi
+     */
+    getWorkflowInfoV1WorkflowsExecutionsWorkflowIdRunRunIdHistoryGet(workflowId: string, runId: string, options?: any): Promise<import("axios").AxiosResponse<WorkflowContext>>;
+    /**
+     *
+     * @summary Trigger Workflow Execution
+     * @param {string} workflowId
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsExecutionsApi
+     */
+    triggerWorkflowExecutionV1WorkflowsExecutionsWorkflowIdTriggerPost(workflowId: string, body: object, options?: any): Promise<import("axios").AxiosResponse<WorkflowExecution>>;
+}
+/**
+ * WorkflowsSubWorkflowsApi - axios parameter creator
+ * @export
+ */
+export declare const WorkflowsSubWorkflowsApiAxiosParamCreator: (configuration?: Configuration) => {
+    /**
+     * Returns all sub workflows which can be invoked for a given workflow step
+     * @summary Get Sub Workflows
+     * @param {WorkflowStepInput} workflowStepInput
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost: (workflowStepInput: WorkflowStepInput, options?: any) => Promise<RequestArgs>;
+};
+/**
+ * WorkflowsSubWorkflowsApi - functional programming interface
+ * @export
+ */
+export declare const WorkflowsSubWorkflowsApiFp: (configuration?: Configuration) => {
+    /**
+     * Returns all sub workflows which can be invoked for a given workflow step
+     * @summary Get Sub Workflows
+     * @param {WorkflowStepInput} workflowStepInput
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost(workflowStepInput: WorkflowStepInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Workflow>>>;
+};
+/**
+ * WorkflowsSubWorkflowsApi - factory interface
+ * @export
+ */
+export declare const WorkflowsSubWorkflowsApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
+    /**
+     * Returns all sub workflows which can be invoked for a given workflow step
+     * @summary Get Sub Workflows
+     * @param {WorkflowStepInput} workflowStepInput
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost(workflowStepInput: WorkflowStepInput, options?: any): AxiosPromise<Array<Workflow>>;
+};
+/**
+ * WorkflowsSubWorkflowsApi - object-oriented interface
+ * @export
+ * @class WorkflowsSubWorkflowsApi
+ * @extends {BaseAPI}
+ */
+export declare class WorkflowsSubWorkflowsApi extends BaseAPI {
+    /**
+     * Returns all sub workflows which can be invoked for a given workflow step
+     * @summary Get Sub Workflows
+     * @param {WorkflowStepInput} workflowStepInput
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkflowsSubWorkflowsApi
+     */
+    getSubWorkflowsV1WorkflowsStepsSubWorkflowsPost(workflowStepInput: WorkflowStepInput, options?: any): Promise<import("axios").AxiosResponse<Workflow[]>>;
 }
